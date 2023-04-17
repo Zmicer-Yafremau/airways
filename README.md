@@ -1,1 +1,1 @@
-# airways
+To run app print in terminal ng s --open
