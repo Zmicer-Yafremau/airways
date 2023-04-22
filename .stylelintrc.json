@@ -619,6 +619,7 @@
     "scss/operator-no-unspaced": true,
     "scss/partial-no-import": null,
     "scss/percent-placeholder-pattern": null,
-    "scss/selector-no-redundant-nesting-selector": true
+    "scss/selector-no-redundant-nesting-selector": true,
+    "no-missing-end-of-source-newline": true
   }
 }
