@@ -1,3 +1,38 @@
 <div class="header">
-  <div class="content-wrapper"></div>
+  <div class="content-wrapper">
+    <div class="logo-wrapper" routerLink="..">
+      <div class="logo-circle">
+        <img src="/assets/logo_plane.png" alt="logo" class="logo-plane" />
+      </div>
+      <img src="/assets/airways.png" class="airways" alt="airways" />
+    </div>
+
+    <nav class="nav-wrapper">
+      <span class="nav-text">Book flights</span>
+
+      <mat-form-field class="date-picker" appearance="outline">
+        <mat-label class="label">MM/DD/YYYY</mat-label>
+        <input matInput [matDatepicker]="picker" class="input" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+          <mat-icon matDatepickerToggleIcon class="icon">keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="currency-input" appearance="outline">
+        <mat-select class="select" value="EUR">
+          <mat-option class="option" value="EUR">EUR</mat-option>
+          <mat-option class="option" value="USD">USD</mat-option>
+          <mat-option class="option" value="RUB">RUB</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-stroked-button class="btn-signin">
+        <mat-icon class="person-icon">person</mat-icon>
+        Sign in
+      </button>
+
+      <mat-icon class="basket">shopping_basket</mat-icon>
+    </nav>
+  </div>
 </div>
