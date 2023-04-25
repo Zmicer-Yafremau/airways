@@ -2,15 +2,41 @@
   position: absolute;
   bottom: 0;
   display: flex;
+  align-items: center;
   justify-content: center;
   width: 100%;
   height: 88px;
-  background-color: rgb(116 118 122 / 20%);
+  background-color: rgb(255 255 255);
 }
 
 .content-wrapper {
-  // border: 1px solid rgb(255 0 0);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 100%;
-  height: 100%;
+  height: 40px;
   max-width: 1200px;
+}
+
+.payments-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.text-copyright {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+  color: rgb(17 57 126);
+}
+
+.text-accept {
+  color: rgb(0 0 0);
+}
+
+.img-pay {
+  width: 35px;
 }
