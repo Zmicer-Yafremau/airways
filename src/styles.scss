@@ -1,7 +1,46 @@
-/* You can add global styles to this file, and also import other style files */
-body {
-  display: flex;
-  border-radius: 2;
-  background-color: rgb(255 255 255);
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul,
+ol,
+li {
+  list-style: none;
+}
+
+img {
+  vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: inherit;
+  font-size: inherit;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  font-family: "Roboto", "Helvetica Neue",
+    sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: normal;
+  color: rgb(191 27 27);
+  scroll-behavior: smooth;
 }

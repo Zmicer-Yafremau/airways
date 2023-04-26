@@ -1,0 +1,100 @@
+.header {
+  position: absolute;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 88px;
+  background-color: rgb(116 118 122 / 20%);
+}
+
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+
+  // border: 1px solid rgb(255 0 0);
+  width: 100%;
+  height: 40px;
+  max-width: 1128px;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  color: rgb(17 57 126 / 100%);
+  cursor: pointer;
+  gap:7px;
+}
+
+.logo-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgb(17 57 126);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+
+
+  .logo-plane {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+.nav-wrapper {
+  display: flex;
+  align-items: center;
+
+  // border: 1px solid rgb(255 255 255);
+  width: max-content;
+  height: 100%;
+  gap: 30px;
+}
+
+.nav-text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: rgb(255 255 255);
+}
+
+.date-picker {
+  width: 190px;
+
+  .label,
+  .input,
+  .icon {
+    color: rgb(255 255 255);
+  }
+}
+
+.currency-input {
+  width: 100px;
+}
+
+.btn-signin {
+  width: 114px;
+  height: 56px;
+}
+
+.person-icon {
+  color: rgb(255 255 255);
+}
+
+.basket {
+  color: rgb(255 255 255);
+  cursor: pointer;
+}
+
+
+:host {
+  ::ng-deep {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none;
+    }
+
+  }
+}

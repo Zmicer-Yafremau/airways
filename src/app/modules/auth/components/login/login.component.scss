@@ -1,0 +1,113 @@
+:host {
+  margin: 0 auto;
+  max-height: 585px;
+  max-width: 495px;
+}
+
+.auth_wrapper {
+  width: 100%;
+  padding-top: 30px 20px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+mat-form-field,
+form,
+input,
+hr,
+div,
+header,
+p,
+.header_buttons,
+.OAuth_wrapper,
+.form__button {
+  width: 100%;
+}
+
+p {
+  text-align: end;
+  color: #11397e;
+}
+
+.OAuth_wrapper {
+  flex-direction: column;
+  justify-content: space-around;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.OAuth__button {
+  margin-top: 10px;
+  width: 100% !important;
+}
+
+.header__button {
+  width: 50%;
+}
+
+form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+hr {
+  border: 1px solid #e1e5eb;
+  color: #333;
+  overflow: visible;
+  text-align: center;
+  height: 1px;
+}
+
+hr:after {
+  background: #fff;
+  content: "or log in with your email";
+  padding: 0 4px;
+  position: relative;
+  top: -13px;
+}
+
+form {
+  width: 100%;
+}
+
+.fb::before {
+  display: inline-block;
+  content: url("../../../../../assets/facebbok_24px.png");
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.google::before {
+  display: inline-block;
+  content: url("../../../../../assets/google_24px.png");
+  width: 25px;
+  height: 25px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 5px;
+  margin-right: 10px;
+}
+
+.form__button {
+  width: 446px;
+  height: 44px;
+  background: #11397e;
+  border-radius: 4px;
+  color: white;
+}

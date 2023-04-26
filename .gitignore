@@ -4,6 +4,7 @@ node_modules
 .angular
 /.angular
 .angular/*
+.angular/cash/*
 
 # Compiled output
 /dist

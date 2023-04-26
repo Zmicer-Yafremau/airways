@@ -1,0 +1,16 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 88px;
+  background-color: rgb(116 118 122 / 20%);
+}
+
+.content-wrapper {
+  // border: 1px solid rgb(255 0 0);
+  width: 100%;
+  height: 100%;
+  max-width: 1200px;
+}
