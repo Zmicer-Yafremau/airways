@@ -11,8 +11,6 @@ export class HeaderComponent {
 
   public constructor (private matDialog: MatDialog){}
   public launhAuthDialog(){
-    this.matDialog.open(LoginComponent, {
-      width:'535px',
-    })
+    this.matDialog.open(LoginComponent);
   }
 }

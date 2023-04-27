@@ -17,6 +17,7 @@ import { HeaderComponent } from "./components/header/header.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { LoginComponent } from './modules/auth/components/login/login.component';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [AppComponent, RegisterComponent, HeaderComponent, FooterComponent, LoginComponent],
@@ -34,7 +35,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     ReactiveFormsModule,
     MatNativeDateModule,
     MatDialogModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
+    MatCheckboxModule
   ],
   providers: [],
   bootstrap: [AppComponent],

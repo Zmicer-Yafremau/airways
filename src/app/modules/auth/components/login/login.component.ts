@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
+import { ThemePalette } from '@angular/material/core';
 
 @Component({
   selector: 'app-login',
@@ -7,8 +8,11 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
+
 public hide = true;
-email = new FormControl('', [Validators.required, Validators.email]);
+public agree = false;
+public email = new FormControl('', [Validators.required, Validators.email]);
+public codeControl = new FormControl('93' as ThemePalette);
 
 getErrorMessage() {
   if (this.email.hasError('required')) {
