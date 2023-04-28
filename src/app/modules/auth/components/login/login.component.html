@@ -17,9 +17,7 @@
             <form class="login__form" novalidate>
                 <mat-form-field appearance="fill">
                     <mat-label>Enter your email</mat-label>
-                    <input matInput placeholder="e.g. example@email.com"
-                        [formControl]="email" required>
-                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                    <input matInput placeholder="e.g. example@email.com">
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Enter your password</mat-label>
@@ -40,12 +38,12 @@
             <hr class="signUp__hr">
         </div>
         <div>
-            <form class="signUp__form" novalidate>
+            <form *ngIf="reg_form" [formGroup]="reg_form" class="signUp__form" novalidate>
                 <mat-form-field appearance="fill">
                     <mat-label>Enter your email</mat-label>
                     <input matInput placeholder="e.g. example@email.com"
-                        [formControl]="email" required>
-                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                    formControlName = "r_email">
+                    <mat-error *ngIf="reg_form.controls['r_email'].invalid">{{getMailErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Enter your password</mat-label>
@@ -58,15 +56,15 @@
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>First name</mat-label>
-                    <input matInput placeholder="e.g. example@email.com"
-                        [formControl]="email" required>
-                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                    <input matInput formControlName = "f_name">
+                    <mat-error *ngIf="reg_form.controls['f_name'].hasError('name')">Shouldn't contain digits</mat-error>
+                    <mat-error *ngIf="reg_form.controls['f_name'].hasError('required')">Please, eneter you first name</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Last name</mat-label>
-                    <input matInput placeholder="e.g. example@email.com"
-                        [formControl]="email" required>
-                    <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+                    <input matInput formControlName = "l_name">
+                    <mat-error *ngIf="reg_form.controls['l_name'].hasError('name')">Shouldn't contain digits</mat-error>
+                    <mat-error *ngIf="reg_form.controls['l_name'].hasError('required')">Please, eneter you last name</mat-error>
                 </mat-form-field>
                 <div>
                 <mat-form-field appearance="fill">
@@ -92,7 +90,9 @@
                       </mat-form-field>
                     <mat-form-field appearance="fill">
                       <mat-label>Mobile phone number</mat-label>
-                      <input matInput #input maxlength="10" placeholder="e.g. 1111111111">
+                      <input matInput formControlName = "phone" placeholder="e.g. +1111111111">
+                      <mat-error *ngIf="reg_form.controls['phone'].hasError('phone')">Should has format +1111111111 </mat-error>
+                      <mat-error *ngIf="reg_form.controls['phone'].hasError('required')">Please, eneter your phone</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
