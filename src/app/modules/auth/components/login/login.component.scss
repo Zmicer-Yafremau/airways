@@ -5,8 +5,11 @@
   display: flex;
 }
 
-.auth_wrapper {
+* {
   width: 100%;
+}
+
+.auth_wrapper {
   padding-top: 30px;
   margin: 0 auto;
   display: flex;
@@ -15,28 +18,18 @@
   gap: 10px;
 }
 
-mat-form-field,
-form,
-input,
-hr,
-div,
-header,
-p,
-.header_buttons,
-.OAuth_wrapper,
-.form__button {
-  width: 100%;
-}
-p {
-  text-align: end;
-}
+
 .forgot__pass {
   color: #11397e;
+  display: flex;
+  justify-content: flex-end;
 }
+
 .phone-container {
   display: flex;
   gap: 10px;
 }
+
 .OAuth_wrapper {
   flex-direction: column;
   justify-content: space-around;
@@ -68,9 +61,11 @@ div {
   margin-top: 10px;
   height: fit-content;
 }
+
 .changing__content {
   flex-direction: column;
 }
+
 hr {
   border: 1px solid #e1e5eb;
   color: #333;
@@ -85,14 +80,13 @@ hr:after {
   position: relative;
   top: -13px;
 }
+
 .login__hr:after {
   content: "or log in with your email";
 }
+
 .signUp__hr:after {
   content: "or sign up with your email";
-}
-form {
-  width: 100%;
 }
 
 .fb::before {
@@ -124,6 +118,7 @@ form {
   border-radius: 4px;
   color: white;
 }
+
 .changing__content {
   flex-grow: 1;
 }

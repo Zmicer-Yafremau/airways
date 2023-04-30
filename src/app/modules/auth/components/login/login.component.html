@@ -1,15 +1,19 @@
 <mat-dialog-content class="auth_wrapper">
     <header>
-        <mat-button-toggle-group class = "header_buttons" name="autharization">
-            <mat-button-toggle class="header__button" checked="true" value="logIn" #login>Log in</mat-button-toggle>
-            <mat-button-toggle class="header__button" value="signUp" #signUp>Sign up</mat-button-toggle>
+        <mat-button-toggle-group class="header_buttons" name="autharization">
+            <mat-button-toggle class="header__button" checked="true"
+                value="logIn" #login>Log in</mat-button-toggle>
+            <mat-button-toggle class="header__button" value="signUp" #signUp>Sign
+                up</mat-button-toggle>
         </mat-button-toggle-group>
     </header>
     <div class="OAuth_wrapper">
-        <button mat-raised-button class="header__button OAuth__button google">Continue with Google</button>
-        <button mat-raised-button class="header__button OAuth__button fb">Continue with Facebook</button>
+        <button mat-raised-button class="header__button OAuth__button google">Continue
+            with Google</button>
+        <button mat-raised-button class="header__button OAuth__button fb">Continue
+            with Facebook</button>
     </div>
-    <div class="changing__content login  login__content" *ngIf="login.checked">
+    <div class="changing__content login login__content" *ngIf="login.checked">
         <div>
             <hr class="login__hr">
         </div>
@@ -33,78 +37,103 @@
             </form>
         </div>
     </div>
-    <div class="changing__content  signUp__content" *ngIf="signUp.checked">
+    <div class="changing__content signUp__content" *ngIf="signUp.checked">
         <div>
             <hr class="signUp__hr">
         </div>
         <div>
-            <form *ngIf="reg_form" [formGroup]="reg_form" class="signUp__form" novalidate>
+            <form *ngIf="reg_form" [formGroup]="reg_form" class="signUp__form"
+                (ngSubmit)="onSubmit()" novalidate>
                 <mat-form-field appearance="fill">
                     <mat-label>Enter your email</mat-label>
                     <input matInput placeholder="e.g. example@email.com"
-                    formControlName = "r_email">
+                        formControlName="r_email">
                     <mat-error *ngIf="reg_form.controls['r_email'].invalid">{{getMailErrorMessage()}}</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
-                    <mat-label>Enter your password</mat-label>
-                    <input matInput [type]="hide ? 'password' : 'text'">
+                    <mat-label>Enter your password*</mat-label>
+                    <input formControlName="pass" matInput [type]="hide ?
+                        'password' : 'text'">
                     <button mat-icon-button matSuffix (click)="hide= !hide"
                         [attr.aria-label]="'Hide password'"
                         [attr.aria-pressed]="hide">
                         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                     </button>
+                    <mat-error
+                        *ngIf="reg_form.controls['pass'].hasError('required')">Please,
+                        enter you pass</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>First name</mat-label>
-                    <input matInput formControlName = "f_name">
-                    <mat-error *ngIf="reg_form.controls['f_name'].hasError('name')">Shouldn't contain digits</mat-error>
-                    <mat-error *ngIf="reg_form.controls['f_name'].hasError('required')">Please, eneter you first name</mat-error>
+                    <input matInput formControlName="f_name">
+                    <mat-error
+                        *ngIf="reg_form.controls['f_name'].hasError('name')">Shouldn't
+                        contain digits</mat-error>
+                    <mat-error
+                        *ngIf="reg_form.controls['f_name'].hasError('required')">Please,
+                        enter you first name</mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="fill">
                     <mat-label>Last name</mat-label>
-                    <input matInput formControlName = "l_name">
-                    <mat-error *ngIf="reg_form.controls['l_name'].hasError('name')">Shouldn't contain digits</mat-error>
-                    <mat-error *ngIf="reg_form.controls['l_name'].hasError('required')">Please, eneter you last name</mat-error>
+                    <input matInput formControlName="l_name">
+                    <mat-error
+                        *ngIf="reg_form.controls['l_name'].hasError('name')">Shouldn't
+                        contain digits</mat-error>
+                    <mat-error
+                        *ngIf="reg_form.controls['l_name'].hasError('required')">Please,
+                        enter you last name</mat-error>
                 </mat-form-field>
                 <div>
-                <mat-form-field appearance="fill">
-                    <mat-label>Date of birth*</mat-label>
-                    <input matInput [matDatepicker]="picker">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Date of birth*</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="date">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error
+                            *ngIf="reg_form.controls['date'].hasError('required')">Please,
+                            enter your date of birth</mat-error>
+                    </mat-form-field>
                 </div>
-                <div>  
-                <mat-button-toggle-group class = "header_buttons" name="autharization">
-                    <mat-button-toggle class="header__button" checked="true" value="male" #male>Male</mat-button-toggle>
-                    <mat-button-toggle class="header__button" value="female" #female>Female</mat-button-toggle>
-                </mat-button-toggle-group>
-                 </div>
+                <div>
+                    <mat-button-toggle-group class="header_buttons"
+                        name="autharization">
+                        <mat-button-toggle class="header__button" checked="true"
+                            value="male" #male>Male</mat-button-toggle>
+                        <mat-button-toggle class="header__button" value="female"
+                            #female>Female</mat-button-toggle>
+                    </mat-button-toggle-group>
+                </div>
                 <div class="phone-container">
                     <mat-form-field appearance="fill">
                         <mat-label>Country code</mat-label>
                         <mat-select [formControl]="codeControl">
-                          <mat-option value="93">Afghanistan (+93)</mat-option>
+                            <mat-option value="93">Afghanistan (+93)</mat-option>
                         </mat-select>
-                      </mat-form-field>
+                    </mat-form-field>
                     <mat-form-field appearance="fill">
-                      <mat-label>Mobile phone number</mat-label>
-                      <input matInput formControlName = "phone" placeholder="e.g. +1111111111">
-                      <mat-error *ngIf="reg_form.controls['phone'].hasError('phone')">Should has format +1111111111 </mat-error>
-                      <mat-error *ngIf="reg_form.controls['phone'].hasError('required')">Please, eneter your phone</mat-error>
+                        <mat-label>Mobile phone number</mat-label>
+                        <input matInput formControlName="phone"
+                            placeholder="e.g. 111111111">
+                        <mat-error
+                            *ngIf="reg_form.controls['phone'].hasError('phone')">Should has format 111111111 </mat-error>
+                        <mat-error
+                            *ngIf="reg_form.controls['phone'].hasError('required')">Please,
+                            eneter your phone</mat-error>
                     </mat-form-field>
                 </div>
                 <div>
                     <mat-form-field appearance="fill">
                         <mat-label>Citizenship</mat-label>
                         <mat-select>
-                          <mat-option value="option">Option</mat-option>
+                            <mat-option value="option">Option</mat-option>
                         </mat-select>
-                      </mat-form-field>
+                    </mat-form-field>
                 </div>
                 <section class="checkbox-section">
-                    <mat-checkbox class="signUp__checkbox" [(ngModel)]="agree">I agree to Airway's Privacy Policy and Terms of Use</mat-checkbox>
+                    <mat-checkbox class="signUp__checkbox" [(ngModel)]="agree"
+                        [ngModelOptions]="{standalone:true}">I agree to Airway's
+                        Privacy Policy and Terms of Use</mat-checkbox>
                 </section>
                 <button type="submit" class="form__button">Sign up</button>
             </form>

@@ -9,10 +9,11 @@ import { ThemePalette } from "@angular/material/core";
 })
 export class LoginComponent implements OnInit {
   public reg_form!: FormGroup;
+
   public hide = true;
+
   public agree = false;
-  //ublic email = new FormControl("", [Validators.required, Validators.email]);
-  public f_Name = new FormControl("", [Validators.required]);
+
   public codeControl = new FormControl("93" as ThemePalette);
 
   public constructor(public fb: FormBuilder) {}
@@ -23,6 +24,8 @@ export class LoginComponent implements OnInit {
       f_name: ["", [Validators.required, this.nameValidator]],
       l_name: ["", [Validators.required, this.nameValidator]],
       phone: ["", [Validators.required, this.phoneValidator]],
+      date: ["", [Validators.required]],
+      pass: ["", [Validators.required]],
     });
   }
 
@@ -33,6 +36,7 @@ export class LoginComponent implements OnInit {
 
     return this.reg_form.controls["r_email"].hasError("email") ? "Not a valid email" : "";
   }
+  
   public nameValidator(control: FormControl): ValidationErrors | null {
     if (control.value) {
       if (/\d/.test(control.value)) {
@@ -41,12 +45,19 @@ export class LoginComponent implements OnInit {
     }
     return null;
   }
+  
   public phoneValidator(control: FormControl): ValidationErrors | null {
     if (control.value) {
-      if (!/\+[0-9]{9,}/.test(control.value)) {
+      if (!/\d{9,}/.test(control.value)) {
         return { phone: true };
       }
     }
     return null;
+  }
+  
+  public onSubmit() {
+    if (this.reg_form.valid && this.agree) {
+      alert("Success!");
+    }
   }
 }

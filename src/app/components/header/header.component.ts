@@ -9,6 +9,7 @@ import { MatDialog } from "@angular/material/dialog";
 })
 export class HeaderComponent {
   public constructor(private matDialog: MatDialog) {}
+
   public launhAuthDialog() {
     this.matDialog.open(LoginComponent);
   }
