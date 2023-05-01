@@ -1,4 +1,4 @@
-<div style="padding-top: 100px">
+<div>
   <div class="slider">
     <button (click)="moveSlider(-1)" class="slider-btn slider-btn-back">
       <img src="assets/slider/arrow.svg" alt="back" />
@@ -18,9 +18,9 @@
         />
         <label [for]="flight.id" class="slider-item">
           <div class="slider-info">
-            <h4 class="slider-date">{{ flight.date | date : "d MMM" }}</h4>
-            <p class="slider-day">{{ flight.date | date : "EEEE" }}</p>
-            <p class="slider-price">{{ flight.price | currency : "EUR" }}</p>
+            <h4 class="slider-date">{{ flight.date | date : 'd MMM' }}</h4>
+            <p class="slider-day">{{ flight.date | date : 'EEEE' }}</p>
+            <p class="slider-price">{{ flight.price | currency : 'EUR' }}</p>
             <img src="assets/slider/icon.svg" alt="no flights" class="slider-no-flights" />
           </div>
           <div
