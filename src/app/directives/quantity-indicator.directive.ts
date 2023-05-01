@@ -1,8 +1,8 @@
-import { Directive, ElementRef, Input, OnInit } from "@angular/core";
-import { COLOR } from "../config/COLOR";
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { COLOR } from '../config/COLOR';
 
 @Directive({
-  selector: "[appQuantityIndicator]",
+  selector: '[appQuantityIndicator]',
 })
 export class QuantityIndicatorDirective implements OnInit {
   @Input() public quantity = 0;
