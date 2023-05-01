@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { ValidatorsComponent } from 'src/app/shared/validators/validators.component';
+import { Validator } from 'src/app/shared/validators/validator';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent extends ValidatorsComponent implements OnInit {
+export class RegisterComponent implements OnInit {
   public regForm!: FormGroup;
 
   public hide = true;
@@ -17,16 +17,14 @@ export class RegisterComponent extends ValidatorsComponent implements OnInit {
 
   public codeControl = new FormControl('93' as ThemePalette);
 
-  public constructor(public fb: FormBuilder) {
-    super();
-  }
+  public constructor(public fb: FormBuilder) {}
 
   public ngOnInit(): void {
     this.regForm = this.fb.group({
       regEmail: ['', [Validators.required, Validators.email]],
-      firstName: ['', [Validators.required, super.nameValidator]],
-      lastName: ['', [Validators.required, super.nameValidator]],
-      phone: ['', [Validators.required, super.phoneValidator]],
+      firstName: ['', [Validators.required, Validator.nameValidator]],
+      lastName: ['', [Validators.required, Validator.nameValidator]],
+      phone: ['', [Validators.required, Validator.phoneValidator]],
       date: ['', [Validators.required]],
       pass: ['', [Validators.required]],
     });

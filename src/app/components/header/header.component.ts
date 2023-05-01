@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RegisterComponent } from 'src/app/modules/auth-modal/components/register/register.component';
+import { RegisterComponent } from '../register/register.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
