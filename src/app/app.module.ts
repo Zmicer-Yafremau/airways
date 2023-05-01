@@ -14,13 +14,23 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { AppComponent } from './app.component';
 import AppRoutingModule from './app-routing.module';
-import { RegisterComponent } from './modules/auth/components/register/register.component';
+import { RegisterComponent } from './modules/auth-modal/components/register/register.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { LoginComponent } from './modules/auth/components/login/login.component';
+import { LoginComponent } from './modules/auth-modal/components/login/login.component';
+import { ValidatorsComponent } from './shared/validators/validators.component';
+import { AuthModalComponent } from './modules/auth-modal/auth-modal.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, HeaderComponent, FooterComponent, LoginComponent],
+  declarations: [
+    AppComponent,
+    RegisterComponent,
+    HeaderComponent,
+    FooterComponent,
+    LoginComponent,
+    ValidatorsComponent,
+    AuthModalComponent,
+  ],
   imports: [
     MatDialogModule,
     BrowserModule,
