@@ -1,10 +1,17 @@
 .wrapper {
   position: relative;
-  z-index: -1;
   display: grid;
+  justify-content: center;
   grid-template-rows: min-content 1fr min-content;
+  padding: 88px 0;
   min-height: 100vh;
   background-image: url("/assets/bg.png");
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+.content-wrapper {
+  display: flex;
+  padding: 50px 0;
+  width: 1128px;
 }

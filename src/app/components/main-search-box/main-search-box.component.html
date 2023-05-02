@@ -1,0 +1,129 @@
+<form *ngIf="searchFlyForm" class="content-wrapper" [formGroup]="searchFlyForm">
+  <mat-radio-group class="radio">
+    <mat-radio-button color="primary" value="round" checked (change)="typeOfTrip($event)">
+      Round Trip
+    </mat-radio-button>
+    <mat-radio-button color="primary" value="oneway" (change)="typeOfTrip($event)">
+      One Way
+    </mat-radio-button>
+  </mat-radio-group>
+
+  <div class="trip-wrapper">
+    <mat-form-field class="from-input" appearance="outline">
+      <mat-label>From</mat-label>
+      <mat-select class="select" formControlName="from">
+        <mat-option *ngFor="let airport of airports" class="option" [value]="airport[1]">
+          <div class="airport-select">
+            <div class="airport-name">{{ airport[0] }}</div>
+            <div class="airport-code">{{ airport[1] }}</div>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="dest-input" appearance="outline">
+      <mat-label>Destination</mat-label>
+      <mat-select class="select" formControlName="destination">
+        <mat-option *ngFor="let airport of airports" class="option" [value]="airport[1]">
+          <div class="airport-select">
+            <div class="airport-name">{{ airport[0] }}</div>
+            <div class="airport-code">{{ airport[1] }}</div>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="date-wrapper">
+    <mat-form-field
+      class="date-picker"
+      *ngIf="roundTrip; else oneWayDatePicker"
+      appearance="outline"
+    >
+      <mat-label>Choose a dates</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" formControlName="departureDate" />
+        <input matEndDate placeholder="End date" formControlName="departureReturnDate" />
+      </mat-date-range-input>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <ng-template #oneWayDatePicker>
+      <mat-form-field class="date-picker" appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="departureDate" />
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </ng-template>
+
+    <mat-form-field class="passengers-input" appearance="outline">
+      <mat-label>Passengers</mat-label>
+      <mat-select class="select">
+        <mat-select-trigger>
+          <span *ngIf="passengers.adults > 0"> Adults {{ passengers.adults }} </span>
+          <span *ngIf="passengers.children > 0"> Children {{ passengers.children }} </span>
+          <span *ngIf="passengers.infants > 0"> Infants {{ passengers.infants }} </span>
+        </mat-select-trigger>
+
+        <mat-option value="adult">
+          <div class="pass-option">
+            <div class="pass-left-wrapper">
+              <div class="passenger">Adult</div>
+              <div class="age">14+ years</div>
+            </div>
+            <div class="pass-right-wrapper">
+              <button mat-icon-button color="primary" aria-label="minus" (click)="removeAdult()">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <span>{{ passengers.adults }}</span>
+              <button mat-icon-button color="primary" aria-label="plus" (click)="addAdult()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-option>
+
+        <mat-option value="child">
+          <div class="pass-option">
+            <div class="pass-left-wrapper">
+              <div class="passenger">Child</div>
+              <div class="age">2-14 years</div>
+            </div>
+            <div class="pass-right-wrapper">
+              <button mat-icon-button color="primary" aria-label="minus" (click)="removeChild()">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <span>{{ passengers.children }}</span>
+              <button mat-icon-button color="primary" aria-label="plus" (click)="addChild()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-option>
+
+        <mat-option value="infant">
+          <div class="pass-option">
+            <div class="pass-left-wrapper">
+              <div class="passenger">Infant</div>
+              <div class="age">0-2 years</div>
+            </div>
+            <div class="pass-right-wrapper">
+              <button mat-icon-button color="primary" aria-label="minus" (click)="removeInfant()">
+                <mat-icon>remove</mat-icon>
+              </button>
+              <span>{{ passengers.infants }}</span>
+              <button mat-icon-button color="primary" aria-label="plus" (click)="addInfant()">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+          </div>
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <button type="submit" class="search-button" mat-raised-button color="primary" (click)="onClick()">
+    Search
+  </button>
+</form>
