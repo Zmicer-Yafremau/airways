@@ -87,7 +87,8 @@ export class MainSearchBoxComponent implements OnInit {
     this.passengers.infants += 1;
   }
 
-  public removeInfant() {
+  public removeInfant(str: string) {
+    console.log(str);
     if (this.passengers.infants > 0) {
       this.passengers.infants -= 1;
     }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
+import { ToastService } from 'angular-toastify';
 import { Validator } from 'src/app/shared/validators/validator';
 
 @Component({
@@ -17,7 +18,7 @@ export class RegisterComponent implements OnInit {
 
   public codeControl = new FormControl('93' as ThemePalette);
 
-  public constructor(public fb: FormBuilder) {}
+  public constructor(public fb: FormBuilder, private toastService: ToastService) {}
 
   public ngOnInit(): void {
     this.regForm = this.fb.group({
@@ -39,8 +40,9 @@ export class RegisterComponent implements OnInit {
   }
 
   public onSubmit() {
+    this.toastService.error('Please fill the form');
     if (this.regForm.valid && this.agree) {
-      alert('Success!');
+      this.toastService.success('Success');
     }
   }
 }

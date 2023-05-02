@@ -109,7 +109,12 @@
               <div class="age">0-2 years</div>
             </div>
             <div class="pass-right-wrapper">
-              <button mat-icon-button color="primary" aria-label="minus" (click)="removeInfant()">
+              <button
+                mat-icon-button
+                color="primary"
+                aria-label="minus"
+                (click)="removeInfant('infant')"
+              >
                 <mat-icon>remove</mat-icon>
               </button>
               <span>{{ passengers.infants }}</span>

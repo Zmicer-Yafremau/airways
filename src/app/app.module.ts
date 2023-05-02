@@ -13,6 +13,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import { AngularToastifyModule, ToastService } from 'angular-toastify';
 import { AppComponent } from './app.component';
 import AppRoutingModule from './app-routing.module';
 import { HeaderComponent } from './components/header/header.component';
@@ -44,6 +45,7 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal.component
     MatFormFieldModule,
     MatSelectModule,
     MatRadioModule,
+    AngularToastifyModule,
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
@@ -51,7 +53,7 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal.component
     MatButtonModule,
     MatCheckboxModule,
   ],
-  providers: [],
+  providers: [ToastService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
