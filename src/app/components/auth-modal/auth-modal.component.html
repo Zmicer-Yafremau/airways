@@ -1,1 +1,20 @@
-<p>auth-modal works!</p>
+<mat-dialog-content class="auth_wrapper">
+    <header>
+      <mat-button-toggle-group class="header_buttons" name="autharization">
+        <mat-button-toggle class="header__button" checked="true" value="logIn" #login
+          >Log in</mat-button-toggle
+        >
+        <mat-button-toggle class="header__button" value="signUp" #signUp>Sign up</mat-button-toggle>
+      </mat-button-toggle-group>
+    </header>
+    <div class="OAuth_wrapper">
+      <button mat-raised-button class="header__button OAuth__button google" id="googleButton">
+        Continue with Google
+      </button>
+      <button mat-raised-button class="header__button OAuth__button fb" id="googleButton">
+        Continue with Facebook
+      </button>
+    </div>
+    <app-register [loginChecked]="login.checked" [signUpChecked]="signUp.checked"></app-register>
+  </mat-dialog-content>
+  

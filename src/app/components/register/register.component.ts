@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Input, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { Validator } from 'src/app/shared/validators/validator';
@@ -9,6 +9,11 @@ import { Validator } from 'src/app/shared/validators/validator';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  
+  @Input() public signUpChecked!: boolean;
+
+  @Input() public loginChecked!: boolean;
+
   public regForm!: FormGroup;
 
   public hide = true;

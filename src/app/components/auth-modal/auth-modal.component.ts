@@ -6,5 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./auth-modal.component.scss']
 })
 export class AuthModalComponent {
-
 }
