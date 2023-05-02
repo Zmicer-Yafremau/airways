@@ -63,34 +63,35 @@ export class MainSearchBoxComponent implements OnInit {
     this.roundTrip = e.value === 'round';
   }
 
-  public addAdult() {
-    this.passengers.adults += 1;
-  }
-
-  public removeAdult() {
-    if (this.passengers.adults > 0) {
-      this.passengers.adults -= 1;
-    }
-  }
-
-  public addChild() {
-    this.passengers.children += 1;
-  }
-
-  public removeChild() {
-    if (this.passengers.children > 0) {
-      this.passengers.children -= 1;
-    }
-  }
-
-  public addInfant() {
-    this.passengers.infants += 1;
-  }
-
-  public removeInfant(str: string) {
-    console.log(str);
-    if (this.passengers.infants > 0) {
-      this.passengers.infants -= 1;
+  public changePassengers(passenger: string, action: 'add' | 'remove') {
+    if (action === 'add') {
+      switch (passenger) {
+        case 'adult':
+          this.passengers.adults += 1;
+          break;
+        case 'child':
+          this.passengers.children += 1;
+          break;
+        default:
+          this.passengers.infants += 1;
+      }
+    } else if (action === 'remove') {
+      switch (passenger) {
+        case 'adult':
+          if (this.passengers.adults > 0) {
+            this.passengers.adults -= 1;
+          }
+          break;
+        case 'child':
+          if (this.passengers.children > 0) {
+            this.passengers.children -= 1;
+          }
+          break;
+        default:
+          if (this.passengers.infants > 0) {
+            this.passengers.infants -= 1;
+          }
+      }
     }
   }
 }
