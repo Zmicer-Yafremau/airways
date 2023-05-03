@@ -15,6 +15,7 @@
         Continue with Facebook
       </button>
     </div>
-    <app-register [loginChecked]="login.checked" [signUpChecked]="signUp.checked"></app-register>
+    <app-login *ngIf="login.checked" ></app-login>
+    <app-register *ngIf="signUp.checked"></app-register>
   </mat-dialog-content>
   

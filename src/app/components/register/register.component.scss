@@ -9,12 +9,6 @@
   width: 100%;
 }
 
-.forgot__pass {
-  display: flex;
-  justify-content: flex-end;
-  color: #11397e;
-}
-
 .phone-container {
   display: flex;
   gap: 10px;
@@ -53,10 +47,6 @@ hr::after {
   top: -13px;
   padding: 0 4px;
   background: #fff;
-}
-
-.login__hr::after {
-  content: 'or log in with your email';
 }
 
 .signUp__hr::after {
