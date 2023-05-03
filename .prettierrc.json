@@ -4,6 +4,5 @@
   "semi": true,
   "singleQuote": true,
   "bracketSpacing": true,
-  "printWidth": 100,
-  "semicolon": true
+  "printWidth": 100
 }
