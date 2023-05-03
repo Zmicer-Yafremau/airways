@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 
@@ -22,6 +22,9 @@ interface IRequestInfo {
   styleUrls: ['./main-search-box.component.scss'],
 })
 export class MainSearchBoxComponent implements OnInit {
+  @ViewChild('destinationName')
+  public destinationName!: ElementRef<HTMLDivElement>;
+
   public searchFlyForm!: FormGroup;
 
   public requestInfo?: IRequestInfo;
@@ -93,5 +96,13 @@ export class MainSearchBoxComponent implements OnInit {
           }
       }
     }
+  }
+
+  public reverse() {
+    // const a = this.searchFlyForm.controls['from'].value;
+    // const b = this.searchFlyForm.controls['destination'].value;
+    // console.log(a, b);
+    console.log(this.destinationName);
+    // this.destinationName.nativeElement.innerText = 'text';
   }
 }

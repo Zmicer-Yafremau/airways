@@ -22,6 +22,7 @@ import { MainSearchBoxComponent } from './components/main-search-box/main-search
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
+import { PassengersOptionComponent } from './components/main-search-box/passengers-option/passengers-option.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal.component
     RegisterComponent,
     LoginComponent,
     AuthModalComponent,
+    PassengersOptionComponent,
   ],
   imports: [
     MatDialogModule,

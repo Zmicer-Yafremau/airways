@@ -9,6 +9,10 @@
   </mat-radio-group>
 
   <div class="trip-wrapper">
+    <button mat-mini-fab aria-label="reverse" class="reverse-btn" (click)="reverse()">
+      <mat-icon>sync_alt</mat-icon>
+    </button>
+
     <mat-form-field class="from-input" appearance="outline">
       <mat-label>From</mat-label>
       <mat-select class="select" formControlName="from">
@@ -27,7 +31,12 @@
     <mat-form-field class="dest-input" appearance="outline">
       <mat-label>Destination</mat-label>
       <mat-select class="select" formControlName="destination">
-        <mat-option *ngFor="let airport of airports" class="option" [value]="airport[1]">
+        <mat-option
+          *ngFor="let airport of airports"
+          class="option"
+          [value]="airport[1]"
+          #destinationName
+        >
           <div class="airport-select">
             <div class="airport-name">{{ airport[0] }}</div>
             <div class="airport-code">{{ airport[1] }}</div>
@@ -80,34 +89,6 @@
           <span *ngIf="passengers.children > 0"> Children {{ passengers.children }} </span>
           <span *ngIf="passengers.infants > 0"> Infants {{ passengers.infants }} </span>
         </mat-select-trigger>
-
-        <mat-option value="adult">
-          <div class="pass-option">
-            <div class="pass-left-wrapper">
-              <div class="passenger">Adult</div>
-              <div class="age">14+ years</div>
-            </div>
-            <div class="pass-right-wrapper">
-              <button
-                mat-icon-button
-                color="primary"
-                aria-label="minus"
-                (click)="changePassengers('adult', 'remove')"
-              >
-                <mat-icon>remove</mat-icon>
-              </button>
-              <span>{{ passengers.adults }}</span>
-              <button
-                mat-icon-button
-                color="primary"
-                aria-label="plus"
-                (click)="changePassengers('adult', 'add')"
-              >
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
-          </div>
-        </mat-option>
 
         <mat-option value="child">
           <div class="pass-option">
@@ -167,7 +148,7 @@
       </mat-select>
     </mat-form-field>
   </div>
-
+  <app-passengers-option></app-passengers-option>
   <button type="submit" class="search-button" mat-raised-button color="primary" (click)="onClick()">
     Search
   </button>
