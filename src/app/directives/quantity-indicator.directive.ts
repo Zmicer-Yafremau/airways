@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
-import { COLOR } from '../config/COLOR';
+import { INDICATOR_COLOR } from '../config/indicatorColor';
 
 @Directive({
   selector: '[appQuantityIndicator]',
@@ -15,9 +15,9 @@ export class QuantityIndicatorDirective implements OnInit {
 
   private getElementColor(): string {
     if (this.quantity > 10) {
-      return COLOR.yellow;
+      return INDICATOR_COLOR.yellow;
     }
 
-    return COLOR.red;
+    return INDICATOR_COLOR.red;
   }
 }
