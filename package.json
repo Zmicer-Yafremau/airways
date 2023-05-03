@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "style": "stylelint \"**/*.scss\""
+    "style": "stylelint \"**/*.scss\"",
+    "format-check": "prettier --check \"src/app/**/*.{json,css,scss,less,md,ts,html}",
+    "format": "prettier --write \"src/app/**/*.{json,css,scss,less,md,ts,html}\""
   },
   "private": true,
   "dependencies": {
@@ -52,7 +54,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
-    "prettier": "^2.8.7",
+    "prettier": "^2.8.8",
     "stylelint": "^15.5.0",
     "stylelint-config-standard": "^33.0.0",
     "stylelint-config-standard-scss": "^8.0.0",
