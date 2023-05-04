@@ -1,0 +1,123 @@
+<form *ngIf="searchFlyForm" class="content-wrapper" [formGroup]="searchFlyForm">
+  <mat-radio-group class="radio">
+    <mat-radio-button color="primary" value="round" checked (change)="typeOfTrip($event)">
+      Round Trip
+    </mat-radio-button>
+    <mat-radio-button color="primary" value="oneway" (change)="typeOfTrip($event)">
+      One Way
+    </mat-radio-button>
+  </mat-radio-group>
+
+  <div class="trip-wrapper">
+    <button mat-mini-fab aria-label="reverse" class="reverse-btn" (click)="reverse()">
+      <mat-icon>sync_alt</mat-icon>
+    </button>
+
+    <mat-form-field class="from-input" appearance="outline">
+      <mat-label>From</mat-label>
+      <mat-select class="select" formControlName="from">
+        <mat-option *ngFor="let airport of airports" class="option" [value]="airport[1]">
+          <div class="airport-select">
+            <div class="airport-name">{{ airport[0] }}</div>
+            <div class="airport-code">{{ airport[1] }}</div>
+          </div>
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="searchFlyForm.controls['from'].hasError('required')">
+        Please enter a departure
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="dest-input" appearance="outline">
+      <mat-label>Destination</mat-label>
+      <mat-select class="select" formControlName="destination">
+        <mat-option
+          *ngFor="let airport of airports"
+          class="option"
+          [value]="airport[1]"
+          #destinationName
+        >
+          <div class="airport-select">
+            <div class="airport-name">{{ airport[0] }}</div>
+            <div class="airport-code">{{ airport[1] }}</div>
+          </div>
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="searchFlyForm.controls['destination'].hasError('required')">
+        Please enter a destination
+      </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="date-wrapper">
+    <mat-form-field
+      class="date-picker"
+      *ngIf="roundTrip; else oneWayDatePicker"
+      appearance="outline"
+    >
+      <mat-label>Choose a dates</mat-label>
+      <mat-date-range-input [rangePicker]="picker">
+        <input matStartDate placeholder="Start date" formControlName="departureDate" />
+        <input matEndDate placeholder="End date" formControlName="departureReturnDate" />
+      </mat-date-range-input>
+      <mat-error *ngIf="searchFlyForm.controls['departureDate'].hasError('required')">
+        Please enter a departure date
+      </mat-error>
+      <mat-error *ngIf="searchFlyForm.controls['departureReturnDate'].hasError('required')">
+        Please enter a return date
+      </mat-error>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-date-range-picker #picker></mat-date-range-picker>
+    </mat-form-field>
+
+    <ng-template #oneWayDatePicker>
+      <mat-form-field class="date-picker" appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="departureDate" />
+        <mat-error *ngIf="searchFlyForm.controls['departureDate'].hasError('required')">
+          Please enter a departure date
+        </mat-error>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </ng-template>
+
+    <mat-form-field class="passengers-input" appearance="outline">
+      <mat-label>Passengers</mat-label>
+      <mat-select class="select">
+        <mat-select-trigger>
+          <span *ngIf="passengers.adults > 0"> Adults {{ passengers.adults }} </span>
+          <span *ngIf="passengers.children > 0"> Children {{ passengers.children }} </span>
+          <span *ngIf="passengers.infants > 0"> Infants {{ passengers.infants }} </span>
+        </mat-select-trigger>
+
+        <mat-option [value]="passengersConfig.adults">
+          <app-passengers-option
+            [config]="passengersConfig.adults"
+            [passengers]="passengers"
+            (passengersEvent)="handlePassengersChange($event)"
+          />
+        </mat-option>
+
+        <mat-option [value]="passengersConfig.children">
+          <app-passengers-option
+            [config]="passengersConfig.children"
+            [passengers]="passengers"
+            (passengersEvent)="handlePassengersChange($event)"
+          />
+        </mat-option>
+
+        <mat-option [value]="passengersConfig.infants">
+          <app-passengers-option
+            [config]="passengersConfig.infants"
+            [passengers]="passengers"
+            (passengersEvent)="handlePassengersChange($event)"
+          />
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <button type="submit" class="search-button" mat-raised-button color="primary" (click)="onClick()">
+    Search
+  </button>
+</form>

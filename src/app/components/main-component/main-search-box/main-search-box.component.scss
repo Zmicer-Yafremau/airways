@@ -1,0 +1,78 @@
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  border-radius: 8px;
+  padding: 24px;
+  width: 580px;
+  height: 390px;
+  background-color: #fff;
+  gap: 5px;
+}
+
+.radio {
+  display: flex;
+  gap: 40px;
+}
+
+.trip-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.date-wrapper {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.date-picker {
+  width: 55%;
+}
+
+.search-button {
+  align-self: flex-end;
+  width: 126px;
+  height: 60px;
+}
+
+.airport-select {
+  display: flex;
+  gap: 5px;
+
+  .airport-code {
+    opacity: 0.3;
+  }
+}
+
+.pass-option {
+  display: flex;
+  justify-content: space-between;
+  width: 180px;
+
+  .pass-left-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pass-right-wrapper {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.age {
+  font-size: 14px;
+  opacity: 0.5;
+}
+
+.reverse-btn {
+  position: absolute;
+  right: 15px;
+  top: 47px;
+  z-index: 1;
+  color: rgb(162 167 167);
+  background-color: rgb(255 255 255);
+  cursor: pointer;
+}
