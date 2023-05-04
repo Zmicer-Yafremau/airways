@@ -1,12 +1,7 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
-
-interface IPassengers {
-  adults: number;
-  children: number;
-  infants: number;
-}
+import { IPassengerConfig, IPassengers } from 'src/app/types/IPassengerConfig';
 
 interface IRequestInfo {
   from: string;
@@ -22,9 +17,6 @@ interface IRequestInfo {
   styleUrls: ['./main-search-box.component.scss'],
 })
 export class MainSearchBoxComponent implements OnInit {
-  @ViewChild('destinationName')
-  public destinationName!: ElementRef<HTMLDivElement>;
-
   public searchFlyForm!: FormGroup;
 
   public requestInfo?: IRequestInfo;
@@ -35,6 +27,24 @@ export class MainSearchBoxComponent implements OnInit {
     ['Minsk', ' MSQ'],
     ['Zagreb', ' ZAG'],
   ];
+
+  public passengersConfig: IPassengerConfig = {
+    adults: {
+      key: 'adults',
+      title: 'Adult',
+      age: '14+ years',
+    },
+    children: {
+      key: 'children',
+      title: 'Child',
+      age: '2-14 years',
+    },
+    infants: {
+      key: 'infants',
+      title: 'Infant',
+      age: '0-2 years',
+    },
+  };
 
   public passengers: IPassengers = {
     adults: 0,
@@ -66,43 +76,12 @@ export class MainSearchBoxComponent implements OnInit {
     this.roundTrip = e.value === 'round';
   }
 
-  public changePassengers(passenger: string, action: 'add' | 'remove') {
-    if (action === 'add') {
-      switch (passenger) {
-        case 'adult':
-          this.passengers.adults += 1;
-          break;
-        case 'child':
-          this.passengers.children += 1;
-          break;
-        default:
-          this.passengers.infants += 1;
-      }
-    } else if (action === 'remove') {
-      switch (passenger) {
-        case 'adult':
-          if (this.passengers.adults > 0) {
-            this.passengers.adults -= 1;
-          }
-          break;
-        case 'child':
-          if (this.passengers.children > 0) {
-            this.passengers.children -= 1;
-          }
-          break;
-        default:
-          if (this.passengers.infants > 0) {
-            this.passengers.infants -= 1;
-          }
-      }
-    }
+  public handlePassengersChange(newPassengers: IPassengers) {
+    this.passengers = { ...newPassengers };
+    console.log('new passengers', this.passengers);
   }
 
   public reverse() {
-    // const a = this.searchFlyForm.controls['from'].value;
-    // const b = this.searchFlyForm.controls['destination'].value;
-    // console.log(a, b);
-    console.log(this.destinationName);
-    // this.destinationName.nativeElement.innerText = 'text';
+    console.log('reverse');
   }
 }

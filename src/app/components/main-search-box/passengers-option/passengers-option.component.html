@@ -1,27 +1,25 @@
-<!-- <mat-option value="adult">
-  <div class="pass-option">
-    <div class="pass-left-wrapper">
-      <div class="passenger">Adult</div>
-      <div class="age">14+ years</div>
-    </div>
-    <div class="pass-right-wrapper">
-      <button
-        mat-icon-button
-        color="primary"
-        aria-label="minus"
-        (click)="changePassengers('adult', 'remove')"
-      >
-        <mat-icon>remove</mat-icon>
-      </button>
-      <span>{{ passengers.adults }}</span>
-      <button
-        mat-icon-button
-        color="primary"
-        aria-label="plus"
-        (click)="changePassengers('adult', 'add')"
-      >
-        <mat-icon>add</mat-icon>
-      </button>
-    </div>
+<div class="pass-option">
+  <div class="pass-left-wrapper">
+    <div class="passenger">{{ config.title }}</div>
+    <div class="age">{{ config.age }}</div>
   </div>
-</mat-option> -->
+  <div class="pass-right-wrapper">
+    <button
+      mat-icon-button
+      color="primary"
+      aria-label="minus"
+      (click)="changePassengers(config.title, 'remove')"
+    >
+      <mat-icon>remove</mat-icon>
+    </button>
+    <span>{{ passengers[config.key] }}</span>
+    <button
+      mat-icon-button
+      color="primary"
+      aria-label="plus"
+      (click)="changePassengers(config.title, 'add')"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>

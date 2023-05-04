@@ -90,65 +90,33 @@
           <span *ngIf="passengers.infants > 0"> Infants {{ passengers.infants }} </span>
         </mat-select-trigger>
 
-        <mat-option value="child">
-          <div class="pass-option">
-            <div class="pass-left-wrapper">
-              <div class="passenger">Child</div>
-              <div class="age">2-14 years</div>
-            </div>
-            <div class="pass-right-wrapper">
-              <button
-                mat-icon-button
-                color="primary"
-                aria-label="minus"
-                (click)="changePassengers('child', 'remove')"
-              >
-                <mat-icon>remove</mat-icon>
-              </button>
-              <span>{{ passengers.children }}</span>
-              <button
-                mat-icon-button
-                color="primary"
-                aria-label="plus"
-                (click)="changePassengers('child', 'add')"
-              >
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
-          </div>
+        <mat-option [value]="passengersConfig.adults">
+          <app-passengers-option
+            [config]="passengersConfig.adults"
+            [passengers]="passengers"
+            (passengersEvent)="handlePassengersChange($event)"
+          />
         </mat-option>
 
-        <mat-option value="infant">
-          <div class="pass-option">
-            <div class="pass-left-wrapper">
-              <div class="passenger">Infant</div>
-              <div class="age">0-2 years</div>
-            </div>
-            <div class="pass-right-wrapper">
-              <button
-                mat-icon-button
-                color="primary"
-                aria-label="minus"
-                (click)="changePassengers('infant', 'remove')"
-              >
-                <mat-icon>remove</mat-icon>
-              </button>
-              <span>{{ passengers.infants }}</span>
-              <button
-                mat-icon-button
-                color="primary"
-                aria-label="plus"
-                (click)="changePassengers('infant', 'add')"
-              >
-                <mat-icon>add</mat-icon>
-              </button>
-            </div>
-          </div>
+        <mat-option [value]="passengersConfig.children">
+          <app-passengers-option
+            [config]="passengersConfig.children"
+            [passengers]="passengers"
+            (passengersEvent)="handlePassengersChange($event)"
+          />
+        </mat-option>
+
+        <mat-option [value]="passengersConfig.infants">
+          <app-passengers-option
+            [config]="passengersConfig.infants"
+            [passengers]="passengers"
+            (passengersEvent)="handlePassengersChange($event)"
+          />
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-  <app-passengers-option></app-passengers-option>
+
   <button type="submit" class="search-button" mat-raised-button color="primary" (click)="onClick()">
     Search
   </button>
