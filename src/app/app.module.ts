@@ -18,13 +18,14 @@ import { AppComponent } from './app.component';
 import AppRoutingModule from './app-routing.module';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { MainSearchBoxComponent } from './components/main-search-box/main-search-box.component';
+import { MainSearchBoxComponent } from './components/main-component/main-search-box/main-search-box.component';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { QuantityIndicatorDirective } from './directives/quantity-indicator.directive';
-import { PassengersOptionComponent } from './components/main-search-box/passengers-option/passengers-option.component';
+import { PassengersOptionComponent } from './components/main-component/main-search-box/passengers-option/passengers-option.component';
+import { MainComponent } from './components/main-component/main.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { PassengersOptionComponent } from './components/main-search-box/passenge
     SliderComponent,
     QuantityIndicatorDirective,
     PassengersOptionComponent,
+    MainComponent,
   ],
   imports: [
     MatDialogModule,

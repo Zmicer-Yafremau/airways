@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { MainSearchBoxComponent } from './components/main-search-box/main-search-box.component';
+import { MainComponent } from './components/main-component/main.component';
 
 const routes: Routes = [
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: MainSearchBoxComponent,
+    component: MainComponent,
   },
 ];
 
