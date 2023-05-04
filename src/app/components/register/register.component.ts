@@ -10,6 +10,7 @@ import { Validator } from 'src/app/shared/validators/validator';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
+  
   public regForm!: FormGroup;
 
   public hide = true;
