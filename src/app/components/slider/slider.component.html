@@ -1,0 +1,39 @@
+<div>
+  <div class="slider">
+    <button (click)="moveSlider(-1)" class="slider-btn slider-btn-back">
+      <img src="assets/slider/arrow.svg" alt="back" />
+    </button>
+
+    <div *ngIf="flightsInfo$ | async as fligtsInfo" class="slider-inner">
+      <div *ngFor="let flight of fligtsInfo">
+        <input
+          (change)="onChange($event)"
+          type="radio"
+          name="date"
+          [id]="flight.id"
+          [value]="flight.id"
+          style="display: none"
+          [checked]="flight.date.getTime() === checkedDate.getTime()"
+          [disabled]="!flight.id"
+        />
+        <label [for]="flight.id" class="slider-item">
+          <div class="slider-info">
+            <h4 class="slider-date">{{ flight.date | date : 'd MMM' }}</h4>
+            <p class="slider-day">{{ flight.date | date : 'EEEE' }}</p>
+            <p class="slider-price">{{ flight.price | currency : 'EUR' }}</p>
+            <img src="assets/slider/icon.svg" alt="no flights" class="slider-no-flights" />
+          </div>
+          <div
+            *ngIf="flight.places"
+            appQuantityIndicator
+            [quantity]="flight.places"
+            class="slider-indicator"
+          ></div>
+        </label>
+      </div>
+    </div>
+    <button (click)="moveSlider(1)" class="slider-btn slider-btn-forward">
+      <img src="assets/slider/arrow.svg" alt="forward" />
+    </button>
+  </div>
+</div>

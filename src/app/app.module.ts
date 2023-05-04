@@ -22,6 +22,8 @@ import { MainSearchBoxComponent } from './components/main-search-box/main-search
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
+import { SliderComponent } from './components/slider/slider.component';
+import { QuantityIndicatorDirective } from './directives/quantity-indicator.directive';
 import { PassengersOptionComponent } from './components/main-search-box/passengers-option/passengers-option.component';
 
 @NgModule({
@@ -33,6 +35,8 @@ import { PassengersOptionComponent } from './components/main-search-box/passenge
     RegisterComponent,
     LoginComponent,
     AuthModalComponent,
+    SliderComponent,
+    QuantityIndicatorDirective,
     PassengersOptionComponent,
   ],
   imports: [
