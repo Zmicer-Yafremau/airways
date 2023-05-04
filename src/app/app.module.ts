@@ -19,6 +19,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
+import { SliderComponent } from './components/slider/slider.component';
+import { QuantityIndicatorDirective } from './directives/quantity-indicator.directive';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { AuthModalComponent } from './components/auth-modal/auth-modal.component
     FooterComponent,
     LoginComponent,
     AuthModalComponent,
+    SliderComponent,
+    QuantityIndicatorDirective,
   ],
   imports: [
     MatDialogModule,
