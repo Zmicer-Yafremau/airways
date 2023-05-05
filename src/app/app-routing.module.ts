@@ -5,12 +5,12 @@ import { MainComponent } from './components/main-component/main.component';
 const routes: Routes = [
   {
     path: 'booking',
-    loadChildren: () => import('./booking/booking.module').then((m) => m.BookingModule),
+    loadChildren: () => import('./modules/booking/booking.module').then((m) => m.BookingModule),
   },
   {
     path: 'user',
     loadChildren: () =>
-      import('./user-profile/user-profile.module').then((m) => m.UserProfileModule),
+      import('./modules/user-profile/user-profile.module').then((m) => m.UserProfileModule),
   },
   {
     path: '',
