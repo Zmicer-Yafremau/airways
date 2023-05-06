@@ -21,7 +21,7 @@ export class AuthModalComponent implements OnInit {
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = user != null;
-      this.authService.getUser({
+      this.authService.setUser({
         firtsName: this.user.firstName,
         lastName: this.user.lastName,
         email: this.user.email,
