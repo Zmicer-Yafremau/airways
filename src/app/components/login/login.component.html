@@ -6,7 +6,7 @@
       <form class="login__form" novalidate>
         <mat-form-field appearance="fill">
           <mat-label>Enter your email</mat-label>
-          <input matInput placeholder="e.g. example@email.com" />
+          <input matInput placeholder="e.g. example@email.com" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"/>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Enter your password</mat-label>
