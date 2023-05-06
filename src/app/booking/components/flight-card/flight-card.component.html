@@ -1,0 +1,32 @@
+<div class="flight-info">
+  <div class="flight-info-wrapper">
+    <div class="departure-info">
+      <app-flight-info></app-flight-info>
+    </div>
+    <div class="flight-time-info">
+      <p class="time">2h 50m</p>
+      <div class="time-img">
+        <img src="" alt="plane" [class.back]="isBack" />
+      </div>
+      <p class="type">Direct</p>
+    </div>
+    <div class="arrival-info">
+      <app-flight-info [isArrival]="true"></app-flight-info>
+    </div>
+    <div class="flight-number">
+      <p>
+        Flight no. <span>{{ 'FR 1925' }}</span>
+      </p>
+    </div>
+  </div>
+  <div class="flight-price">
+    <div class="price-info">
+      <div class="seats-wrapper">
+        <p>{{ '100' }} seats<br />available</p>
+      </div>
+      <p class="price-title">Price</p>
+      <p class="price">{{ '146.70' | currency : 'EUR' }}</p>
+    </div>
+    <button>Select</button>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+.flight-info-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 4px;
+
+  * {
+    margin: 0;
+  }
+
+  .time-wrapper {
+    display: flex;
+    column-gap: 16px;
+    align-items: center;
+
+    .time {
+      font-weight: 700;
+      font-size: 30px;
+      line-height: 36px;
+      color: #000;
+    }
+
+    .timezone {
+      font-weight: 400;
+      font-size: 8px;
+      line-height: 20px;
+    }
+  }
+
+  .date {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  .airport {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+  }
+
+  &.arrival {
+    justify-content: flex-end;
+
+    .time-wrapper {
+      flex-direction: row-reverse;
+    }
+
+    .date,
+    .airport {
+      text-align: right;
+    }
+  }
+}
