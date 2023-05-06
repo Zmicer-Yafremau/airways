@@ -1,0 +1,28 @@
+<div class="changing__content login login__content">
+    <div>
+      <hr class="login__hr" />
+    </div>
+    <div>
+      <form class="login__form" novalidate>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your email</mat-label>
+          <input matInput placeholder="e.g. example@email.com" />
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter your password</mat-label>
+          <input matInput [type]="hide ? 'password' : 'text'" />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+          </button>
+        </mat-form-field>
+        <p><button mat-button class="forgot__pass">Forgot password?</button></p>
+        <button type="submit" class="form__button">Log in</button>
+      </form>
+    </div>
+  </div>
