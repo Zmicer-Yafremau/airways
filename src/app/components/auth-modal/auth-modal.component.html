@@ -8,8 +8,8 @@
       </mat-button-toggle-group>
     </header>
     <div class="OAuth_wrapper">
-      <asl-google-signin-button type='icon' size='medium'></asl-google-signin-button>
-      <button mat-raised-button class="header__button OAuth__button fb" id="googleButton">
+      <asl-google-signin-button type='standard' size='medium' text="continue_with" width="400" logo_alignment="center" locale="en" id="googleButton"></asl-google-signin-button>
+      <button mat-stroked-button class="header__button OAuth__button fb" id="fbButton" (click)="signInWithFB()">
         Continue with Facebook
       </button>
     </div>

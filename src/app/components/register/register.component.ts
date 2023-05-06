@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { ToastService } from 'angular-toastify';
+import { AuthService } from 'src/app/services/auth.service';
 import { Validator } from 'src/app/shared/validators/validator';
 
 @Component({
@@ -10,7 +11,8 @@ import { Validator } from 'src/app/shared/validators/validator';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit {
-  
+  public email!: string;
+
   public regForm!: FormGroup;
 
   public hide = true;
@@ -19,7 +21,11 @@ export class RegisterComponent implements OnInit {
 
   public codeControl = new FormControl('93' as ThemePalette);
 
-  public constructor(public fb: FormBuilder, private toastService: ToastService) {}
+  public constructor(
+    public fb: FormBuilder,
+    private toastService: ToastService,
+    private authService: AuthService,
+  ) {}
 
   public ngOnInit(): void {
     this.regForm = this.fb.group({
@@ -29,6 +35,16 @@ export class RegisterComponent implements OnInit {
       phone: ['', [Validators.required, Validator.phoneValidator]],
       date: ['', [Validators.required]],
       pass: ['', [Validators.required]],
+    });
+    this.authService.user.subscribe((user) => {
+      this.regForm.setValue({
+        regEmail: user.email,
+        firstName: user.firtsName,
+        lastName: user.lastName,
+        phone: this.regForm.value.phone,
+        date: this.regForm.value.date,
+        pass: this.regForm.value.pass,
+      });
     });
   }
 

@@ -1,34 +1,35 @@
 import { Component, OnInit } from '@angular/core';
-import { SocialAuthService } from "@abacritt/angularx-social-login";
-import { SocialUser } from "@abacritt/angularx-social-login";
-import { FacebookLoginProvider } from "@abacritt/angularx-social-login";
+import { SocialAuthService, SocialUser, FacebookLoginProvider } from '@abacritt/angularx-social-login';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-auth-modal',
   templateUrl: './auth-modal.component.html',
   styleUrls: ['./auth-modal.component.scss'],
 })
-
 export class AuthModalComponent implements OnInit {
-
   public user!: SocialUser;
+
   public loggedIn!: boolean;
 
-  public constructor(private authService: SocialAuthService) { }
+  public constructor(
+    private socialAuthService: SocialAuthService,
+    private authService: AuthService,
+  ) {}
 
-  ngOnInit() {
-    this.authService.authState.subscribe((user) => {
+  public ngOnInit() {
+    this.socialAuthService.authState.subscribe((user) => {
       this.user = user;
-      this.loggedIn = (user != null);
-      console.log(this.user.firstName);
+      this.loggedIn = user != null;
+      this.authService.getUser({
+        firtsName: this.user.firstName,
+        lastName: this.user.lastName,
+        email: this.user.email,
+      });
     });
   }
-  signInWithFB(): void {
-    this.authService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  }
 
-  signOut(): void {
-    this.authService.signOut();
+  public signInWithFB(): void {
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   }
-
 }

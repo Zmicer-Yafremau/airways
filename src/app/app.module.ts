@@ -1,4 +1,11 @@
 import { NgModule } from '@angular/core';
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+  GoogleSigninButtonModule,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from '@abacritt/angularx-social-login';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -26,9 +33,6 @@ import { SliderComponent } from './modules/booking/components/slider/slider.comp
 import { QuantityIndicatorDirective } from './directives/quantity-indicator.directive';
 import { PassengersOptionComponent } from './components/main-component/main-search-box/passengers-option/passengers-option.component';
 import { MainComponent } from './components/main-component/main.component';
-import { SocialLoginModule, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
-import { GoogleLoginProvider, FacebookLoginProvider } from '@abacritt/angularx-social-login';
-import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -64,7 +68,7 @@ import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
     MatButtonModule,
     MatCheckboxModule,
     SocialLoginModule,
-    GoogleSigninButtonModule
+    GoogleSigninButtonModule,
   ],
   providers: [
     ToastService,
@@ -76,20 +80,19 @@ import {  GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              '219709825646-f934aldkil4uk559gcmsg1csb5vhsgus.apps.googleusercontent.com'
-            )
+              '219709825646-f934aldkil4uk559gcmsg1csb5vhsgus.apps.googleusercontent.com',
+            ),
           },
           {
             id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId')
-          }
+            provider: new FacebookLoginProvider('567643935471543'),
+          },
         ],
         onError: (err) => {
           console.error(err);
-        }
+        },
       } as SocialAuthServiceConfig,
     },
-  
   ],
   bootstrap: [AppComponent],
 })
