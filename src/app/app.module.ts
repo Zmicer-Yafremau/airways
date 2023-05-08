@@ -6,6 +6,7 @@ import {
   GoogleLoginProvider,
   FacebookLoginProvider,
 } from '@abacritt/angularx-social-login';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -49,6 +50,7 @@ import { MainComponent } from './components/main-component/main.component';
     MainComponent,
   ],
   imports: [
+    HttpClientModule,
     MatDialogModule,
     BrowserModule,
     AppRoutingModule,
