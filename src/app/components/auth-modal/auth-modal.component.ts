@@ -30,10 +30,16 @@ export class AuthModalComponent implements OnInit {
         lastName: this.user.lastName,
         email: this.user.email,
       });
-    });
+    },
+    (err)=>{
+      console.log(err.error.message);
+    }
+    );
   }
 
   public signInWithFB(): void {
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).catch((err)=>{
+      console.log(err.error.message);
+    });
   }
 }

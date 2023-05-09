@@ -9,6 +9,13 @@ import { IRegUser, IToken, IUser } from '../models/user-model';
   providedIn: 'root',
 })
 export class AuthService {
+
+  public userName = new BehaviorSubject<string>(
+    localStorage.getItem('userName') ? (localStorage.getItem('userName') as string) : '',
+  );
+
+  public userIsLogged = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
+
   public user = new BehaviorSubject<IUser>({
     firtsName: '',
     lastName: '',
@@ -43,12 +50,15 @@ export class AuthService {
 
   public getToken(value: IRegUser) {
     this.httpClient
-      .post<IToken>(`${this.url  }/auth/registration`, JSON.stringify(value), {
+      .post<IToken>(`${this.url}/auth/registration`, JSON.stringify(value), {
         headers: this.headers,
       })
       .subscribe(
         (tokenObj) => {
-          localStorage.setItem('token', `${tokenObj.token}`);
+          localStorage.setItem('token', tokenObj.token);
+          localStorage.setItem('userName', value.firstName);
+          this.userName.next(localStorage.getItem('userName') as string);
+          this.userIsLogged.next(!!localStorage.getItem('token'));
           this.dialog.closeAll();
           this.toastService.success('Success');
         },
