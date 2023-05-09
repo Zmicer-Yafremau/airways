@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
 import { SliderComponent } from './components/slider/slider.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SliderComponent,
+    component: BookingFlowComponent,
   },
   {
-    path: 'step/:id',
+    path: 'step',
     component: SliderComponent,
   },
 ];

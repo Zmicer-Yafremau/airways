@@ -1,15 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
+import { Router } from '@angular/router';
+import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
 import { IPassengerConfig, IPassengers } from 'src/app/types/IPassengerConfig';
-
-interface IRequestInfo {
-  from: string;
-  destination: string;
-  departureDate: string;
-  departureReturnDate: string;
-  passengers: IPassengers;
-}
+import { IUserRequestInfo } from 'src/app/types/IUserRequestInfo';
 
 @Component({
   selector: 'app-main-search-box',
@@ -19,7 +14,7 @@ interface IRequestInfo {
 export class MainSearchBoxComponent implements OnInit {
   public searchFlyForm!: FormGroup;
 
-  public requestInfo?: IRequestInfo;
+  public requestInfo!: IUserRequestInfo;
 
   public airports = [
     ['Warsaw', ' WAW'],
@@ -50,11 +45,16 @@ export class MainSearchBoxComponent implements OnInit {
     adults: 0,
     children: 0,
     infants: 0,
+    sum: 0,
   };
 
   public roundTrip = true;
 
-  public constructor(public fb: FormBuilder) {}
+  public constructor(
+    public fb: FormBuilder,
+    private getUserRequestService: GetUserRequestInfoService,
+    private router: Router,
+  ) {}
 
   public ngOnInit(): void {
     this.searchFlyForm = this.fb.group({
@@ -68,7 +68,8 @@ export class MainSearchBoxComponent implements OnInit {
   public onClick() {
     if (this.searchFlyForm.valid) {
       this.requestInfo = { ...this.searchFlyForm.value, passengers: this.passengers };
-      console.log(this.requestInfo);
+      this.getUserRequestService.setUserRequestInfo(this.requestInfo);
+      this.router.navigateByUrl('/booking');
     }
   }
 

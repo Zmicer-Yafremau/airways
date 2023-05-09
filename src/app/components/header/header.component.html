@@ -6,9 +6,9 @@
       </div>
       <img src="/assets/airways.png" class="airways" alt="airways" />
     </div>
-
+    <app-progress *ngIf="isBookingUrl"></app-progress>
     <nav class="nav-wrapper">
-      <span class="nav-text">Book flights</span>
+      <span *ngIf="!isBookingUrl" class="nav-text">Book flights</span>
 
       <mat-form-field class="date-picker" appearance="outline">
         <mat-label class="label">MM/DD/YYYY</mat-label>
