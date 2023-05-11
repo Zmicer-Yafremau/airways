@@ -34,6 +34,7 @@ import { SliderComponent } from './modules/booking/components/slider/slider.comp
 import { QuantityIndicatorDirective } from './directives/quantity-indicator.directive';
 import { PassengersOptionComponent } from './components/main-component/main-search-box/passengers-option/passengers-option.component';
 import { MainComponent } from './components/main-component/main.component';
+import { ProgressComponent } from './components/header/progress/progress.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { MainComponent } from './components/main-component/main.component';
     QuantityIndicatorDirective,
     PassengersOptionComponent,
     MainComponent,
+    ProgressComponent,
   ],
   imports: [
     HttpClientModule,

@@ -1,15 +1,23 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { SliderComponent } from './components/slider/slider.component';
+import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
+import { TestComponent } from './components/test/test.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: SliderComponent,
+    redirectTo: 'step/flights',
+    pathMatch: 'prefix',
   },
   {
-    path: 'step/:id',
-    component: SliderComponent,
+    path: 'step',
+    component: BookingFlowComponent,
+    children: [
+      {
+        path: ':step',
+        component: TestComponent,
+      },
+    ],
   },
 ];
 
