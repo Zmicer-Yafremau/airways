@@ -21,9 +21,9 @@ export class HeaderComponent {
 
   private toggleIsBookingUrl() {
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationStart && event.url === '/booking') {
+      if (event instanceof NavigationStart && event.url.includes('/booking')) {
         this.isBookingUrl = true;
-      } else if (event instanceof NavigationStart && event.url !== '/booking') {
+      } else if (event instanceof NavigationStart && !event.url.includes('/booking')) {
         this.isBookingUrl = false;
       }
     });

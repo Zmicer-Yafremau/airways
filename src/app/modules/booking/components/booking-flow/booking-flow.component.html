@@ -1,5 +1,8 @@
 <app-top-summary></app-top-summary>
+
+<router-outlet></router-outlet>
+
 <div class="bottom-btn-wrapper">
-  <button mat-button routerLink="..">Back</button>
-  <button mat-raised-button color="primary">Continue</button>
+  <button mat-button (click)="stepBack()">Back</button>
+  <button mat-raised-button color="primary" (click)="stepForward()">Continue</button>
 </div>

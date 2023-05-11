@@ -6,11 +6,18 @@ import { SliderComponent } from './components/slider/slider.component';
 const routes: Routes = [
   {
     path: '',
-    component: BookingFlowComponent,
+    redirectTo: 'step/flights',
+    pathMatch: 'prefix',
   },
   {
     path: 'step',
-    component: SliderComponent,
+    component: BookingFlowComponent,
+    children: [
+      {
+        path: ':step',
+        component: SliderComponent,
+      },
+    ],
   },
 ];
 
