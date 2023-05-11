@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
-import { SliderComponent } from './components/slider/slider.component';
+import { TestComponent } from './components/test/test.component';
 
 const routes: Routes = [
   {
@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       {
         path: ':step',
-        component: SliderComponent,
+        component: TestComponent,
       },
     ],
   },
