@@ -64,7 +64,7 @@ export class AuthService {
         },
         (error) => {
           if (error.message) {
-            console.log(JSON.stringify(error.error.message));
+            console.log(error.error.message);
             this.toastService.error(error.error.message);
           } else {
             console.log(JSON.stringify(error));
