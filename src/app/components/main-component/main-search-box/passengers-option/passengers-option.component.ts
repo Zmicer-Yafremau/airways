@@ -43,6 +43,8 @@ export class PassengersOptionComponent {
           }
       }
     }
+    this.passengers.sum =
+      this.passengers.adults + this.passengers.children + this.passengers.infants;
     this.passengersEvent.emit(this.passengers);
   }
 }

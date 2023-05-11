@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="content">
+    <div class="airports-wrapper">
+      <span class="airport-name">{{ departureAirport }}</span>
+      <img src="assets/planes.svg" alt="planes" />
+      <span class="airport-name">{{ arrivalAirport }}</span>
+    </div>
+
+    <div class="date-wrapper">
+      <span class="day-text">{{ tripType }}</span>
+      <div class="dot"></div>
+      <span *ngIf="departureReturnDate; else oneWayInfo" class="day-text">
+        {{ departureDate | date : 'MMM d' }} - {{ departureReturnDate | date : 'MMM d' }}
+      </span>
+      <ng-template #oneWayInfo>
+        <span class="day-text">{{ departureDate | date : 'MMM d' }}</span>
+      </ng-template>
+      <div class="dot"></div>
+      <span class="day-text">{{ sumPassengers }}</span>
+      <img src="assets/user.svg" alt="planes" />
+    </div>
+    <button *ngIf="step === 'active'" mat-stroked-button routerLink="..">Edit</button>
+  </div>
+</div>

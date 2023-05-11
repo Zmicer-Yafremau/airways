@@ -1,0 +1,26 @@
+<div class="progress-container">
+  <div class="level-round" [ngClass]="{ active: sFlight === 'active', done: sFlight === 'done' }">
+    <img *ngIf="sFlight === 'active'" src="assets/pen.svg" alt="pen" />
+    <img *ngIf="sFlight === 'done'" src="assets/done.svg" class="done-sign" alt="pen" />
+    <span *ngIf="sFlight === 'inactive'">1</span>
+  </div>
+  <span class="level-title">Flights</span>
+  <div class="stripe"></div>
+
+  <div
+    class="level-round"
+    [ngClass]="{ active: sPassengers === 'active', done: sPassengers === 'done' }"
+  >
+    <img *ngIf="sPassengers === 'active'" src="assets/pen.svg" alt="pen" />
+    <img *ngIf="sPassengers === 'done'" src="assets/done.svg" class="done-sign" alt="pen" />
+    <span *ngIf="sPassengers === 'inactive'">2</span>
+  </div>
+  <span class="level-title">Passengers</span>
+  <div class="stripe"></div>
+
+  <div class="level-round" [ngClass]="{ active: sReview === 'active', done: sReview === 'done' }">
+    <img *ngIf="sReview === 'active'" src="assets/pen.svg" alt="pen" />
+    <span *ngIf="sReview === 'inactive'">3</span>
+  </div>
+  <span class="level-title">Review & Payment</span>
+</div>

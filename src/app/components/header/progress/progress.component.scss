@@ -1,0 +1,44 @@
+.progress-container {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  width: 485px;
+  height: 36px;
+  gap: 5px;
+}
+
+.level-round {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  font-size: 9px;
+  color: rgb(255 255 255);
+  background-color: rgb(116 118 122 / 100%);
+}
+
+.level-title {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.stripe {
+  width: 70px;
+  height: 1px;
+  background-color: rgb(116 118 122 / 100%);
+}
+
+.active {
+  background-color: rgb(0 144 189 / 100%);
+}
+
+.done {
+  background-color: rgb(0 144 189 / 100%);
+}
+
+.done-sign {
+  width: 12px;
+}
