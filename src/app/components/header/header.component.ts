@@ -11,6 +11,7 @@ import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 })
 
 export class HeaderComponent implements OnInit {
+  
   public isBookingUrl = false;
   
   public userName!: string;
