@@ -1,6 +1,9 @@
+@import 'variables';
+
 .flight-info-wrapper {
   display: flex;
   flex-direction: column;
+  color: $neutral30;
   row-gap: 4px;
 
   * {
@@ -16,7 +19,7 @@
       font-weight: 700;
       font-size: 30px;
       line-height: 36px;
-      color: #000;
+      color: $neutral;
     }
 
     .timezone {

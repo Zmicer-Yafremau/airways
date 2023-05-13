@@ -22,8 +22,6 @@ import { MainSearchBoxComponent } from './components/main-component/main-search-
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
-import { SliderComponent } from './modules/booking/components/slider/slider.component';
-import { QuantityIndicatorDirective } from './directives/quantity-indicator.directive';
 import { PassengersOptionComponent } from './components/main-component/main-search-box/passengers-option/passengers-option.component';
 import { MainComponent } from './components/main-component/main.component';
 
@@ -36,8 +34,6 @@ import { MainComponent } from './components/main-component/main.component';
     RegisterComponent,
     LoginComponent,
     AuthModalComponent,
-    SliderComponent,
-    QuantityIndicatorDirective,
     PassengersOptionComponent,
     MainComponent,
   ],

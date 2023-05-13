@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { strToDate } from 'src/app/utils/strToDate';
+import { ISliderInfo } from 'src/app/types/ISliderInfo';
+import { IPrice } from '../../../../types/IFlights';
 
 interface IFlights {
   date: Date;
-  price: number | undefined;
-  places: number | undefined;
-  id: number | undefined;
+  price: IPrice | undefined;
+  seats: number | undefined;
+  id: string | undefined;
 }
 
 @Component({
@@ -15,73 +16,25 @@ interface IFlights {
   styleUrls: ['./slider.component.scss'],
 })
 export class SliderComponent implements OnInit {
-  @Output() private changeSelection = new EventEmitter();
-
-  @Input() private date = '13.05.2023';
-
-  @Input() private flights = [
-    {
-      date: '11.05.2023',
-      price: 100,
-      places: 3,
-      id: 1,
-    },
-    {
-      date: '12.05.2023',
-      price: 200,
-      places: 20,
-      id: 2,
-    },
-    {
-      date: '13.05.2023',
-      price: 300,
-      places: 19,
-      id: 3,
-    },
-    {
-      date: '14.05.2023',
-      price: 400,
-      places: 15,
-      id: 4,
-    },
-    {
-      date: '15.05.2023',
-      price: 500,
-      places: 7,
-      id: 5,
-    },
-  ];
-
   private flightsInfoList: IFlights[] = [];
 
-  public checkedDate = strToDate(this.date);
+  @Output() private changeSelection = new EventEmitter();
+
+  @Input() public date = new Date();
+
+  @Input() public currency = 'EUR';
+
+  @Input() public flights: ISliderInfo[] = [];
+
+  @Input() public type?: 'departure' | 'arrival';
+
+  public checkedDate = new Date();
 
   public flightsInfo$ = new BehaviorSubject<IFlights[]>([]);
 
   public ngOnInit() {
     this.findFlights();
-  }
-
-  private findFlights() {
-    const date = new Date(this.checkedDate);
-    date.setDate(date.getDate() - 4);
-    this.flightsInfoList = Array.from(Array(7).keys()).map(() => {
-      const elementDate = new Date(date.setDate(date.getDate() + 1));
-      const flight = this.findItem(elementDate);
-
-      return {
-        date: elementDate,
-        places: flight?.places,
-        price: flight?.price,
-        id: flight?.id,
-      };
-    });
-
-    this.flightsInfo$.next(this.flightsInfoList);
-  }
-
-  private findItem(date: Date) {
-    return this.flights.find((element) => strToDate(element.date).getTime() === date.getTime());
+    this.checkedDate = this.date;
   }
 
   public moveSlider(step: number) {
@@ -95,7 +48,7 @@ export class SliderComponent implements OnInit {
 
     const item = this.findItem(newDate);
 
-    const newFlight = { date: newDate, price: item?.price, id: item?.price, places: item?.places };
+    const newFlight = { date: newDate, price: item?.price, id: item?.id, seats: item?.seats };
 
     this.flightsInfoList =
       step > 0
@@ -108,8 +61,36 @@ export class SliderComponent implements OnInit {
   public onChange(event: Event) {
     const element = event.target as HTMLInputElement;
     this.checkedDate =
-      this.flightsInfoList.find((el) => el.id === +element.value)?.date || this.checkedDate;
+      this.flightsInfoList.find((el) => el.id === element.id)?.date || this.checkedDate;
 
-    this.changeSelection.emit(this.checkedDate);
+    this.changeSelection.emit(element.id);
+  }
+
+  public getPureDate(date: Date) {
+    return date.toISOString().split('T')[0];
+  }
+
+  private findFlights() {
+    const date = new Date(this.date);
+    date.setDate(date.getDate() - 4);
+
+    this.flightsInfoList = Array.from(Array(7).keys()).map(() => {
+      const elementDate = new Date(date.setDate(date.getDate() + 1));
+      const flight = this.findItem(elementDate);
+      return {
+        date: elementDate,
+        seats: flight?.seats,
+        price: flight?.price,
+        id: flight?.id,
+      };
+    });
+
+    this.flightsInfo$.next(this.flightsInfoList);
+  }
+
+  private findItem(date: Date) {
+    return this.flights.find(
+      (element) => this.getPureDate(element.takeoffDate) === this.getPureDate(date),
+    );
   }
 }

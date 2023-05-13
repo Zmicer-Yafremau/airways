@@ -1,31 +1,36 @@
-<div class="flight-info">
+<div class="flight-info" *ngIf="flightInfo">
   <div class="flight-info-wrapper">
     <div class="departure-info">
-      <app-flight-info></app-flight-info>
+      <app-flight-info [timeInfo]="flightInfo.departureTimeInfo"></app-flight-info>
     </div>
     <div class="flight-time-info">
-      <p class="time">2h 50m</p>
+      <p class="time">{{ flightTime }}</p>
       <div class="time-img">
-        <img src="" alt="plane" [class.back]="isBack" />
+        <img src="assets/flight-card/plane.svg" alt="plane" [class.back]="isBack" />
       </div>
       <p class="type">Direct</p>
     </div>
     <div class="arrival-info">
-      <app-flight-info [isArrival]="true"></app-flight-info>
+      <app-flight-info [timeInfo]="flightInfo.arrivalTimeInfo" [isArrival]="true"></app-flight-info>
     </div>
     <div class="flight-number">
       <p>
-        Flight no. <span>{{ 'FR 1925' }}</span>
+        Flight no. <span>{{ flightInfo.flightNumber }}</span>
       </p>
     </div>
   </div>
   <div class="flight-price">
     <div class="price-info">
-      <div class="seats-wrapper">
-        <p>{{ '100' }} seats<br />available</p>
+      <div
+        appQuantityIndicator
+        [quantity]="flightInfo.seats"
+        [withOpacity]="true"
+        class="seats-wrapper"
+      >
+        <p>{{ flightInfo.seats }} seats<br />available</p>
       </div>
       <p class="price-title">Price</p>
-      <p class="price">{{ '146.70' | currency : 'EUR' }}</p>
+      <p class="price">{{ flightInfo.price.eur | currency : 'EUR' }}</p>
     </div>
     <button>Select</button>
   </div>

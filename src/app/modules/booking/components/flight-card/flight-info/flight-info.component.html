@@ -1,8 +1,8 @@
-<div class="flight-info-wrapper" [class.arrival]="isArrival">
-  <p class="date">{{ '12/13/2023' | date : 'EEE, d MMM y' }}</p>
+<div class="flight-info-wrapper" [class.arrival]="isArrival" *ngIf="timeInfo">
+  <p class="date">{{ timeInfo.date | date : 'EEE, d MMM y' }}</p>
   <div class="time-wrapper">
-    <span class="time">{{ '8:40' }}</span>
-    <span class="timezone">{{ 'UTC +0' }}</span>
+    <span class="time">{{ timeInfo.date | date : 'H:mm' }}</span>
+    <span class="timezone">{{ timeInfo.timezone }}</span>
   </div>
-  <p class="airport">{{ 'Dublin' }}</p>
+  <p class="airport">{{ timeInfo.airport }}</p>
 </div>

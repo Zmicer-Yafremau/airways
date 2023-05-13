@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { ITimeInfo } from '../../../../../types/IFlightInfo';
 
 @Component({
   selector: 'app-flight-info',
@@ -7,4 +8,6 @@ import { Component, Input } from '@angular/core';
 })
 export class FlightInfoComponent {
   @Input() public isArrival = false;
+
+  @Input() public timeInfo?: ITimeInfo;
 }

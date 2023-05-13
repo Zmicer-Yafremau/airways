@@ -7,26 +7,27 @@
     <div *ngIf="flightsInfo$ | async as fligtsInfo" class="slider-inner">
       <div *ngFor="let flight of fligtsInfo">
         <input
+          *ngIf="type"
           (change)="onChange($event)"
           type="radio"
-          name="date"
+          [name]="type"
           [id]="flight.id"
           [value]="flight.id"
           style="display: none"
-          [checked]="flight.date.getTime() === checkedDate.getTime()"
+          [checked]="getPureDate(flight.date) === getPureDate(checkedDate)"
           [disabled]="!flight.id"
         />
         <label [for]="flight.id" class="slider-item">
           <div class="slider-info">
             <h4 class="slider-date">{{ flight.date | date : 'd MMM' }}</h4>
             <p class="slider-day">{{ flight.date | date : 'EEEE' }}</p>
-            <p class="slider-price">{{ flight.price | currency : 'EUR' }}</p>
+            <p class="slider-price">{{ flight.price?.eur | currency : 'EUR' }}</p>
             <img src="assets/slider/icon.svg" alt="no flights" class="slider-no-flights" />
           </div>
           <div
-            *ngIf="flight.places"
+            *ngIf="flight.seats"
             appQuantityIndicator
-            [quantity]="flight.places"
+            [quantity]="flight.seats"
             class="slider-indicator"
           ></div>
         </label>
