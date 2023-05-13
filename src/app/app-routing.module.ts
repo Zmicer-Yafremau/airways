@@ -16,6 +16,10 @@ const routes: Routes = [
     path: '',
     component: MainComponent,
   },
+  // {
+  //   path: '**',
+  //   component: MainComponent,
+  // },
 ];
 
 @NgModule({

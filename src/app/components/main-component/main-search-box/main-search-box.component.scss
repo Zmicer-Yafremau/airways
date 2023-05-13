@@ -5,6 +5,7 @@
   padding: 24px;
   width: 580px;
   height: 390px;
+  max-width: 1128px;
   background-color: #fff;
   gap: 5px;
 }
@@ -44,27 +45,6 @@
   .airport-code {
     opacity: 0.3;
   }
-}
-
-.pass-option {
-  display: flex;
-  justify-content: space-between;
-  width: 180px;
-
-  .pass-left-wrapper {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .pass-right-wrapper {
-    display: flex;
-    align-items: center;
-  }
-}
-
-.age {
-  font-size: 14px;
-  opacity: 0.5;
 }
 
 .reverse-btn {

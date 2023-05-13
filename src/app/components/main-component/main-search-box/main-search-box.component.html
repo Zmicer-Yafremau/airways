@@ -16,7 +16,7 @@
     <mat-form-field class="from-input" appearance="outline">
       <mat-label>From</mat-label>
       <mat-select class="select" formControlName="from">
-        <mat-option *ngFor="let airport of airports" class="option" [value]="airport[1]">
+        <mat-option *ngFor="let airport of airports" class="option" [value]="airport[0]">
           <div class="airport-select">
             <div class="airport-name">{{ airport[0] }}</div>
             <div class="airport-code">{{ airport[1] }}</div>
@@ -34,7 +34,7 @@
         <mat-option
           *ngFor="let airport of airports"
           class="option"
-          [value]="airport[1]"
+          [value]="airport[0]"
           #destinationName
         >
           <div class="airport-select">

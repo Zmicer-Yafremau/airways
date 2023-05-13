@@ -1,4 +1,12 @@
 import { NgModule } from '@angular/core';
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+  GoogleSigninButtonModule,
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+} from '@abacritt/angularx-social-login';
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
@@ -24,6 +32,7 @@ import { LoginComponent } from './components/login/login.component';
 import { AuthModalComponent } from './components/auth-modal/auth-modal.component';
 import { PassengersOptionComponent } from './components/main-component/main-search-box/passengers-option/passengers-option.component';
 import { MainComponent } from './components/main-component/main.component';
+import { ProgressComponent } from './components/header/progress/progress.component';
 
 @NgModule({
   declarations: [
@@ -36,8 +45,10 @@ import { MainComponent } from './components/main-component/main.component';
     AuthModalComponent,
     PassengersOptionComponent,
     MainComponent,
+    ProgressComponent,
   ],
   imports: [
+    HttpClientModule,
     MatDialogModule,
     BrowserModule,
     AppRoutingModule,
@@ -56,8 +67,33 @@ import { MainComponent } from './components/main-component/main.component';
     MatNativeDateModule,
     MatButtonModule,
     MatCheckboxModule,
+    SocialLoginModule,
+    GoogleSigninButtonModule,
   ],
-  providers: [ToastService],
+  providers: [
+    ToastService,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              '219709825646-f934aldkil4uk559gcmsg1csb5vhsgus.apps.googleusercontent.com',
+            ),
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('567643935471543'),
+          },
+        ],
+        onError: (err) => {
+          console.error(err);
+        },
+      } as SocialAuthServiceConfig,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

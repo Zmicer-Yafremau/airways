@@ -14,4 +14,5 @@ export interface IPassengers extends Record<string, number> {
   adults: number;
   children: number;
   infants: number;
+  sum: number;
 }
