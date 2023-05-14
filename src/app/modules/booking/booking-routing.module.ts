@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
 import { TestComponent } from './components/test/test.component';
+import { FlightCardComponent } from './components/flight-card/flight-card.component';
+import { PassengersCardComponent } from './components/passengers-card/passengers-card.component';
 
 const routes: Routes = [
   {
@@ -14,7 +16,15 @@ const routes: Routes = [
     component: BookingFlowComponent,
     children: [
       {
-        path: ':step',
+        path: 'flights',
+        component: FlightCardComponent,
+      },
+      {
+        path: 'passengers',
+        component: PassengersCardComponent,
+      },
+      {
+        path: 'review',
         component: TestComponent,
       },
     ],

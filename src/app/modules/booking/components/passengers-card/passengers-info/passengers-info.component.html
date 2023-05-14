@@ -1,0 +1,34 @@
+<h2>1. Adults</h2>
+<form *ngIf="passengerForm" [formGroup]="passengerForm">
+    <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput formControlName="firstName" />
+        <mat-error *ngIf="passengerForm.controls['firstName'].hasError('name') && !passengerForm.controls['firstName'].hasError('required')">Shouldn't
+          contain digits</mat-error>
+        <mat-error *ngIf="passengerForm.controls['firstName'].hasError('required')">Please,
+          enter you first name</mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Last name</mat-label>
+        <input matInput formControlName="lastName" />
+        <mat-error *ngIf="passengerForm.controls['lastName'].hasError('name')">Shouldn't
+          contain digits</mat-error>
+        <mat-error *ngIf="passengerForm.controls['lastName'].hasError('required')">Please,
+          enter you last name</mat-error>
+      </mat-form-field>
+        <mat-button-toggle-group class="gender" name="autharization"
+          formControlName="gender">
+          <mat-button-toggle class="gender__button" checked="true" value="male"
+            #male>Male</mat-button-toggle>
+          <mat-button-toggle class="gender__button" value="female" #female>Female</mat-button-toggle>
+        </mat-button-toggle-group>
+        <mat-form-field appearance="outline">
+          <mat-label>Date of birth*</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="date" />
+          <mat-hint>MM/DD/YYYY</mat-hint>
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error *ngIf="passengerForm.controls['date'].hasError('required')">Please,
+            enter your date of birth</mat-error>
+        </mat-form-field>
+</form>
