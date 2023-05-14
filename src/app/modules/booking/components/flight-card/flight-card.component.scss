@@ -1,0 +1,144 @@
+@import 'variables';
+
+.flight-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 40px;
+  height: 130px;
+  background-color: #fff;
+
+  * {
+    margin: 0;
+  }
+
+  &-wrapper {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .flight-time-info {
+    position: relative;
+    width: 100%;
+    max-width: 280px;
+    color: $neutral;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      display: block;
+      width: 100%;
+      height: 2px;
+      background-color: $secondary0;
+      transform: translateY(-50%);
+    }
+
+    .time-img {
+      position: relative;
+      z-index: 1;
+      margin: 0 auto;
+      width: 44px;
+      height: 24px;
+      background-color: $neutral100;
+
+      .back {
+        transform: scaleX(-1);
+      }
+    }
+
+    .time,
+    .type,
+    .time-img {
+      font-weight: 400;
+      font-size: 12px;
+      line-height: 16px;
+      text-align: center;
+    }
+
+    .type,
+    .time-img {
+      margin-top: 8px;
+    }
+  }
+
+  .departure-info {
+    padding-right: 29px;
+  }
+
+  .arrival-info {
+    padding-left: 29px;
+  }
+
+  .flight-number {
+    margin-left: 20px;
+
+    p {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: $neutral30;
+
+      span {
+        color: $neutral;
+      }
+    }
+  }
+
+  .flight-price {
+    display: flex;
+    column-gap: 24px;
+    align-items: center;
+    border-left: 2px dashed $secondary40;
+    height: 100%;
+
+    .price-info {
+      margin-left: 24px;
+
+      .seats-wrapper {
+        padding: 4px 8px;
+        width: 100%;
+        max-width: 133px;
+        color: $neutral20;
+      }
+
+      .price {
+        font-weight: 700;
+        font-size: 30px;
+        line-height: 36px;
+        color: $primary;
+      }
+
+      p {
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 16px;
+        text-align: right;
+      }
+
+      .price-title {
+        margin-top: 6px;
+        color: $neutral30;
+      }
+    }
+
+    button {
+      border: 1px solid $primary;
+      border-radius: 4px;
+      padding: 8px 16px;
+      max-width: 78px;
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 20px;
+      color: #fff;
+      background: linear-gradient(108.75deg, #0090bd 59.91%, #073590 95.36%);
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}

@@ -1,11 +1,13 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { INDICATOR_COLOR } from '../config/indicatorColor';
 
 @Directive({
   selector: '[appQuantityIndicator]',
 })
-export class QuantityIndicatorDirective implements OnInit {
+export class QuantityIndicatorDirective implements OnInit, OnChanges {
   @Input() public quantity = 0;
+
+  @Input() public withOpacity = false;
 
   public constructor(private element: ElementRef<HTMLDivElement>) {}
 
@@ -13,11 +15,17 @@ export class QuantityIndicatorDirective implements OnInit {
     this.element.nativeElement.style.backgroundColor = this.getElementColor();
   }
 
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes['quantity']) {
+      this.element.nativeElement.style.backgroundColor = this.getElementColor();
+    }
+  }
+
   private getElementColor(): string {
-    if (this.quantity > 10) {
-      return INDICATOR_COLOR.yellow;
+    if (this.quantity > 50) {
+      return this.withOpacity ? INDICATOR_COLOR.yellowOpacity : INDICATOR_COLOR.yellow;
     }
 
-    return INDICATOR_COLOR.red;
+    return this.withOpacity ? INDICATOR_COLOR.redOpacity : INDICATOR_COLOR.red;
   }
 }
