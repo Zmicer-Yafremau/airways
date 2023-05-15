@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { Router } from '@angular/router';
 import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
+import { AirportContentService } from 'src/app/services/airport-content.service';
 import { IPassengerConfig, IPassengers } from 'src/app/types/IPassengerConfig';
 import { IUserRequestInfo } from 'src/app/types/IUserRequestInfo';
 
@@ -16,12 +17,7 @@ export class MainSearchBoxComponent implements OnInit {
 
   public requestInfo!: IUserRequestInfo;
 
-  public airports = [
-    ['Warsaw', ' WAW'],
-    ['Berlin', ' BER'],
-    ['Minsk', ' MSQ'],
-    ['Zagreb', ' ZAG'],
-  ];
+  public airports$ = this.airportService.airports$;
 
   public passengersConfig: IPassengerConfig = {
     adults: {
@@ -50,10 +46,15 @@ export class MainSearchBoxComponent implements OnInit {
 
   public roundTrip = true;
 
+  public airportDepartureNameForSelectHeader = '';
+
+  public airportArrivalNameForSelectHeader = '';
+
   public constructor(
     public fb: FormBuilder,
     private getUserRequestService: GetUserRequestInfoService,
     private router: Router,
+    public airportService: AirportContentService,
   ) {}
 
   public ngOnInit(): void {
@@ -63,6 +64,7 @@ export class MainSearchBoxComponent implements OnInit {
       departureDate: ['', Validators.required],
       departureReturnDate: [''],
     });
+    this.airportService.getAllAirports();
   }
 
   public onClick() {
@@ -84,5 +86,13 @@ export class MainSearchBoxComponent implements OnInit {
 
   public reverse() {
     console.log('reverse');
+  }
+
+  public getAirportDepartureNameForSelectHeader(text: string) {
+    this.airportDepartureNameForSelectHeader = text;
+  }
+
+  public getAirportArrivalNameForSelectHeader(text: string) {
+    this.airportArrivalNameForSelectHeader = text;
   }
 }

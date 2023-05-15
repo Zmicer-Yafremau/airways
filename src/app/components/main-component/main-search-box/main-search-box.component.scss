@@ -40,7 +40,18 @@
 
 .airport-select {
   display: flex;
-  gap: 5px;
+  flex-direction: column;
+
+  .airport-select-top {
+    display: flex;
+    gap: 5px;
+  }
+
+  .airport-select-bottom {
+    display: flex;
+    opacity: 0.3;
+    gap: 5px;
+  }
 
   .airport-code {
     opacity: 0.3;

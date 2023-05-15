@@ -13,13 +13,26 @@
       <mat-icon>sync_alt</mat-icon>
     </button>
 
-    <mat-form-field class="from-input" appearance="outline">
+    <mat-form-field *ngIf="airports$ | async as airports" class="from-input" appearance="outline">
       <mat-label>From</mat-label>
       <mat-select class="select" formControlName="from">
-        <mat-option *ngFor="let airport of airports" class="option" [value]="airport[0]">
+        <mat-select-trigger>
+          <span>{{ airportDepartureNameForSelectHeader }}</span>
+        </mat-select-trigger>
+        <mat-option
+          *ngFor="let airport of airports"
+          class="option"
+          [value]="airport.city"
+          (click)="getAirportDepartureNameForSelectHeader(airport.city)"
+        >
           <div class="airport-select">
-            <div class="airport-name">{{ airport[0] }}</div>
-            <div class="airport-code">{{ airport[1] }}</div>
+            <div class="airport-select-top">
+              <div class="airport-name">{{ airport.name }}</div>
+              <div class="airport-code">{{ airport.key }}</div>
+            </div>
+            <div class="airport-select-bottom">
+              <div class="airport-country">{{ airport.country }}</div>
+            </div>
           </div>
         </mat-option>
       </mat-select>
@@ -28,18 +41,27 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="dest-input" appearance="outline">
+    <mat-form-field *ngIf="airports$ | async as airports" class="dest-input" appearance="outline">
       <mat-label>Destination</mat-label>
       <mat-select class="select" formControlName="destination">
+        <mat-select-trigger>
+          <span>{{ airportArrivalNameForSelectHeader }}</span>
+        </mat-select-trigger>
         <mat-option
           *ngFor="let airport of airports"
           class="option"
-          [value]="airport[0]"
+          [value]="airport.city"
           #destinationName
+          (click)="getAirportArrivalNameForSelectHeader(airport.city)"
         >
           <div class="airport-select">
-            <div class="airport-name">{{ airport[0] }}</div>
-            <div class="airport-code">{{ airport[1] }}</div>
+            <div class="airport-select-top">
+              <div class="airport-name">{{ airport.name }}</div>
+              <div class="airport-code">{{ airport.key }}</div>
+            </div>
+            <div class="airport-select-bottom">
+              <div class="airport-country">{{ airport.country }}</div>
+            </div>
           </div>
         </mat-option>
       </mat-select>
