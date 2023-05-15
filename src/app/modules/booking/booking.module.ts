@@ -6,6 +6,9 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { QuantityIndicatorDirective } from 'src/app/directives/quantity-indicator.directive';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatOptionModule } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
 import { BookingRoutingModule } from './booking-routing.module';
 import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
 import { TopSummaryComponent } from './components/top-summary/top-summary.component';
@@ -17,9 +20,6 @@ import { BookingComponent } from './booking.component';
 import { PassengersCardComponent } from './components/passengers-card/passengers-card.component';
 import { PassengersInfoComponent } from './components/passengers-card/passengers-info/passengers-info.component';
 import { PassengersContactsComponent } from './components/passengers-card/passengers-contacts/passengers-contacts.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatOptionModule } from '@angular/material/core';
-import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [

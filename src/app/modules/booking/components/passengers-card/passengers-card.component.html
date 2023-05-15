@@ -6,7 +6,16 @@
         </div>
         <div class="passengers-body">
             <div class="passengers-info passengers-adult">
-                <app-passengers-info></app-passengers-info>
+                <h2>1. Adults</h2>
+                <app-passengers-info *ngFor = "let adult of adults"></app-passengers-info>
+            </div>
+            <div class="passengers-info passengers-child">
+                <h2>2. Children</h2>
+                <app-passengers-info *ngFor = "let child of children"></app-passengers-info>
+            </div>
+            <div class="passengers-info passengers-infant">
+                <h2>3. Infants</h2>
+                <app-passengers-info *ngFor = "let infant of infants"></app-passengers-info>
             </div>
         </div>
         <div class="passengers-header">

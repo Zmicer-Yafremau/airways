@@ -1,10 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
 
 @Component({
   selector: 'app-passengers-card',
   templateUrl: './passengers-card.component.html',
-  styleUrls: ['./passengers-card.component.scss']
+  styleUrls: ['./passengers-card.component.scss'],
 })
-export class PassengersCardComponent {
+export class PassengersCardComponent implements OnInit {
+  public adults!: [string];
 
+  public children!: [string];
+
+  public infants!: [string];
+
+  public constructor(private getUser: GetUserRequestInfoService) {}
+
+  public ngOnInit() {
+    this.getUser.userRequestInfo.subscribe((user) => {
+      const values = Object.values(user.passengers);
+      const adults = Array(values[0]).fill('Adults') as [string];
+      const children = Array(values[1]).fill('Children') as [string];
+      const infants = Array(values[2]).fill('Infants') as [string];
+      this.adults = adults;
+      this.children = children;
+      this.infants = infants;
+    });
+  }
 }

@@ -17,12 +17,14 @@ export class PassengersContactsComponent implements OnInit {
   public codeControl = new FormControl('+93' as ThemePalette);
 
   public constructor(public fb: FormBuilder) {}
+
   public ngOnInit(): void {
     this.contactForm = this.fb.group({
       contactEmail: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validator.phoneValidator]],
     });
   }
+
   public getMailErrorMessage() {
     if (this.contactForm.controls['contactEmail'].hasError('required')) {
       return 'You must enter a value';
