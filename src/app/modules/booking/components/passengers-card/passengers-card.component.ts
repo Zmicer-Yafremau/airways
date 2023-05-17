@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChangeStepService } from 'src/app/services/change-step.service';
 import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
 
 @Component({
@@ -13,9 +14,11 @@ export class PassengersCardComponent implements OnInit {
 
   public infants!: [string];
 
-  public constructor(private getUser: GetUserRequestInfoService) {}
+  public constructor(private getUser: GetUserRequestInfoService, private stepService: ChangeStepService) {}
 
   public ngOnInit() {
+    this.stepService.changeButtonStatus(true);
+    console.log(`changed!`);
     this.getUser.userRequestInfo.subscribe((user) => {
       const values = Object.values(user.passengers);
       const adults = Array(values[0]).fill('Adults') as [string];

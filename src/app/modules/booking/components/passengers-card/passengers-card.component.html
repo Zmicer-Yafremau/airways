@@ -5,15 +5,15 @@
             <span>Enter the passenger's names as they appear on document (passport or ID). </span>
         </div>
         <div class="passengers-body">
-            <div class="passengers-info passengers-adult">
+            <div class="passengers-info passengers-adult" *ngIf="adults.length">
                 <h2>1. Adults</h2>
                 <app-passengers-info *ngFor = "let adult of adults"></app-passengers-info>
             </div>
-            <div class="passengers-info passengers-child">
+            <div class="passengers-info passengers-child" *ngIf="children.length">
                 <h2>2. Children</h2>
                 <app-passengers-info *ngFor = "let child of children"></app-passengers-info>
             </div>
-            <div class="passengers-info passengers-infant">
+            <div class="passengers-info passengers-infant" *ngIf="infants.length">
                 <h2>3. Infants</h2>
                 <app-passengers-info *ngFor = "let infant of infants"></app-passengers-info>
             </div>

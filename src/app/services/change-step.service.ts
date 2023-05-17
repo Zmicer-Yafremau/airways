@@ -11,8 +11,15 @@ export class ChangeStepService {
     passengers: 'inactive',
     review: 'inactive',
   });
+  public continueButtonStatus$ = new BehaviorSubject<boolean>(false);
 
   public changeStep(value: ISteps) {
+    this.continueButtonStatus$.next(false);
     this.progressCondition$.next(value);
   }
+  
+  public changeButtonStatus(value: boolean){
+    this.continueButtonStatus$.next(value);
+  }
+
 }

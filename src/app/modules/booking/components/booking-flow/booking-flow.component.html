@@ -6,7 +6,7 @@
 
 <div *ngIf="step !== 'review'; else review" class="bottom-btn-wrapper">
   <button mat-button (click)="stepBack()">Back</button>
-  <button mat-raised-button color="primary" (click)="stepForward()">Continue</button>
+  <button mat-raised-button color="primary" (click)="stepForward()" [disabled]="continueButtonStatus">Continue</button>
 </div>
 
 <ng-template #review>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChangeStepService } from 'src/app/services/change-step.service';
 
@@ -12,10 +12,16 @@ enum Step {
   templateUrl: './booking-flow.component.html',
   styleUrls: ['./booking-flow.component.scss'],
 })
-export class BookingFlowComponent {
+export class BookingFlowComponent implements OnInit{
   public step = Step.Flights;
 
+  public continueButtonStatus = false;
+
   public constructor(private stepService: ChangeStepService, public router: Router) {}
+
+  public ngOnInit(): void {
+    this.stepService.continueButtonStatus$.subscribe(status => this.continueButtonStatus = status);
+  }
 
   public stepForward() {
     if (this.step === Step.Flights) {
