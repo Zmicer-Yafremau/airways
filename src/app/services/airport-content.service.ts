@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { IAirportsResponse } from '../types/IAirportsResponse';
 import { ENDPOINTS } from '../config/endpoints';
 
@@ -13,13 +13,8 @@ export class AirportContentService {
   public airports$ = new BehaviorSubject<IAirportsResponse[]>([]);
 
   public getAllAirports() {
-    this.http
-      .get<IAirportsResponse[]>(ENDPOINTS.allAirports)
-      .pipe(
-        tap((airports) => {
-          this.airports$.next(airports);
-        }),
-      )
-      .subscribe();
+    this.http.get<IAirportsResponse[]>(ENDPOINTS.allAirports).subscribe((airports) => {
+      this.airports$.next(airports);
+    });
   }
 }
