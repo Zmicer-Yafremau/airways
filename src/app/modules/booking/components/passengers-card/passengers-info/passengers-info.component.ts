@@ -1,5 +1,6 @@
 import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ChangeStepService } from 'src/app/services/change-step.service';
 import { Validator } from 'src/app/shared/validators/validator';
 
 @Component({
@@ -10,7 +11,7 @@ import { Validator } from 'src/app/shared/validators/validator';
 export class PassengersInfoComponent implements OnInit {
   public passengerForm!: FormGroup;
 
-  public constructor(public fb: FormBuilder) {}
+  public constructor(public fb: FormBuilder, private stepService: ChangeStepService) {}
 
   public ngOnInit(): void {
     this.passengerForm = this.fb.group({
@@ -20,8 +21,10 @@ export class PassengersInfoComponent implements OnInit {
       gender: [''],
     });
     this.passengerForm.statusChanges.subscribe((status) => {
+    
       if (this.passengerForm.valid) {
-        console.log('Approved!');
+ 
+    
       }
     });
   }

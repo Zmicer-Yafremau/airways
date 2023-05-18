@@ -27,6 +27,6 @@ export class PassengersCardComponent implements OnInit {
       this.adults = adults;
       this.children = children;
       this.infants = infants;
-    });
+    }); 
   }
 }
