@@ -1,3 +1,3 @@
 export const ENDPOINTS = {
-  allAirports: 'https://api2.air-ways.online/search/airport',
+  allAirports: 'https://api.air-ways.online/search/airport',
 };

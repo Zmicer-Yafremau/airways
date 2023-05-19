@@ -63,6 +63,7 @@ export class MainSearchBoxComponent implements OnInit {
       destination: ['', [Validators.required]],
       departureDate: ['', Validators.required],
       departureReturnDate: [''],
+      passengers: ['', Validators.required],
     });
     this.airportService.getAllAirports();
   }
