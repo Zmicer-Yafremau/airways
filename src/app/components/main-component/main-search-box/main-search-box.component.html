@@ -136,6 +136,9 @@
           />
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="searchFlyForm.controls['passengers'].hasError('required')">
+        At least 1 passenger needed
+      </mat-error>
     </mat-form-field>
   </div>
 
