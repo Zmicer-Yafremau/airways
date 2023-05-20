@@ -1,4 +1,12 @@
-import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  OnInit,
+  OnChanges,
+  SimpleChanges,
+  EventEmitter,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IFlightInfo } from '../../../../types/IFlightInfo';
 
@@ -8,6 +16,10 @@ import { IFlightInfo } from '../../../../types/IFlightInfo';
   styleUrls: ['./flight-card.component.scss'],
 })
 export class FlightCardComponent implements OnInit, OnChanges {
+  @Input() public showSlider = true;
+
+  @Output() public showSliderChange = new EventEmitter<boolean>();
+
   @Input() public isBack = false;
 
   @Input() public flightInfo?: IFlightInfo;
@@ -24,6 +36,11 @@ export class FlightCardComponent implements OnInit, OnChanges {
     if (changes['flightInfo']) {
       this.seats$.next(this.flightInfo?.seats || 0);
     }
+  }
+
+  public onClick() {
+    this.showSlider = !this.showSlider;
+    this.showSliderChange.emit(this.showSlider);
   }
 
   private getFlightTime(): string {

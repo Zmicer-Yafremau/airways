@@ -28,6 +28,8 @@ export class SliderComponent implements OnInit {
 
   @Input() public type?: 'departure' | 'arrival';
 
+  @Input() public showSlider = true;
+
   public checkedDate = new Date();
 
   public flightsInfo$ = new BehaviorSubject<IFlights[]>([]);

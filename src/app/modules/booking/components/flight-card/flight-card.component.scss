@@ -127,7 +127,7 @@
       border: 1px solid $primary;
       border-radius: 4px;
       padding: 8px 16px;
-      max-width: 78px;
+      min-width: 78px;
       font-weight: 500;
       font-size: 16px;
       line-height: 20px;
@@ -139,6 +139,31 @@
       &:active {
         transform: scale(0.95);
       }
+    }
+  }
+
+  &.edit {
+    box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
+
+    .flight-price {
+      border: none;
+
+      .price-info {
+        .price-title,
+        .seats-wrapper {
+          display: none;
+        }
+
+        .price {
+          color: $neutral;
+        }
+      }
+    }
+
+    button {
+      border: none;
+      color: $primary;
+      background: $secondary90;
     }
   }
 }

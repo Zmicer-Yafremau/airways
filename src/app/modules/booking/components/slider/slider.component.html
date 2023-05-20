@@ -1,5 +1,5 @@
 <div>
-  <div class="slider">
+  <div class="slider" [class.hide]="!showSlider">
     <button (click)="moveSlider(-1)" class="slider-btn slider-btn-back">
       <img src="assets/slider/arrow.svg" alt="back" />
     </button>

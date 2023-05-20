@@ -1,4 +1,4 @@
-<div class="flight-info" *ngIf="flightInfo">
+<div [class.edit]="!showSlider" class="flight-info" *ngIf="flightInfo">
   <div class="flight-info-wrapper">
     <div class="departure-info">
       <app-flight-info [timeInfo]="flightInfo.departureTimeInfo"></app-flight-info>
@@ -32,6 +32,8 @@
       <p class="price-title">Price</p>
       <p class="price">{{ flightInfo.price.eur | currency : 'EUR' }}</p>
     </div>
-    <button>Select</button>
+    <button type="button" (click)="onClick()">
+      {{ showSlider ? 'Select' : 'Edit' }}
+    </button>
   </div>
 </div>
