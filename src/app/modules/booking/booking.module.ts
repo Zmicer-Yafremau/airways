@@ -20,6 +20,8 @@ import { BookingComponent } from './booking.component';
 import { PassengersCardComponent } from './components/passengers-card/passengers-card.component';
 import { PassengersInfoComponent } from './components/passengers-card/passengers-info/passengers-info.component';
 import { PassengersContactsComponent } from './components/passengers-card/passengers-contacts/passengers-contacts.component';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { PassengersContactsComponent } from './components/passengers-card/passen
     MatInputModule,
     ReactiveFormsModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatSlideToggleModule,
+    MatTooltipModule
   ],
   exports: [QuantityIndicatorDirective],
 })

@@ -8,12 +8,12 @@ export interface IPassengerForm {
   firstName: string;
   lastName: string;
   gender: 'male' | 'female';
-  date: string;
+  dateOfBirth: string;
   disabled?: boolean;
   formIsValid: boolean;
 }
 export interface IPassengerContacts {
-    code: string;
+    countryCode: string;
     phone: string;
     mail: string;
     formIsValid: boolean;
