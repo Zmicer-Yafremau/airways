@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
 import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 
 @Component({
@@ -20,6 +21,7 @@ export class HeaderComponent implements OnInit {
   public constructor(
     private matDialog: MatDialog,
     private authService: AuthService,
+    private dateCurrencyService: GetDateCurrencyFormatService,
     private router: Router,
   ) {
     this.toggleIsBookingUrl();
@@ -55,5 +57,19 @@ export class HeaderComponent implements OnInit {
           this.isBookingUrl = false;
         }
       });
+  }
+
+  public setUserSettings(value: string, option: 'currency' | 'date') {
+    if (option === 'currency') {
+      this.dateCurrencyService.changeFormat({
+        currency: value,
+        date: this.dateCurrencyService.dateCurrencyFormat$.value.date,
+      });
+    } else {
+      this.dateCurrencyService.changeFormat({
+        currency: this.dateCurrencyService.dateCurrencyFormat$.value.currency,
+        date: value,
+      });
+    }
   }
 }

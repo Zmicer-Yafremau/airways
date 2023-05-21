@@ -105,7 +105,7 @@
 
     <mat-form-field class="passengers-input" appearance="outline">
       <mat-label>Passengers</mat-label>
-      <mat-select class="select">
+      <mat-select class="select" formControlName="passengers">
         <mat-select-trigger>
           <span *ngIf="passengers.adults > 0"> Adults {{ passengers.adults }} </span>
           <span *ngIf="passengers.children > 0"> Children {{ passengers.children }} </span>
@@ -136,6 +136,9 @@
           />
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="searchFlyForm.controls['passengers'].hasError('required')">
+        At least 1 passenger needed
+      </mat-error>
     </mat-form-field>
   </div>
 
