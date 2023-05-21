@@ -30,7 +30,7 @@
         <p>{{ flightInfo.seats }} seats<br />available</p>
       </div>
       <p class="price-title">Price</p>
-      <p class="price">{{ flightInfo.price.eur | currency : 'EUR' }}</p>
+      <p class="price">{{ flightInfo.price[currency] | currency : (currency | customCurrency) }}</p>
     </div>
     <button type="button" (click)="onClick()">
       {{ showSlider ? 'Select' : 'Edit' }}

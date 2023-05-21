@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { QuantityIndicatorDirective } from 'src/app/directives/quantity-indicator.directive';
+import { CustomCurrencyPipe } from 'src/app/pipes/custom-currency.pipe';
 import { BookingRoutingModule } from './booking-routing.module';
 import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
 import { TopSummaryComponent } from './components/top-summary/top-summary.component';
@@ -21,6 +22,7 @@ import { FlightsComponent } from './pages/flights/flights.component';
     BookingFlowComponent,
     TopSummaryComponent,
     FlightsComponent,
+    CustomCurrencyPipe,
   ],
   imports: [CommonModule, BookingRoutingModule, MatButtonModule],
   exports: [QuantityIndicatorDirective],

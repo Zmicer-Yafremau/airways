@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ISliderInfo } from 'src/app/types/ISliderInfo';
+import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Currency } from 'src/app/types/IDateCurrencyFormat';
 import { IPrice } from '../../../../types/IFlights';
 
 interface IFlights {
@@ -10,6 +13,7 @@ interface IFlights {
   id: string | undefined;
 }
 
+@UntilDestroy()
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
@@ -22,21 +26,29 @@ export class SliderComponent implements OnInit {
 
   @Input() public date = new Date();
 
-  @Input() public currency = 'EUR';
-
   @Input() public flights: ISliderInfo[] = [];
 
   @Input() public type?: 'departure' | 'arrival';
 
   @Input() public showSlider = true;
 
+  public currency: Currency = 'eur';
+
   public checkedDate = new Date();
 
   public flightsInfo$ = new BehaviorSubject<IFlights[]>([]);
 
+  public constructor(private dateCurrencyFormatService: GetDateCurrencyFormatService) {}
+
   public ngOnInit() {
     this.findFlights();
     this.checkedDate = this.date;
+
+    this.dateCurrencyFormatService.dateCurrencyFormat$
+      .pipe(untilDestroyed(this))
+      .subscribe(({ currency }) => {
+        this.currency = currency as Currency;
+      });
   }
 
   public moveSlider(step: number) {

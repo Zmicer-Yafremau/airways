@@ -21,7 +21,9 @@
           <div class="slider-info">
             <h4 class="slider-date">{{ flight.date | date : 'd MMM' }}</h4>
             <p class="slider-day">{{ flight.date | date : 'EEEE' }}</p>
-            <p class="slider-price">{{ flight.price?.eur | currency : 'EUR' }}</p>
+            <p class="slider-price" *ngIf="flight.price">
+              {{ flight.price[currency] | currency : (currency | customCurrency) }}
+            </p>
             <img src="assets/slider/icon.svg" alt="no flights" class="slider-no-flights" />
           </div>
           <div
