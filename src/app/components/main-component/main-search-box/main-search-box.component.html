@@ -21,7 +21,7 @@
 
     <mat-form-field *ngIf="airports$ | async as airports" class="from-input" appearance="outline">
       <mat-label>From</mat-label>
-      <mat-select class="select" formControlName="from">
+      <mat-select class="select" formControlName="from" value="BER">
         <mat-select-trigger>
           <span>{{ airportDepartureNameForSelectHeader }}</span>
         </mat-select-trigger>
@@ -49,7 +49,7 @@
 
     <mat-form-field *ngIf="airports$ | async as airports" class="dest-input" appearance="outline">
       <mat-label>Destination</mat-label>
-      <mat-select class="select" formControlName="destination">
+      <mat-select class="select" formControlName="destination" value="BER">
         <mat-select-trigger>
           <span>{{ airportArrivalNameForSelectHeader }}</span>
         </mat-select-trigger>
@@ -94,7 +94,7 @@
         Please enter a return date
       </mat-error>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-date-range-picker #picker [startAt]="startDate"></mat-date-range-picker>
     </mat-form-field>
 
     <ng-template #oneWayDatePicker>

@@ -5,8 +5,10 @@ import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
 import { ShowEditService } from 'src/app/services/show-edit.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 
+@UntilDestroy()
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -38,6 +40,17 @@ export class HeaderComponent implements OnInit {
     this.authService.userIsLogged.subscribe((isLogged) => {
       this.userIsLogged = isLogged;
     });
+    this.router.events
+      .pipe(
+        untilDestroyed(this),
+        filter((event) => event instanceof NavigationStart),
+      )
+      .subscribe((event) => {
+        const e = event as NavigationStart;
+        if (!e.url.includes('flights')) {
+          this.isEdit$.next(false);
+        }
+      });
   }
 
   public openAuthDialog() {

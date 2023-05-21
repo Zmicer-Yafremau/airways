@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ChangeStepService } from 'src/app/services/change-step.service';
 import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
-<<<<<<< HEAD
-import { ShowEditService } from 'src/app/services/show-edit.service';
-=======
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { LocalStorageKeyEnum } from 'src/app/types/LocalStorageValue';
 import { IUserRequestInfo } from 'src/app/types/IUserRequestInfo';
->>>>>>> 5e9555d060a827ba3d9e4747b7f8c1973ebc395f
+import { ShowEditService } from 'src/app/services/show-edit.service';
 
 @UntilDestroy()
 @Component({
@@ -16,21 +13,12 @@ import { IUserRequestInfo } from 'src/app/types/IUserRequestInfo';
   templateUrl: './top-summary.component.html',
   styleUrls: ['./top-summary.component.scss'],
 })
-<<<<<<< HEAD
-export class TopSummaryComponent {
-  public edit$ = this.editService.isEditActive$;
-
-  public constructor(
-    public getUserRequestService: GetUserRequestInfoService,
-    public stepService: ChangeStepService,
-    public editService: ShowEditService,
-=======
 export class TopSummaryComponent implements OnInit {
   public constructor(
     public getUserRequestService: GetUserRequestInfoService,
     public stepService: ChangeStepService,
     private localStorageService: LocalStorageService,
->>>>>>> 5e9555d060a827ba3d9e4747b7f8c1973ebc395f
+    private editService: ShowEditService,
   ) {}
 
   public departureAirport = '';
@@ -47,14 +35,6 @@ export class TopSummaryComponent implements OnInit {
 
   public step = '';
 
-<<<<<<< HEAD
-  public stepSubscription = this.stepService.progressCondition$.subscribe((step) => {
-    this.step = step.flights;
-  });
-
-  public editClick() {
-    this.editService.toggleEdit();
-=======
   public ngOnInit(): void {
     this.stepService.progressCondition$.pipe(untilDestroyed(this)).subscribe((step) => {
       this.step = step.flights;
@@ -93,6 +73,9 @@ export class TopSummaryComponent implements OnInit {
           this.sumPassengers = content.passengers.sum;
         }
       });
->>>>>>> 5e9555d060a827ba3d9e4747b7f8c1973ebc395f
+  }
+
+  public editClick() {
+    this.editService.toggleEdit();
   }
 }
