@@ -1,0 +1,23 @@
+.info-block {
+  &-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    img {
+      margin-right: 14px;
+    }
+  }
+
+  .slider {
+    margin-bottom: 8px;
+  }
+
+  &.arrival {
+    margin-top: 24px;
+
+    img {
+      transform: scaleX(-1);
+    }
+  }
+}

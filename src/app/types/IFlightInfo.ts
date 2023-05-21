@@ -14,3 +14,9 @@ export interface IFlightInfo {
   seats: number;
   price: IPrice;
 }
+
+export type Key = 'forward' | 'back';
+export interface IUserFlightInfo {
+  forward?: IFlightInfo;
+  back?: IFlightInfo;
+}

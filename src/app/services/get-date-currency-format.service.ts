@@ -8,7 +8,7 @@ import { IDateCurrencyFormat } from '../types/IDateCurrencyFormat';
 export class GetDateCurrencyFormatService {
   public dateCurrencyFormat$ = new BehaviorSubject<IDateCurrencyFormat>({
     date: 'MM/DD/YYYY',
-    currency: 'USD',
+    currency: 'eur',
   });
 
   public changeFormat(value: IDateCurrencyFormat) {

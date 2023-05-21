@@ -1,0 +1,50 @@
+<div>
+  <div class="info-block departure">
+    <h2 class="info-block-title">
+      <img src="assets/flights/plane.svg" alt="plane" />{{
+        flightCardDepartureInfo?.departureTimeInfo?.airport
+      }}
+      to {{ flightCardDepartureInfo?.arrivalTimeInfo?.airport }}
+    </h2>
+
+    <div *ngIf="sliderDepartureInfo && departureDate" class="slider">
+      <app-slider
+        [date]="departureDate"
+        [flights]="sliderDepartureInfo"
+        type="departure"
+        (changeSelection)="changeDeparture($event)"
+        [showSlider]="showDepartureSlider"
+      ></app-slider>
+    </div>
+
+    <app-flight-card
+      *ngIf="flightCardDepartureInfo"
+      [flightInfo]="flightCardDepartureInfo"
+      [(showSlider)]="showDepartureSlider"
+    ></app-flight-card>
+  </div>
+  <div class="info-block arrival" *ngIf="flightCardArrivalInfo">
+    <h2 class="info-block-title">
+      <img src="assets/flights/plane.svg" alt="plane" />{{
+        flightCardArrivalInfo.departureTimeInfo.airport
+      }}
+      to {{ flightCardArrivalInfo.arrivalTimeInfo.airport }}
+    </h2>
+
+    <div *ngIf="sliderArrivalInfo && arrivalDate" class="slider">
+      <app-slider
+        [date]="arrivalDate"
+        [flights]="sliderArrivalInfo"
+        type="arrival"
+        (changeSelection)="changeArrival($event)"
+        [showSlider]="showArrivalSlider"
+      ></app-slider>
+    </div>
+
+    <app-flight-card
+      [flightInfo]="flightCardArrivalInfo"
+      [isBack]="true"
+      [(showSlider)]="showArrivalSlider"
+    ></app-flight-card>
+  </div>
+</div>
