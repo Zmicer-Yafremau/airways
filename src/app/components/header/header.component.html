@@ -54,4 +54,5 @@
       <mat-icon class="basket">shopping_basket</mat-icon>
     </nav>
   </div>
+  <app-main-search-box *ngIf="isEdit$ | async" [isHeaderForm]="true"></app-main-search-box>
 </div>

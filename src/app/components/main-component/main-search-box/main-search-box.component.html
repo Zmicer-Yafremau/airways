@@ -1,4 +1,9 @@
-<form *ngIf="searchFlyForm" class="content-wrapper" [formGroup]="searchFlyForm">
+<form
+  *ngIf="searchFlyForm"
+  class="content-wrapper"
+  [class.edit]="isHeaderForm"
+  [formGroup]="searchFlyForm"
+>
   <mat-radio-group class="radio">
     <mat-radio-button color="primary" value="round" checked (change)="typeOfTrip($event)">
       Round Trip

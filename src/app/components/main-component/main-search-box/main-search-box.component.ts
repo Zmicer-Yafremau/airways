@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { GetUserRequestInfoService } from 'src/app/services/get-user-request-inf
 import { AirportContentService } from 'src/app/services/airport-content.service';
 import { IPassengerConfig, IPassengers } from 'src/app/types/IPassengerConfig';
 import { IUserRequestInfo } from 'src/app/types/IUserRequestInfo';
+import { ShowEditService } from 'src/app/services/show-edit.service';
 
 @Component({
   selector: 'app-main-search-box',
@@ -13,6 +14,8 @@ import { IUserRequestInfo } from 'src/app/types/IUserRequestInfo';
   styleUrls: ['./main-search-box.component.scss'],
 })
 export class MainSearchBoxComponent implements OnInit {
+  @Input() public isHeaderForm = false;
+
   public searchFlyForm!: FormGroup;
 
   public requestInfo!: IUserRequestInfo;
@@ -55,6 +58,7 @@ export class MainSearchBoxComponent implements OnInit {
     private getUserRequestService: GetUserRequestInfoService,
     private router: Router,
     public airportService: AirportContentService,
+    public editService: ShowEditService,
   ) {}
 
   public ngOnInit(): void {
@@ -66,10 +70,31 @@ export class MainSearchBoxComponent implements OnInit {
       passengers: ['', Validators.required],
     });
     this.airportService.getAllAirports();
+
+    this.editService.isEditActive$.subscribe((edit) => {
+      if (edit) {
+        console.log('edit');
+        let userInfoFrom = '';
+        let userInfoDest = '';
+        this.getUserRequestService.userRequestInfo.subscribe((info) => {
+          userInfoFrom = info.from;
+          userInfoDest = info.destination;
+        });
+
+        this.airports$.subscribe((airports) => {
+          const toSelectFrom = airports.find((airport) => airport.city === userInfoFrom);
+          const toSelectDest = airports.find((airport) => airport.city === userInfoDest);
+          this.searchFlyForm.get('from')?.setValue(toSelectFrom?.city);
+          this.searchFlyForm.get('destination')?.setValue(toSelectDest?.city);
+          if (toSelectFrom) this.airportDepartureNameForSelectHeader = toSelectFrom?.city;
+          if (toSelectDest) this.airportArrivalNameForSelectHeader = toSelectDest?.city;
+        });
+      }
+    });
   }
 
   public onClick() {
-    if (this.searchFlyForm.valid) {
+    if (this.searchFlyForm.valid && this.passengers.sum > 0) {
       this.requestInfo = { ...this.searchFlyForm.value, passengers: this.passengers };
       this.getUserRequestService.setUserRequestInfo(this.requestInfo);
       this.router.navigateByUrl('/booking');

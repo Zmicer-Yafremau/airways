@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
+import { ShowEditService } from 'src/app/services/show-edit.service';
 import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 
 @Component({
@@ -18,10 +19,13 @@ export class HeaderComponent implements OnInit {
 
   public userIsLogged!: boolean;
 
+  public isEdit$ = this.toggleEdiService.isEditActive$;
+
   public constructor(
     private matDialog: MatDialog,
     private authService: AuthService,
     private dateCurrencyService: GetDateCurrencyFormatService,
+    public toggleEdiService: ShowEditService,
     private router: Router,
   ) {
     this.toggleIsBookingUrl();
