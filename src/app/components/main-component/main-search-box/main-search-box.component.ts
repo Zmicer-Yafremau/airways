@@ -76,9 +76,11 @@ export class MainSearchBoxComponent implements OnInit {
         console.log('edit');
         let userInfoFrom = '';
         let userInfoDest = '';
-        this.getUserRequestService.userRequestInfo.subscribe((info) => {
-          userInfoFrom = info.from;
-          userInfoDest = info.destination;
+        this.getUserRequestService.getUserRequestInfo().subscribe((info) => {
+          if (info) {
+            userInfoFrom = info.from;
+            userInfoDest = info.destination;
+          }
         });
 
         this.airports$.subscribe((airports) => {

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
-import { TestComponent } from './components/test/test.component';
+import { FlightsComponent } from './pages/flights/flights.component';
 
 const routes: Routes = [
   {
@@ -14,8 +14,8 @@ const routes: Routes = [
     component: BookingFlowComponent,
     children: [
       {
-        path: ':step',
-        component: TestComponent,
+        path: 'flights',
+        component: FlightsComponent,
       },
     ],
   },
