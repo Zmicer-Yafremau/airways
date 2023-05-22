@@ -32,11 +32,11 @@
     </mat-button-toggle-group>
     <mat-form-field appearance="outline">
       <mat-label>Date of birth*</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date" />
+      <input matInput [matDatepicker]="picker" formControlName="dateOfBirth" />
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="passengerForm.controls['date'].hasError('required')">Please,
+      <mat-error *ngIf="passengerForm.controls['dateOfBirth'].hasError('required')">Please,
         enter your date of birth</mat-error>
     </mat-form-field>
   </div>

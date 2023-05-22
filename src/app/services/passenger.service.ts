@@ -9,26 +9,29 @@ export class PassengerService {
   public passengers = new BehaviorSubject<IPassengers>({
     adults: [
       {
+        id: 0,
         firstName: '',
         lastName: '',
         gender: 'male',
         dateOfBirth: '',
-        disabled: false,
+        needAssistance: false,
         formIsValid: false,
       },
     ],
     children: [
-      {
+      { 
+        id: 0,
         firstName: '',
         lastName: '',
         gender: 'male',
         dateOfBirth: '',
-        disabled: false,
+        needAssistance: false,
         formIsValid: false,
       },
     ],
     infants: [
       {
+        id: 0,
         firstName: '',
         lastName: '',
         gender: 'male',

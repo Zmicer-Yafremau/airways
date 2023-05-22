@@ -1,15 +1,17 @@
+
 export interface IPassengers {
-  adults: [IPassengerForm];
-  children: [IPassengerForm];
-  infants: [IPassengerForm];
+  adults?: [IPassengerForm];
+  children?: [IPassengerForm];
+  infants?: [IPassengerForm];
 }
 
 export interface IPassengerForm {
+  id: number;
   firstName: string;
   lastName: string;
   gender: 'male' | 'female';
   dateOfBirth: string;
-  disabled?: boolean;
+  needAssistance?: boolean;
   formIsValid: boolean;
 }
 export interface IPassengerContacts {
@@ -18,3 +20,4 @@ export interface IPassengerContacts {
     mail: string;
     formIsValid: boolean;
 }
+export type PassengerType = 'adults' | 'children' | 'infants';

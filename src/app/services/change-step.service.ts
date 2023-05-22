@@ -24,7 +24,13 @@ export class ChangeStepService implements OnInit {
           .map((pasArr) => pasArr.formIsValid)
           .every((isValid) => isValid);
         const passengerContactFormStatus = contacts.formIsValid;
+        console.log(passengerContactFormStatus);
+        console.log(passengerFormsStatus);
         this.continueButtonStatus$.subscribe((status) => {
+          console.log('form serv');
+          console.log(status);
+          console.log(passengerContactFormStatus);
+          console.log(passengerFormsStatus);
           if (status && passengerFormsStatus && passengerContactFormStatus)
             this.changeButtonStatus(false);
         });
