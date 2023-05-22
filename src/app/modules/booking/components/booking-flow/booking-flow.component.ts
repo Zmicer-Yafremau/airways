@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChangeStepService } from 'src/app/services/change-step.service';
+import { ShowEditService } from 'src/app/services/show-edit.service';
 
 enum Step {
   Flights = 'flights',
@@ -15,7 +16,11 @@ enum Step {
 export class BookingFlowComponent {
   public step = Step.Flights;
 
-  public constructor(private stepService: ChangeStepService, public router: Router) {}
+  public constructor(
+    private stepService: ChangeStepService,
+    public router: Router,
+    private editService: ShowEditService,
+  ) {}
 
   public stepForward() {
     if (this.step === Step.Flights) {
@@ -50,6 +55,7 @@ export class BookingFlowComponent {
   }
 
   public stepBack() {
+    this.editService.isEditActive$.next(false);
     if (this.step === Step.Review) {
       this.step = Step.Passengers;
       this.router.navigateByUrl(`booking/step/${this.step}`);

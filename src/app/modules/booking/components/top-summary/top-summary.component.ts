@@ -5,6 +5,7 @@ import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { LocalStorageKeyEnum } from 'src/app/types/LocalStorageValue';
 import { IUserRequestInfo } from 'src/app/types/IUserRequestInfo';
+import { ShowEditService } from 'src/app/services/show-edit.service';
 
 @UntilDestroy()
 @Component({
@@ -17,6 +18,7 @@ export class TopSummaryComponent implements OnInit {
     public getUserRequestService: GetUserRequestInfoService,
     public stepService: ChangeStepService,
     private localStorageService: LocalStorageService,
+    private editService: ShowEditService,
   ) {}
 
   public departureAirport = '';
@@ -71,5 +73,9 @@ export class TopSummaryComponent implements OnInit {
           this.sumPassengers = content.passengers.sum;
         }
       });
+  }
+
+  public editClick() {
+    this.editService.toggleEdit();
   }
 }
