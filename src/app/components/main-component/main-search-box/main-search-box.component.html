@@ -3,7 +3,7 @@
   class="content-wrapper"
   [class.edit]="isHeaderForm"
   [formGroup]="searchFlyForm"
-  (ngSubmit)="onClick()"
+  (ngSubmit)="onSubmit()"
 >
   <mat-radio-group class="radio">
     <mat-radio-button color="primary" value="round" checked (change)="typeOfTrip($event)">

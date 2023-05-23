@@ -8,6 +8,8 @@ export class ShowEditService {
   public isEditActive$ = new BehaviorSubject(false);
 
   public toggleEdit() {
-    this.isEditActive$.next(!this.isEditActive$.value);
+    console.log('do', this.isEditActive$.getValue());
+    this.isEditActive$.next(!this.isEditActive$.getValue());
+    console.log('posle', this.isEditActive$.getValue());
   }
 }
