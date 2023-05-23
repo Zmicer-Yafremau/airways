@@ -7,6 +7,7 @@ export interface IPassengers {
 
 export interface IPassengerForm {
   id: number;
+  passengerType: PassengerType;
   firstName: string;
   lastName: string;
   gender: 'male' | 'female';

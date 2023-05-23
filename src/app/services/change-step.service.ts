@@ -15,27 +15,32 @@ export class ChangeStepService implements OnInit {
 
   public continueButtonStatus$ = new BehaviorSubject<boolean>(false);
 
-  constructor(private passengerService: PassengerService) {}
-
-  public ngOnInit(): void {
+  constructor(public passengerService: PassengerService) {
     this.passengerService.passengers.subscribe((passengers) => {
       this.passengerService.passengerContacts.subscribe((contacts) => {
         const passengerFormsStatus = Object.values(passengers)
-          .map((pasArr) => pasArr.formIsValid)
-          .every((isValid) => isValid);
+          .flat(Infinity)
+          .map((pasArr, i, arr) => {
+            return pasArr.formIsValid;
+          })
+          .every((isValid) => {
+            return isValid;
+          });
         const passengerContactFormStatus = contacts.formIsValid;
-        console.log(passengerContactFormStatus);
-        console.log(passengerFormsStatus);
         this.continueButtonStatus$.subscribe((status) => {
-          console.log('form serv');
-          console.log(status);
-          console.log(passengerContactFormStatus);
-          console.log(passengerFormsStatus);
+          // console.log('form serv');
+          // console.log(status);
+          // console.log(passengerContactFormStatus);
+          // console.log(passengerFormsStatus);
+          // console.log(passengers);
           if (status && passengerFormsStatus && passengerContactFormStatus)
             this.changeButtonStatus(false);
         });
       });
     });
+  }
+
+  public ngOnInit(): void {
   }
 
   public changeStep(value: ISteps) {

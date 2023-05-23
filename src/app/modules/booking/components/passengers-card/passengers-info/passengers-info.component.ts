@@ -38,29 +38,25 @@ export class PassengersInfoComponent implements OnInit {
       gender: [''],
       needAssistance: [''],
     });
-    this.passengerService.passengers.subscribe((passengers) => {
     this.passengerForm.statusChanges.pipe(debounceTime(1000)).subscribe((status) => {
-      console.log('changes');
-        const newPassengers = { ...passengers };
-        (newPassengers[this.passengerType] as [IPassengerForm])[this.passengerId].formIsValid =
-            false;
+
+      console.log('changes from form');
+        const passengerInfo = {
+          id: this.passengerId,
+          passengerType: this.passengerType,
+          firstName: this.passengerForm.value.firstName,
+          lastName: this.passengerForm.value.lastName,
+          gender: this.passengerForm.value.gender,
+          dateOfBirth: this.passengerForm.value.dateOfBirth,
+          needAssistance: this.passengerForm.value.needAssistance,
+          formIsValid: false,
+        }
+        console.log(passengerInfo);
         if (this.passengerForm.valid) {
           console.log('valid info');
-          (newPassengers[this.passengerType] as [IPassengerForm])[this.passengerId].firstName =
-            this.passengerForm.value.firstName;
-          (newPassengers[this.passengerType] as [IPassengerForm])[this.passengerId].lastName =
-            this.passengerForm.value.lastName;
-          (newPassengers[this.passengerType] as [IPassengerForm])[this.passengerId].dateOfBirth =
-            this.passengerForm.value.dateOfBirth;
-          (newPassengers[this.passengerType] as [IPassengerForm])[this.passengerId].gender =
-            this.passengerForm.value.gender;
-          (newPassengers[this.passengerType] as [IPassengerForm])[this.passengerId].needAssistance =
-            this.passengerForm.value.needAssistance;
-          (newPassengers[this.passengerType] as [IPassengerForm])[this.passengerId].formIsValid =
-            true;
+          passengerInfo.formIsValid = true;
         } 
-        this.passengerService.addPassengers(newPassengers);
+        this.passengerService.addPassengerForm(passengerInfo);
       });
-    });
   }
 }
