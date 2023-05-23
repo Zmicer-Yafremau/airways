@@ -69,6 +69,9 @@ export class MainSearchBoxComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this.getUserRequestService.getUserRequestInfo().subscribe((value) => {
+      if (value) this.roundTrip = value.roundTrip;
+    });
     this.searchFlyForm = this.fb.group({
       from: ['', [Validators.required]],
       destination: ['', [Validators.required]],
@@ -104,7 +107,11 @@ export class MainSearchBoxComponent implements OnInit {
 
   public onSubmit() {
     if (this.searchFlyForm.valid && this.passengers.sum > 0) {
-      this.requestInfo = { ...this.searchFlyForm.value, passengers: this.passengers };
+      this.requestInfo = {
+        ...this.searchFlyForm.value,
+        passengers: this.passengers,
+        roundTrip: this.roundTrip,
+      };
       this.getUserRequestService.setUserRequestInfo(this.requestInfo);
       this.router.navigateByUrl('/booking');
       if (this.isHeaderForm) this.editService.isEditActive$.next(false);
@@ -113,6 +120,7 @@ export class MainSearchBoxComponent implements OnInit {
 
   public typeOfTrip(e: MatRadioChange) {
     this.roundTrip = e.value === 'round';
+    console.log(this.roundTrip);
   }
 
   public handlePassengersChange(newPassengers: IPassengers) {

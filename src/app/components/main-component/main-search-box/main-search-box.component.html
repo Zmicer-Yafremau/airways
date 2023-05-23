@@ -6,10 +6,20 @@
   (ngSubmit)="onSubmit()"
 >
   <mat-radio-group class="radio">
-    <mat-radio-button color="primary" value="round" checked (change)="typeOfTrip($event)">
+    <mat-radio-button
+      color="primary"
+      value="round"
+      [checked]="roundTrip"
+      (change)="typeOfTrip($event)"
+    >
       Round Trip
     </mat-radio-button>
-    <mat-radio-button color="primary" value="oneway" (change)="typeOfTrip($event)">
+    <mat-radio-button
+      color="primary"
+      value="oneway"
+      [checked]="!roundTrip"
+      (change)="typeOfTrip($event)"
+    >
       One Way
     </mat-radio-button>
   </mat-radio-group>
