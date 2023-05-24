@@ -2,6 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ISteps } from '../types/ISteps';
 import { PassengerService } from './passenger.service';
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -17,22 +18,27 @@ export class ChangeStepService implements OnInit {
 
   constructor(public passengerService: PassengerService) {
     this.passengerService.passengers.subscribe((passengers) => {
+      // console.log('from step', passengers);
+      const passClone = _.cloneDeep(passengers);
       this.passengerService.passengerContacts.subscribe((contacts) => {
-        const passengerFormsStatus = Object.values(passengers)
+        // console.log('contacts!!!');
+        const passengerFormsStatus = Object.values(passClone)
           .flat(Infinity)
-          .map((pasArr, i, arr) => {
+          .filter((el)=>el)
+          .map((pasArr) => {
             return pasArr.formIsValid;
           })
           .every((isValid) => {
             return isValid;
           });
         const passengerContactFormStatus = contacts.formIsValid;
+        // console.log(passengerContactFormStatus);
         this.continueButtonStatus$.subscribe((status) => {
           // console.log('form serv');
           // console.log(status);
           // console.log(passengerContactFormStatus);
           // console.log(passengerFormsStatus);
-          // console.log(passengers);
+          // console.log(passClone);
           if (status && passengerFormsStatus && passengerContactFormStatus)
             this.changeButtonStatus(false);
         });

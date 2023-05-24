@@ -6,6 +6,7 @@ import { IPassengerForm, PassengerType } from 'src/app/models/passenger-model';
 import { ChangeStepService } from 'src/app/services/change-step.service';
 import { PassengerService } from 'src/app/services/passenger.service';
 import { Validator } from 'src/app/shared/validators/validator';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-passengers-info',
@@ -35,12 +36,25 @@ export class PassengersInfoComponent implements OnInit {
       firstName: ['', [Validators.required, Validator.nameValidator]],
       lastName: ['', [Validators.required, Validator.nameValidator]],
       dateOfBirth: ['', [Validators.required]],
-      gender: [''],
-      needAssistance: [''],
+      gender: ['male'],
+      needAssistance: [false],
+    });
+    this.passengerService.passengers.subscribe((passengers)=>{
+      console.log('from info')
+      const passengersClone = _.cloneDeep(passengers);
+      console.log(passengersClone);
+      if((passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId]) {
+        console.log('from info if');
+        this.passengerForm.value.firstName = (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId].firstName;
+        this.passengerForm.value.lastName = (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId].lastName;
+        this.passengerForm.value.gender = (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId].gender;
+        this.passengerForm.value.dateOfBirth = (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId].dateOfBirth;
+      }
+      
     });
     this.passengerForm.statusChanges.pipe(debounceTime(1000)).subscribe((status) => {
 
-      console.log('changes from form');
+      // console.log('changes from form');
         const passengerInfo = {
           id: this.passengerId,
           passengerType: this.passengerType,
@@ -53,7 +67,7 @@ export class PassengersInfoComponent implements OnInit {
         }
         console.log(passengerInfo);
         if (this.passengerForm.valid) {
-          console.log('valid info');
+          // console.log('valid info');
           passengerInfo.formIsValid = true;
         } 
         this.passengerService.addPassengerForm(passengerInfo);

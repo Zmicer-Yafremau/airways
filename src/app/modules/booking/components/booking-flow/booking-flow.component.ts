@@ -32,6 +32,7 @@ export class BookingFlowComponent implements OnInit{
         passengers: 'active',
         review: 'inactive',
       });
+      this.stepService.changeButtonStatus(false);
       return this.step;
     }
     if (this.step === Step.Passengers) {
@@ -42,6 +43,7 @@ export class BookingFlowComponent implements OnInit{
         passengers: 'done',
         review: 'active',
       });
+      this.stepService.changeButtonStatus(true);
       return this.step;
     }
     if (this.step === Step.Review) {
@@ -50,6 +52,7 @@ export class BookingFlowComponent implements OnInit{
         passengers: 'done',
         review: 'active',
       });
+      this.stepService.changeButtonStatus(false);
       return this.step;
     }
     return this.step;
