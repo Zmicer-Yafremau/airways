@@ -1,7 +1,7 @@
 import { AuthService } from 'src/app/services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
 import { ShowEditService } from 'src/app/services/show-edit.service';
@@ -43,11 +43,13 @@ export class HeaderComponent implements OnInit {
     this.router.events
       .pipe(
         untilDestroyed(this),
-        filter((event) => event instanceof NavigationStart),
+        filter((event) => event instanceof NavigationEnd),
       )
       .subscribe((event) => {
-        const e = event as NavigationStart;
-        if (!e.url.includes('flights')) {
+        console.log(event);
+        const e = event as NavigationEnd;
+        if (!e.urlAfterRedirects.includes('flights')) {
+          console.log('router', this.router.url);
           this.isEdit$.next(false);
         }
       });

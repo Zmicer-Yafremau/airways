@@ -69,6 +69,9 @@ export class MainSearchBoxComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
+    this.getUserRequestService.getUserRequestInfo().subscribe((value) => {
+      if (value) this.roundTrip = value.roundTrip;
+    });
     this.searchFlyForm = this.fb.group({
       from: ['', [Validators.required]],
       destination: ['', [Validators.required]],
@@ -89,44 +92,42 @@ export class MainSearchBoxComponent implements OnInit {
           const toSelectFrom = airports.find((airport) => airport.key === userInfo.from);
           const toSelectDest = airports.find((airport) => airport.key === userInfo.destination);
           this.startDate = userInfo.departureDate;
-          console.log(toSelectFrom, toSelectDest);
 
           // this.searchFlyForm.get('from')?.setValue(toSelectFrom?.city);
           // this.searchFlyForm.get('destination')?.setValue(toSelectDest?.city);
           if (toSelectFrom) {
             this.airportDepartureNameForSelectHeader = toSelectFrom.city;
-            console.log(
-              'this.airportDepartureNameForSelectHeader',
-              this.airportDepartureNameForSelectHeader,
-            );
           }
           if (toSelectDest) this.airportArrivalNameForSelectHeader = toSelectDest.city;
         });
       }
     }
+    console.log(this.editService.isEditActive$.getValue());
   }
 
-  public onClick() {
+  public onSubmit() {
     if (this.searchFlyForm.valid && this.passengers.sum > 0) {
-      this.requestInfo = { ...this.searchFlyForm.value, passengers: this.passengers };
+      this.requestInfo = {
+        ...this.searchFlyForm.value,
+        passengers: this.passengers,
+        roundTrip: this.roundTrip,
+      };
       this.getUserRequestService.setUserRequestInfo(this.requestInfo);
       this.router.navigateByUrl('/booking');
-      if (this.isHeaderForm) this.editService.toggleEdit();
+      if (this.isHeaderForm) this.editService.isEditActive$.next(false);
     }
   }
 
   public typeOfTrip(e: MatRadioChange) {
     this.roundTrip = e.value === 'round';
+    console.log(this.roundTrip);
   }
 
   public handlePassengersChange(newPassengers: IPassengers) {
     this.passengers = { ...newPassengers };
-    console.log('new passengers', this.passengers);
   }
 
-  public reverse() {
-    console.log('reverse');
-  }
+  public reverse() {}
 
   public getAirportDepartureNameForSelectHeader(text: string) {
     this.airportDepartureNameForSelectHeader = text;
