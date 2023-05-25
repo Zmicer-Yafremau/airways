@@ -1,0 +1,54 @@
+<div class="main-wrapper">
+  <div class="container-trip">
+    <mat-checkbox class="check-box">
+      <span class="check-box-name">{{ flightCode }}</span>
+    </mat-checkbox>
+
+    <div class="trip-wrapper">
+      <div class="one-way">
+        <span>{{ from }}</span>
+        -
+        <span>{{ destination }}</span>
+      </div>
+
+      <div *ngIf="roundTrip === 'Round trip'" class="one-way">
+        <span>{{ destination }}</span>
+        -
+        <span>{{ from }}</span>
+      </div>
+    </div>
+
+    <span>{{ roundTrip }}</span>
+
+    <div class="date-wrapper">
+      <div class="one-way-date">
+        <span>{{ dateDeparture | date : 'd MMM, y' }}</span>
+      </div>
+
+      <div *ngIf="roundTrip === 'Round trip'" class="one-way-date">
+        <span>{{ dateArrival | date : 'd MMM, y' }}</span>
+      </div>
+    </div>
+
+    <div class="passengers-wrapper">
+      <span *ngIf="passengers.adults">Adults x {{ passengers.adults }}</span>
+      <span *ngIf="passengers.children">Children x {{ passengers.children }}</span>
+      <span *ngIf="passengers.infants">Infants x {{ passengers.infants }}</span>
+    </div>
+
+    <span>{{ price | currency : userCurrency }}</span>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <span>Delete</span>
+      </button>
+      <button mat-menu-item>
+        <span>Edit</span>
+      </button>
+    </mat-menu>
+  </div>
+  <div class="bottom-line"></div>
+</div>

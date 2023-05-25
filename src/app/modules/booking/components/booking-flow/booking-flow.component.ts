@@ -51,6 +51,7 @@ export class BookingFlowComponent {
       });
       return this.step;
     }
+    console.log(this.step);
     return this.step;
   }
 
