@@ -55,8 +55,9 @@ export class FlightCardComponent implements OnInit, OnChanges {
       });
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['flightInfo']) {
+  public ngOnChanges({ flightInfo }: SimpleChanges) {
+    if (flightInfo && this.key) {
+      this.flightInfoService.changeFieldState(false, this.key);
       this.seats$.next(this.flightInfo?.seats || 0);
     }
   }
@@ -76,8 +77,6 @@ export class FlightCardComponent implements OnInit, OnChanges {
     if (mins) {
       const hours = mins < 59 ? 0 : Math.floor(mins / 60);
       const minutes = mins - 60 * hours;
-
-      console.log(hours, minutes);
 
       if (hours && minutes) {
         return `${hours}h ${this.getMinutes(minutes)}m`;

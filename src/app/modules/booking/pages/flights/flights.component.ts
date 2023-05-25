@@ -58,7 +58,6 @@ export class FlightsComponent implements OnInit {
         const lsValue = this.localStorageService.getValue(LocalStorageKeyEnum.STEP_1);
 
         let body: RequestBody | null = null;
-        console.log('1', content);
 
         if (content) {
           body = {
@@ -85,7 +84,8 @@ export class FlightsComponent implements OnInit {
       .getFlightInfo()
       .pipe(untilDestroyed(this))
       .subscribe((content) => {
-        console.log(content);
+        this.showArrivalSlider = true;
+        this.showDepartureSlider = true;
 
         if (content) {
           this.allFlights = this.getAllFlights(content);

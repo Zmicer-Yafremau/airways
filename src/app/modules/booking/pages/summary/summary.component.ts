@@ -55,13 +55,10 @@ export class SummaryComponent implements OnInit {
         }),
         mergeMap(() => this.flight$),
         tap((flight) => {
-          console.log('flight', flight);
-
           if (flight && flight.forward) {
             const forwardPrice = flight?.forward?.price[this.currency];
             const backPrice = flight?.back ? flight.back.price[this.currency] : undefined;
             this.passengerPrice = getPrice(forwardPrice, backPrice);
-            console.log('this.passengerPrice', this.passengerPrice);
           }
         }),
       )
