@@ -1,7 +1,7 @@
 <form *ngIf="contactForm" [formGroup]="contactForm" class="passenger__form">
         <mat-form-field appearance="fill">
           <mat-label>Country code</mat-label>
-          <mat-select [formControl]="codeControl">
+          <mat-select formControlName="countryCode" [(value)]="selected">
             <mat-option value="+93">Afghanistan (+93)</mat-option>
             <mat-option value="+1">Anguilla (+1)</mat-option>
             <mat-option value="+54">Argentina (+54)</mat-option>

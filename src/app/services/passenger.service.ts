@@ -1,12 +1,12 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IPassengers, IPassengerContacts, IPassengerForm } from '../models/passenger-model';
 import * as _ from 'lodash';
+import { IPassengers, IPassengerContacts, IPassengerForm } from '../models/passenger-model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class PassengerService implements OnInit {
+export class PassengerService {
   public passengers = new BehaviorSubject<IPassengers>({
     adults: undefined,
     children: undefined,
@@ -14,7 +14,7 @@ export class PassengerService implements OnInit {
   });
 
   public passengerContacts = new BehaviorSubject<IPassengerContacts>({
-    countryCode: '',
+    countryCode: '+93',
     phone: '',
     mail: '',
     formIsValid: false,
@@ -30,12 +30,6 @@ export class PassengerService implements OnInit {
     needAssistance: false,
     formIsValid: false,
   });
-
-  public constructor() {}
-
-  public ngOnInit(): void {
-    console.log('hello from passengers');
-  }
 
   public addPassengerContact(contact: IPassengerContacts) {
     this.passengerContacts.next(contact);
@@ -66,11 +60,32 @@ export class PassengerService implements OnInit {
       }
       // console.log('from ex else');
       if (newPassengers[passengerForm.passengerType]) {
+        // console.log('serv',newPassengers);
+        // console.log('value',passengerForm);
         (newPassengers[passengerForm.passengerType] as [IPassengerForm])[passengerForm.id] =
           passengerForm;
-      } else {
-        (newPassengers[passengerForm.passengerType] as [IPassengerForm]) = [passengerForm];
-      }
+      } else if (passengerForm.id) {
+        const passengerMock = [];
+        for (let i = 0; i < passengerForm.id + 1; i += 1) {
+          if (i === passengerForm.id) {
+            passengerMock.push(passengerForm);
+          } else {
+            passengerMock.push({
+              id: i,
+              passengerType: passengerForm.passengerType,
+              firstName: '',
+              lastName: '',
+              gender: 'male',
+              dateOfBirth: '',
+              needAssistance: false,
+              formIsValid: false,
+            });
+          }
+        }
+        (newPassengers[passengerForm.passengerType] as [IPassengerForm]) = passengerMock as [
+          IPassengerForm,
+        ];
+      } else (newPassengers[passengerForm.passengerType] as [IPassengerForm]) = [passengerForm];
       // console.log('else', newPassengers);
       this.addPassengers(newPassengers);
     });

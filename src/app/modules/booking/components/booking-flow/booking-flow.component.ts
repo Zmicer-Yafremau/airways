@@ -12,7 +12,7 @@ enum Step {
   templateUrl: './booking-flow.component.html',
   styleUrls: ['./booking-flow.component.scss'],
 })
-export class BookingFlowComponent implements OnInit{
+export class BookingFlowComponent implements OnInit {
   public step = Step.Flights;
 
   public continueButtonStatus = false;
@@ -20,7 +20,9 @@ export class BookingFlowComponent implements OnInit{
   public constructor(private stepService: ChangeStepService, public router: Router) {}
 
   public ngOnInit(): void {
-    this.stepService.continueButtonStatus$.subscribe(status => this.continueButtonStatus = status);
+    this.stepService.continueButtonStatus$.subscribe((status) => {
+      this.continueButtonStatus = status;
+    });
   }
 
   public stepForward() {
@@ -32,7 +34,6 @@ export class BookingFlowComponent implements OnInit{
         passengers: 'active',
         review: 'inactive',
       });
-      this.stepService.changeButtonStatus(false);
       return this.step;
     }
     if (this.step === Step.Passengers) {
@@ -52,7 +53,6 @@ export class BookingFlowComponent implements OnInit{
         passengers: 'done',
         review: 'active',
       });
-      this.stepService.changeButtonStatus(false);
       return this.step;
     }
     return this.step;

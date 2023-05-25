@@ -17,3 +17,4 @@ export interface IRegUser {
 export interface IToken {
   token: string;
 }
+    

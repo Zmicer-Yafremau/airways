@@ -19,7 +19,7 @@ export class PassengersCardComponent implements OnInit {
 
   public ngOnInit() {
     this.stepService.changeButtonStatus(true);
-    console.log(`changed!`);
+    // console.log(`changed!`);
     this.getUser.userRequestInfo.subscribe((user) => {
       const values = Object.values(user.passengers);
       const adults = Array(values[0]).fill('adults') as [PassengerType];

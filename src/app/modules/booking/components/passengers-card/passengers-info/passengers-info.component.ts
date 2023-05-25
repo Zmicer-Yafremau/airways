@@ -14,9 +14,9 @@ import * as _ from 'lodash';
   styleUrls: ['./passengers-info.component.scss'],
 })
 export class PassengersInfoComponent implements OnInit {
-  @Input() passengerType!: PassengerType;
+  @Input() public passengerType!: PassengerType;
 
-  @Input() passengerId!: number;
+  @Input() public passengerId!: number;
 
   public color: ThemePalette = 'primary';
 
@@ -36,41 +36,55 @@ export class PassengersInfoComponent implements OnInit {
       firstName: ['', [Validators.required, Validator.nameValidator]],
       lastName: ['', [Validators.required, Validator.nameValidator]],
       dateOfBirth: ['', [Validators.required]],
-      gender: ['male'],
+      gender: ['', [Validators.required]],
       needAssistance: [false],
     });
-    this.passengerService.passengers.subscribe((passengers)=>{
-      console.log('from info')
-      const passengersClone = _.cloneDeep(passengers);
-      console.log(passengersClone);
-      if((passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId]) {
-        console.log('from info if');
-        this.passengerForm.value.firstName = (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId].firstName;
-        this.passengerForm.value.lastName = (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId].lastName;
-        this.passengerForm.value.gender = (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId].gender;
-        this.passengerForm.value.dateOfBirth = (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId].dateOfBirth;
-      }
-      
-    });
-    this.passengerForm.statusChanges.pipe(debounceTime(1000)).subscribe((status) => {
 
+    this.passengerService.passengers.subscribe((passengers) => {
+      // console.log('from info');
+      // console.log(passengers);
+      const passengersClone = _.cloneDeep(passengers);
+      // console.log(passengersClone);
+      if ((passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId]) {
+        // console.log('from info if');
+        // console.log((passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId]);
+        const genderFromService = (passengersClone[this.passengerType] as [IPassengerForm])[
+          this.passengerId
+        ].gender
+          ? (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId].gender
+          : 'male';
+        this.passengerForm.setValue({
+          firstName: (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId]
+            .firstName,
+          lastName: (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId]
+            .lastName,
+          dateOfBirth: (passengersClone[this.passengerType] as [IPassengerForm])[this.passengerId]
+            .dateOfBirth,
+          gender: genderFromService,
+          needAssistance: (passengersClone[this.passengerType] as [IPassengerForm])[
+            this.passengerId
+          ].needAssistance,
+        });
+      }
+    });
+    this.passengerForm.statusChanges.pipe(debounceTime(1000)).subscribe(() => {
       // console.log('changes from form');
-        const passengerInfo = {
-          id: this.passengerId,
-          passengerType: this.passengerType,
-          firstName: this.passengerForm.value.firstName,
-          lastName: this.passengerForm.value.lastName,
-          gender: this.passengerForm.value.gender,
-          dateOfBirth: this.passengerForm.value.dateOfBirth,
-          needAssistance: this.passengerForm.value.needAssistance,
-          formIsValid: false,
-        }
-        console.log(passengerInfo);
-        if (this.passengerForm.valid) {
-          // console.log('valid info');
-          passengerInfo.formIsValid = true;
-        } 
-        this.passengerService.addPassengerForm(passengerInfo);
-      });
+      const passengerInfo = {
+        id: this.passengerId,
+        passengerType: this.passengerType,
+        firstName: this.passengerForm.value.firstName,
+        lastName: this.passengerForm.value.lastName,
+        gender: this.passengerForm.value.gender ? this.passengerForm.value.gender : 'male',
+        dateOfBirth: this.passengerForm.value.dateOfBirth,
+        needAssistance: this.passengerForm.value.needAssistance,
+        formIsValid: false,
+      };
+      // console.log(this.passengerId);
+      if (this.passengerForm.valid) {
+        // console.log('valid info');
+        passengerInfo.formIsValid = true;
+      }
+      this.passengerService.addPassengerForm(passengerInfo);
+    });
   }
 }

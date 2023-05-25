@@ -1,4 +1,3 @@
-
 export interface IPassengers {
   adults?: [IPassengerForm];
   children?: [IPassengerForm];
@@ -16,9 +15,10 @@ export interface IPassengerForm {
   formIsValid: boolean;
 }
 export interface IPassengerContacts {
-    countryCode: string;
-    phone: string;
-    mail: string;
-    formIsValid: boolean;
+  countryCode: string;
+  phone: string;
+  mail: string;
+  formIsValid: boolean;
 }
 export type PassengerType = 'adults' | 'children' | 'infants';
+

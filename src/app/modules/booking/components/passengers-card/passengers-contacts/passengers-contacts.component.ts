@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { ThemePalette } from '@angular/material/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs';
-import { ChangeStepService } from 'src/app/services/change-step.service';
 import { PassengerService } from 'src/app/services/passenger.service';
 import { Validator } from 'src/app/shared/validators/validator';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-passengers-contacts',
@@ -16,7 +15,7 @@ export class PassengersContactsComponent implements OnInit {
 
   public contactForm!: FormGroup;
 
-  public codeControl = new FormControl('+93' as ThemePalette);
+  public selected = '+93';
 
   public constructor(public fb: FormBuilder, public passengerService: PassengerService) {}
 
@@ -24,19 +23,31 @@ export class PassengersContactsComponent implements OnInit {
     this.contactForm = this.fb.group({
       contactEmail: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validator.phoneValidator]],
+      countryCode: ['+93'],
     });
-    this.contactForm.statusChanges.pipe(debounceTime(1000)).subscribe((status) => {
-      console.log('contactChange');
-      this.passengerService.addPassengerContact({
-        countryCode: '',
-        phone: '',
-        mail: '',
+    this.passengerService.passengerContacts.subscribe((passengersContacts)=>{
+      // console.log('from info');
+      const passengersContactsClone = _.cloneDeep(passengersContacts);
+      if(passengersContactsClone) {
+        // console.log('from info if');
+        this.contactForm.setValue({
+          contactEmail: passengersContactsClone.mail,
+          phone:passengersContactsClone.phone,
+          countryCode: passengersContactsClone.countryCode,
+        });            }
+    });
+    this.contactForm.statusChanges.pipe(debounceTime(1000)).subscribe(() => {
+      // console.log('contactChange');
+     this.passengerService.addPassengerContact({
+        countryCode: this.contactForm.value.countryCode, 
+        phone: this.contactForm.value.phone,
+        mail: this.contactForm.value.contactEmail,
         formIsValid: false,
       });
       if (this.contactForm.valid) {
-        console.log('valid contacts');
+        // console.log('valid contacts');
         this.passengerService.addPassengerContact({
-          countryCode: this.codeControl.value as string,
+          countryCode: this.contactForm.value.countryCode, 
           phone: this.contactForm.value.phone,
           mail: this.contactForm.value.contactEmail,
           formIsValid: true,
