@@ -17,10 +17,10 @@ export class FlightInfoService {
 
   private userFlightInfo: null | IUserFlightInfo = null;
 
-  private fieldsState = {
-    forward: false,
-    back: false,
-  };
+  private fieldsState: {
+    forward?: boolean;
+    back?: boolean;
+  } | null = null;
 
   public isAllFieldsValid$ = new BehaviorSubject(false);
 
@@ -59,7 +59,7 @@ export class FlightInfoService {
   }
 
   public changeFieldState(value: boolean, key: Key) {
-    this.fieldsState = { ...this.fieldsState, [key]: value };
+    this.fieldsState = this.fieldsState ? { ...this.fieldsState, [key]: value } : { [key]: value };
     this.isAllFieldsValid$.next(Object.values(this.fieldsState).every((el) => el));
   }
 
