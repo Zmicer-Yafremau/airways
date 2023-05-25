@@ -1,0 +1,61 @@
+@import 'variables';
+
+.summary {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+
+  .title {
+    display: flex;
+    column-gap: 12px;
+    align-items: center;
+    margin: 0;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+    color: $primary;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 552px;
+  }
+
+  .trip {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .summary-wrapper {
+    display: flex;
+    justify-content: flex-end;
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      padding: 24px 0;
+      box-shadow: 0 1px 4px rgb(0 0 0 / 20%);
+      row-gap: 16px;
+
+      app-summary-item {
+        padding: 0 40px;
+      }
+
+      .total {
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid $secondary50;
+        padding: 20px 40px 0;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24px;
+        letter-spacing: 0.5px;
+
+        .price {
+          color: $primary;
+        }
+      }
+    }
+  }
+}

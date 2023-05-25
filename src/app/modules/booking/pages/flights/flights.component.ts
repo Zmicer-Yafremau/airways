@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { FlightInfoService, RequestBody } from 'src/app/services/flight-info.service';
+import { FlightInfoService } from 'src/app/services/flight-info.service';
 import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { IFlightInfo } from 'src/app/types/IFlightInfo';
+import { IFlightInfo, RequestBody } from 'src/app/types/IFlightInfo';
 import { IFlight, IFlights } from 'src/app/types/IFlights';
 import { ISliderInfo } from 'src/app/types/ISliderInfo';
 import { LocalStorageKeyEnum } from 'src/app/types/LocalStorageValue';
@@ -58,12 +58,14 @@ export class FlightsComponent implements OnInit {
         const lsValue = this.localStorageService.getValue(LocalStorageKeyEnum.STEP_1);
 
         let body: RequestBody | null = null;
+        console.log('1', content);
+
         if (content) {
           body = {
             fromKey: content.from,
             toKey: content.destination,
             forwardDate: getUTCDate(content.departureDate),
-            backDate: getUTCDate(content.departureReturnDate),
+            backDate: content.departureReturnDate ? getUTCDate(content.departureReturnDate) : '',
           };
 
           this.localStorageService.setValue({

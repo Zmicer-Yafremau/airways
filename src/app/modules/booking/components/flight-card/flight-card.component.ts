@@ -62,6 +62,7 @@ export class FlightCardComponent implements OnInit, OnChanges {
     const key = this.isBack ? 'back' : 'forward';
     if (this.flightInfo) {
       this.flightInfoService.setUserFlightInfo(this.flightInfo, key);
+      this.flightInfoService.changeFieldState(!this.showSlider, key);
     }
   }
 
