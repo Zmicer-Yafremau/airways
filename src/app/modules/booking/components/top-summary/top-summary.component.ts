@@ -2,9 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ChangeStepService } from 'src/app/services/change-step.service';
 import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { LocalStorageService } from 'src/app/services/local-storage.service';
-import { LocalStorageKeyEnum } from 'src/app/types/LocalStorageValue';
-import { IUserRequestInfo } from 'src/app/types/IUserRequestInfo';
 import { ShowEditService } from 'src/app/services/show-edit.service';
 
 @UntilDestroy()
@@ -17,7 +14,6 @@ export class TopSummaryComponent implements OnInit {
   public constructor(
     public getUserRequestService: GetUserRequestInfoService,
     public stepService: ChangeStepService,
-    private localStorageService: LocalStorageService,
     private editService: ShowEditService,
   ) {}
 
@@ -43,23 +39,8 @@ export class TopSummaryComponent implements OnInit {
     this.getUserRequestService
       .getUserRequestInfo()
       .pipe(untilDestroyed(this))
-      .subscribe((info) => {
-        const lsValue = this.localStorageService.getValue(LocalStorageKeyEnum.TOP_SUMMARY);
-
-        let content: IUserRequestInfo | null = null;
-
-        if (info) {
-          content = info;
-        } else if (lsValue) {
-          content = JSON.parse(lsValue);
-        }
-
+      .subscribe((content) => {
         if (content) {
-          this.localStorageService.setValue({
-            key: LocalStorageKeyEnum.TOP_SUMMARY,
-            value: content,
-          });
-
           this.departureAirport = content.from;
 
           this.arrivalAirport = content.destination;

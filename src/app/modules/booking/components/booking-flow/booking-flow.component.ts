@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChangeStepService } from 'src/app/services/change-step.service';
+import { FlightInfoService } from 'src/app/services/flight-info.service';
 import { ShowEditService } from 'src/app/services/show-edit.service';
 
 enum Step {
@@ -16,10 +17,15 @@ enum Step {
 export class BookingFlowComponent {
   public step = Step.Flights;
 
+  public isFlightsBtnValid = this.flightInfoService.getFieldsState();
+
+  public stepEnum = Step;
+
   public constructor(
     private stepService: ChangeStepService,
     public router: Router,
     private editService: ShowEditService,
+    private flightInfoService: FlightInfoService,
   ) {}
 
   public stepForward() {

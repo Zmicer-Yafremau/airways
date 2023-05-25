@@ -1,9 +1,10 @@
-import { RequestBody } from '../services/flight-info.service';
+import { IUserFlightInfo, RequestBody } from './IFlightInfo';
 import { IUserRequestInfo } from './IUserRequestInfo';
 
 export enum LocalStorageKeyEnum {
   STEP_1 = 'step1',
   TOP_SUMMARY = 'top summary',
+  USER_FLIGHT_INFO = 'user flight info',
 }
 
 interface IStep1 {
@@ -16,4 +17,9 @@ interface TopSummary {
   value: IUserRequestInfo;
 }
 
-export type LocalStorageValue = IStep1 | TopSummary;
+interface UserFlightInfo {
+  key: LocalStorageKeyEnum.USER_FLIGHT_INFO;
+  value: IUserFlightInfo;
+}
+
+export type LocalStorageValue = IStep1 | TopSummary | UserFlightInfo;

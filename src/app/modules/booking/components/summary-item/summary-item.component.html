@@ -1,0 +1,12 @@
+<div class="summary-table">
+  <span> {{ quantity }} x {{ type }} Fare </span>
+  <span>{{ price | currency : (currency | customCurrency) }}</span>
+  <span>
+    {{ 'Fare' }}
+  </span>
+  <span>{{ price * 0.355 | currency : (currency | customCurrency) }}</span>
+  <span>
+    {{ 'Tax & Service Charge' }}
+  </span>
+  <span>{{ price - price * 0.355 | currency : (currency | customCurrency) }}</span>
+</div>

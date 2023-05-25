@@ -20,3 +20,10 @@ export interface IUserFlightInfo {
   forward?: IFlightInfo;
   back?: IFlightInfo;
 }
+
+export interface RequestBody {
+  fromKey: string;
+  toKey: string;
+  forwardDate: string;
+  backDate: string;
+}

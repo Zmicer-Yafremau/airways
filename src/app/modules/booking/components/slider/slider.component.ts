@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  OnChanges,
+  SimpleChanges,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ISliderInfo } from 'src/app/types/ISliderInfo';
 import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
@@ -19,7 +27,7 @@ interface IFlights {
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss'],
 })
-export class SliderComponent implements OnInit {
+export class SliderComponent implements OnInit, OnChanges {
   private flightsInfoList: IFlights[] = [];
 
   @Output() private changeSelection = new EventEmitter();
@@ -41,14 +49,24 @@ export class SliderComponent implements OnInit {
   public constructor(private dateCurrencyFormatService: GetDateCurrencyFormatService) {}
 
   public ngOnInit() {
-    this.findFlights();
-    this.checkedDate = this.date;
+    this.getSlider();
 
     this.dateCurrencyFormatService.dateCurrencyFormat$
       .pipe(untilDestroyed(this))
       .subscribe(({ currency }) => {
         this.currency = currency as Currency;
       });
+  }
+
+  public ngOnChanges({ flights }: SimpleChanges): void {
+    if (flights) {
+      this.getSlider();
+    }
+  }
+
+  private getSlider() {
+    this.findFlights();
+    this.checkedDate = this.date;
   }
 
   public moveSlider(step: number) {

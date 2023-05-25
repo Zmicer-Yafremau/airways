@@ -11,6 +11,9 @@ import { SliderComponent } from './components/slider/slider.component';
 import { FlightCardComponent } from './components/flight-card/flight-card.component';
 import { BookingComponent } from './booking.component';
 import { FlightsComponent } from './pages/flights/flights.component';
+import { SummaryComponent } from './pages/summary/summary.component';
+import { TripCardComponent } from './components/trip-card/trip-card.component';
+import { SummaryItemComponent } from './components/summary-item/summary-item.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { FlightsComponent } from './pages/flights/flights.component';
     TopSummaryComponent,
     FlightsComponent,
     CustomCurrencyPipe,
+    SummaryComponent,
+    TripCardComponent,
+    SummaryItemComponent,
   ],
   imports: [CommonModule, BookingRoutingModule, MatButtonModule],
   exports: [QuantityIndicatorDirective],

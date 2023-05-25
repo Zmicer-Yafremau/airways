@@ -22,7 +22,7 @@ export class QuantityIndicatorDirective implements OnInit, OnChanges {
   }
 
   private getElementColor(): string {
-    if (this.quantity > 50) {
+    if (this.quantity > 100) {
       return this.withOpacity ? INDICATOR_COLOR.yellowOpacity : INDICATOR_COLOR.yellow;
     }
 

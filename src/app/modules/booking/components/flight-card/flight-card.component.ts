@@ -21,6 +21,8 @@ import { IFlightInfo } from '../../../../types/IFlightInfo';
   styleUrls: ['./flight-card.component.scss'],
 })
 export class FlightCardComponent implements OnInit, OnChanges {
+  private key?: 'back' | 'forward';
+
   @Input() public showSlider = true;
 
   @Output() public showSliderChange = new EventEmitter<boolean>();
@@ -41,6 +43,9 @@ export class FlightCardComponent implements OnInit, OnChanges {
   ) {}
 
   public ngOnInit() {
+    this.key = this.isBack ? 'back' : 'forward';
+    this.flightInfoService.changeFieldState(false, this.key);
+
     this.flightTime = this.getFlightTime();
 
     this.dateCurrencyFormatService.dateCurrencyFormat$
@@ -50,8 +55,9 @@ export class FlightCardComponent implements OnInit, OnChanges {
       });
   }
 
-  public ngOnChanges(changes: SimpleChanges) {
-    if (changes['flightInfo']) {
+  public ngOnChanges({ flightInfo }: SimpleChanges) {
+    if (flightInfo && this.key) {
+      this.flightInfoService.changeFieldState(false, this.key);
       this.seats$.next(this.flightInfo?.seats || 0);
     }
   }
@@ -59,9 +65,9 @@ export class FlightCardComponent implements OnInit, OnChanges {
   public onClick() {
     this.showSlider = !this.showSlider;
     this.showSliderChange.emit(this.showSlider);
-    const key = this.isBack ? 'back' : 'forward';
-    if (this.flightInfo) {
-      this.flightInfoService.setUserFlightInfo(this.flightInfo, key);
+    if (this.flightInfo && this.key) {
+      this.flightInfoService.setUserFlightInfo(this.flightInfo, this.key);
+      this.flightInfoService.changeFieldState(!this.showSlider, this.key);
     }
   }
 
@@ -71,8 +77,6 @@ export class FlightCardComponent implements OnInit, OnChanges {
     if (mins) {
       const hours = mins < 59 ? 0 : Math.floor(mins / 60);
       const minutes = mins - 60 * hours;
-
-      console.log(hours, minutes);
 
       if (hours && minutes) {
         return `${hours}h ${this.getMinutes(minutes)}m`;
