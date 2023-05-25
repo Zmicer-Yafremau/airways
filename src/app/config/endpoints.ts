@@ -1,4 +1,7 @@
+// const URL = 'https://api.air-ways.online';
+const URL = 'https://api2.air-ways.online';
+
 export const ENDPOINTS = {
-  allAirports: 'https://api.air-ways.online/search/airport',
-  flight: 'https://api2.air-ways.online/search/flight',
+  allAirports: `${URL}/search/airport`,
+  flight: `${URL}/search/flight`,
 };

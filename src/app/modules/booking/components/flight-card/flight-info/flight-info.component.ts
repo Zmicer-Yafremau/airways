@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { getTimeZone } from 'src/app/utils/booking/getTimeZone';
 import { ITimeInfo } from '../../../../../types/IFlightInfo';
 
 @Component({
@@ -15,13 +16,7 @@ export class FlightInfoComponent implements OnInit {
 
   public ngOnInit(): void {
     if (this.timeInfo) {
-      const [sign, ...timezoneLetters] = this.timeInfo.timezone.split('');
-      const [firstNum, lastNum] = timezoneLetters.join('').split('.');
-
-      const first = firstNum.length === 1 ? `0${firstNum}` : firstNum;
-      const last = lastNum.length === 1 ? `${lastNum}0` : lastNum;
-
-      this.timezone = sign + first + last;
+      this.timezone = getTimeZone(this.timeInfo.timezone);
     }
   }
 }

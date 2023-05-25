@@ -1,0 +1,25 @@
+.summary-table {
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 100%;
+  row-gap: 4px;
+
+  span {
+    justify-self: left;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+
+    &:not(:first-child) {
+      margin-left: 40px;
+    }
+
+    &:nth-child(-n + 2) {
+      font-weight: 700;
+    }
+
+    &:nth-child(even) {
+      justify-self: right;
+    }
+  }
+}

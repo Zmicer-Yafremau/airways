@@ -3,14 +3,9 @@ import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { IFlights } from '../types/IFlights';
 import { ENDPOINTS } from '../config/endpoints';
-import { IFlightInfo, IUserFlightInfo, Key } from '../types/IFlightInfo';
-
-export interface RequestBody {
-  fromKey: string;
-  toKey: string;
-  forwardDate: string;
-  backDate: string;
-}
+import { IFlightInfo, IUserFlightInfo, Key, RequestBody } from '../types/IFlightInfo';
+import { LocalStorageService } from './local-storage.service';
+import { LocalStorageKeyEnum } from '../types/LocalStorageValue';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +17,14 @@ export class FlightInfoService {
 
   private userFlightInfo: null | IUserFlightInfo = null;
 
-  public constructor(private http: HttpClient) {}
+  private fieldsState: {
+    forward?: boolean;
+    back?: boolean;
+  } | null = null;
+
+  public isAllFieldsValid$ = new BehaviorSubject(false);
+
+  public constructor(private http: HttpClient, private ls: LocalStorageService) {}
 
   public getFlightInfo() {
     return this.flightInfo$.asObservable();
@@ -39,8 +41,29 @@ export class FlightInfoService {
       ? { ...this.userFlightInfo, [key]: value }
       : { [key]: value };
 
-    this.userFlightInfo$.next(this.userFlightInfo);
+    this.ls.setValue({ key: LocalStorageKeyEnum.USER_FLIGHT_INFO, value: this.userFlightInfo });
 
-    console.log('this.userFlightInfo', this.userFlightInfo);
+    this.userFlightInfo$.next(this.userFlightInfo);
+  }
+
+  public getUserFlightInfo() {
+    if (!this.userFlightInfo) {
+      const userInfo = this.ls.getValue(LocalStorageKeyEnum.USER_FLIGHT_INFO);
+      if (userInfo) {
+        this.userFlightInfo = JSON.parse(userInfo);
+        this.userFlightInfo$.next(this.userFlightInfo);
+      }
+    }
+
+    return this.userFlightInfo$.asObservable();
+  }
+
+  public changeFieldState(value: boolean, key: Key) {
+    this.fieldsState = this.fieldsState ? { ...this.fieldsState, [key]: value } : { [key]: value };
+    this.isAllFieldsValid$.next(Object.values(this.fieldsState).every((el) => el));
+  }
+
+  public getFieldsState() {
+    return this.isAllFieldsValid$.asObservable();
   }
 }

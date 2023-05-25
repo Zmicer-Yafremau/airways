@@ -1,0 +1,43 @@
+<div class="card" *ngIf="flight">
+  <div class="header">
+    <div class="header-top">
+      <span class="plane-num">{{ flight.flightNumber }}</span>
+      <span class="airports"
+        >{{ flight.departureTimeInfo.airport }} — {{ flight.arrivalTimeInfo.airport }}</span
+      >
+    </div>
+    <div class="header-bottom" *ngIf="flight.departureTimeInfo as depart">
+      <span>{{ depart.date | date : 'EEEE, d MMMM, y' : timezone(depart.timezone) }}</span>
+      <span
+        >{{ depart.date | date : 'H:mm' : timezone(depart.timezone) }} -
+        {{
+          flight.arrivalTimeInfo.date | date : 'H:mm' : timezone(flight.arrivalTimeInfo.timezone)
+        }}</span
+      >
+    </div>
+  </div>
+  <div class="passenger">
+    <p class="name">{{ 'Harry Potter' | uppercase }}</p>
+    <ul class="info">
+      <li>{{ '1checked bag (total 23 kg) included' }}</li>
+      <li>{{ '1 cabin bag + 1 personal item (max. 8 kg) included' }}</li>
+      <li>{{ 'Seat 19E' }}</li>
+    </ul>
+  </div>
+  <div class="passenger">
+    <p class="name">{{ 'Harry Potter' | uppercase }}</p>
+    <ul class="info">
+      <li>{{ '1checked bag (total 23 kg) included' }}</li>
+      <li>{{ '1 cabin bag + 1 personal item (max. 8 kg) included' }}</li>
+      <li>{{ 'Seat 19E' }}</li>
+    </ul>
+  </div>
+  <div class="passenger">
+    <p class="name">{{ 'Harry Potter' | uppercase }}</p>
+    <ul class="info">
+      <li>{{ '1checked bag (total 23 kg) included' }}</li>
+      <li>{{ '1 cabin bag + 1 personal item (max. 8 kg) included' }}</li>
+      <li>{{ 'Seat 19E' }}</li>
+    </ul>
+  </div>
+</div>
