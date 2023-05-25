@@ -6,4 +6,5 @@ export interface IUserRequestInfo {
   destination: string;
   from: string;
   passengers: IPassengers;
+  roundTrip: boolean;
 }
