@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { CountTripService } from 'src/app/services/count-trip.service';
 import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
 import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
 
@@ -30,9 +32,12 @@ export class TripInfoComponent implements OnInit {
 
   public userCurrency?: string;
 
+  public trips = 0;
+
   public constructor(
     private infoService: GetUserRequestInfoService,
     private currencyService: GetDateCurrencyFormatService,
+    public tripService: CountTripService,
   ) {}
 
   public ngOnInit(): void {
@@ -51,5 +56,13 @@ export class TripInfoComponent implements OnInit {
     this.currencyService.dateCurrencyFormat$.subscribe((info) => {
       this.userCurrency = info.currency.toUpperCase();
     });
+    this.tripService.getTrips().subscribe((value) => {
+      this.trips = value;
+    });
+  }
+
+  public onCheck(e: MatCheckboxChange) {
+    if (e.checked) this.tripService.changeTrip(this.trips + 1);
+    if (!e.checked) this.tripService.changeTrip(this.trips - 1);
   }
 }

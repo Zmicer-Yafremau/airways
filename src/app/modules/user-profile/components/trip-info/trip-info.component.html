@@ -1,6 +1,6 @@
 <div class="main-wrapper">
   <div class="container-trip">
-    <mat-checkbox class="check-box">
+    <mat-checkbox class="check-box" (change)="onCheck($event)">
       <span class="check-box-name">{{ flightCode }}</span>
     </mat-checkbox>
 
@@ -36,7 +36,7 @@
       <span *ngIf="passengers.infants">Infants x {{ passengers.infants }}</span>
     </div>
 
-    <span>{{ price | currency : userCurrency }}</span>
+    <span class="price">{{ price | currency : userCurrency }}</span>
 
     <button mat-icon-button [matMenuTriggerFor]="menu" class="menu">
       <mat-icon>more_vert</mat-icon>

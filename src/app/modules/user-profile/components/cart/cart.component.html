@@ -17,8 +17,20 @@
     <app-trip-info></app-trip-info>
     <app-trip-info></app-trip-info>
 
+    <div class="total">
+      <button mat-raised-button color="secondary" class="add-trip-btn">+Add new trip</button>
+      <div class="total-price">
+        <span>Total: </span>
+        <span>{{ totalPrice | currency : 'EUR' }}</span>
+      </div>
+    </div>
+    <div class="bottom-line"></div>
+
     <div class="bottom">
-      <input matInput placeholder="Promo Code" value="" appearance="outline" class="promocode" />
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Promo code" value="" class="promo-code" appearance="outline" />
+      </mat-form-field>
+      <span class="selected">{{ trips }} selected</span>
       <button mat-raised-button color="primary" class="payment-btn">Payment</button>
     </div>
   </div>
