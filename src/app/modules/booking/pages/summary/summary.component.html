@@ -1,0 +1,41 @@
+<div class="summary" *ngIf="flight$ | async as flight">
+  <h2 class="title">
+    <img src="assets/summary/title-img.svg" alt="title" />
+    Summary
+  </h2>
+  <div class="trip">
+    <app-trip-card class="card" [flight]="flight.forward"></app-trip-card>
+    <app-trip-card class="card" *ngIf="flight.back" [flight]="flight.back"></app-trip-card>
+  </div>
+  <div class="summary-wrapper" *ngIf="passengers$ | async as passengers">
+    <div class="card" *ngIf="passengerPrice">
+      <app-summary-item
+        [currentPrice]="passengerPrice"
+        [quantity]="passengers.passengers.adults"
+        [type]="typeEnum.ADULTS"
+      ></app-summary-item>
+
+      <app-summary-item
+        *ngIf="passengers.passengers.children as children"
+        [quantity]="children"
+        [currentPrice]="passengerPrice"
+        [type]="typeEnum.CHILDREN"
+      ></app-summary-item>
+
+      <app-summary-item
+        *ngIf="passengers.passengers.infants as infants"
+        [currentPrice]="passengerPrice"
+        [quantity]="infants"
+        [type]="typeEnum.INFANTS"
+      ></app-summary-item>
+      <div class="total" *ngIf="passengers.passengers as quantity">
+        <span>TOTAL:</span>
+        <span class="price">{{
+          passengerPrice.adults * quantity.adults +
+            passengerPrice.children * quantity.children +
+            passengerPrice.infants * quantity.infants | currency : (currency | customCurrency)
+        }}</span>
+      </div>
+    </div>
+  </div>
+</div>

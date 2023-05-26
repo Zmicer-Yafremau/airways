@@ -20,17 +20,14 @@ export class ChangeStepService {
     this.progressCondition$.subscribe((condition) => {
       const passengerServiceId = this.passengerService.passengers.subscribe((passengers) => {
         if (condition.passengers === 'active') {
-          // console.log('from step', passengers);
           const passClone = _.cloneDeep(passengers);
           this.passengerService.passengerContacts.subscribe((contacts) => {
-            // console.log('contacts!!!');
             const passengerFormsStatus = Object.values(passClone)
               .flat(Infinity)
               .filter((el) => el)
               .map((pasArr) => pasArr.formIsValid)
               .every((isValid) => isValid);
             const passengerContactFormStatus = contacts.formIsValid;
-            // console.log(passengerContactFormStatus);
             if (passengerFormsStatus && passengerContactFormStatus) {
               this.changeButtonStatus(false);
             } else if (!(passengerFormsStatus && passengerContactFormStatus)) {

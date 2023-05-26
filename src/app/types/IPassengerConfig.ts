@@ -1,3 +1,9 @@
+export enum PassengersTypeEnum {
+  ADULTS = 'Adult',
+  CHILDREN = 'Child',
+  INFANTS = 'Infant',
+}
+
 export interface IPassengerConfig {
   adults: IPassengerText;
   children: IPassengerText;

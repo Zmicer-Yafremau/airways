@@ -32,6 +32,7 @@ export class PassengerService {
   });
 
   public addPassengerContact(contact: IPassengerContacts) {
+    localStorage.setItem('passengersContact', JSON.stringify(contact));
     this.passengerContacts.next(contact);
   }
 
@@ -40,13 +41,8 @@ export class PassengerService {
   }
 
   public addPassengerForm(passengerForm: IPassengerForm) {
-    // console.log('service');
     const id = this.passengers.subscribe((passengers) => {
       const newPassengers = _.cloneDeep(passengers) as IPassengers;
-      // console.log('pass');
-      // console.log('1', passengerForm);
-      // console.log('2', newPassengers);
-      // console.log('3', newPassengers[passengerForm.passengerType]);
       if (newPassengers[passengerForm.passengerType]) {
         if (
           JSON.stringify({ ...passengerForm }) ===
@@ -54,14 +50,11 @@ export class PassengerService {
             (newPassengers[passengerForm.passengerType] as [IPassengerForm])[passengerForm.id],
           )
         ) {
-          // console.log('from if');
+          localStorage.setItem('passengersInfo', JSON.stringify(passengers));
           id.unsubscribe();
         }
       }
-      // console.log('from ex else');
       if (newPassengers[passengerForm.passengerType]) {
-        // console.log('serv',newPassengers);
-        // console.log('value',passengerForm);
         (newPassengers[passengerForm.passengerType] as [IPassengerForm])[passengerForm.id] =
           passengerForm;
       } else if (passengerForm.id) {
@@ -86,9 +79,7 @@ export class PassengerService {
           IPassengerForm,
         ];
       } else (newPassengers[passengerForm.passengerType] as [IPassengerForm]) = [passengerForm];
-      // console.log('else', newPassengers);
       this.addPassengers(newPassengers);
     });
-    // console.log('----------------------');
   }
 }

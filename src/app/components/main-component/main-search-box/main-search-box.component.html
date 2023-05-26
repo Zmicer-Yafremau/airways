@@ -1,9 +1,25 @@
-<form *ngIf="searchFlyForm" class="content-wrapper" [formGroup]="searchFlyForm">
+<form
+  *ngIf="searchFlyForm"
+  class="content-wrapper"
+  [class.edit]="isHeaderForm"
+  [formGroup]="searchFlyForm"
+  (ngSubmit)="onSubmit()"
+>
   <mat-radio-group class="radio">
-    <mat-radio-button color="primary" value="round" checked (change)="typeOfTrip($event)">
+    <mat-radio-button
+      color="primary"
+      value="round"
+      [checked]="roundTrip"
+      (change)="typeOfTrip($event)"
+    >
       Round Trip
     </mat-radio-button>
-    <mat-radio-button color="primary" value="oneway" (change)="typeOfTrip($event)">
+    <mat-radio-button
+      color="primary"
+      value="oneway"
+      [checked]="!roundTrip"
+      (change)="typeOfTrip($event)"
+    >
       One Way
     </mat-radio-button>
   </mat-radio-group>
@@ -13,13 +29,26 @@
       <mat-icon>sync_alt</mat-icon>
     </button>
 
-    <mat-form-field class="from-input" appearance="outline">
+    <mat-form-field *ngIf="airports$ | async as airports" class="from-input" appearance="outline">
       <mat-label>From</mat-label>
-      <mat-select class="select" formControlName="from">
-        <mat-option *ngFor="let airport of airports" class="option" [value]="airport[0]">
+      <mat-select class="select" formControlName="from" value="BER">
+        <mat-select-trigger>
+          <span>{{ airportDepartureNameForSelectHeader }}</span>
+        </mat-select-trigger>
+        <mat-option
+          *ngFor="let airport of airports"
+          class="option"
+          [value]="airport.key"
+          (click)="getAirportDepartureNameForSelectHeader(airport.city)"
+        >
           <div class="airport-select">
-            <div class="airport-name">{{ airport[0] }}</div>
-            <div class="airport-code">{{ airport[1] }}</div>
+            <div class="airport-select-top">
+              <div class="airport-name">{{ airport.name }}</div>
+              <div class="airport-code">{{ airport.key }}</div>
+            </div>
+            <div class="airport-select-bottom">
+              <div class="airport-country">{{ airport.country }}</div>
+            </div>
           </div>
         </mat-option>
       </mat-select>
@@ -28,18 +57,27 @@
       </mat-error>
     </mat-form-field>
 
-    <mat-form-field class="dest-input" appearance="outline">
+    <mat-form-field *ngIf="airports$ | async as airports" class="dest-input" appearance="outline">
       <mat-label>Destination</mat-label>
-      <mat-select class="select" formControlName="destination">
+      <mat-select class="select" formControlName="destination" value="BER">
+        <mat-select-trigger>
+          <span>{{ airportArrivalNameForSelectHeader }}</span>
+        </mat-select-trigger>
         <mat-option
           *ngFor="let airport of airports"
           class="option"
-          [value]="airport[0]"
+          [value]="airport.key"
           #destinationName
+          (click)="getAirportArrivalNameForSelectHeader(airport.city)"
         >
           <div class="airport-select">
-            <div class="airport-name">{{ airport[0] }}</div>
-            <div class="airport-code">{{ airport[1] }}</div>
+            <div class="airport-select-top">
+              <div class="airport-name">{{ airport.name }}</div>
+              <div class="airport-code">{{ airport.key }}</div>
+            </div>
+            <div class="airport-select-bottom">
+              <div class="airport-country">{{ airport.country }}</div>
+            </div>
           </div>
         </mat-option>
       </mat-select>
@@ -66,7 +104,7 @@
         Please enter a return date
       </mat-error>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-date-range-picker #picker></mat-date-range-picker>
+      <mat-date-range-picker #picker [startAt]="startDate"></mat-date-range-picker>
     </mat-form-field>
 
     <ng-template #oneWayDatePicker>
@@ -83,7 +121,7 @@
 
     <mat-form-field class="passengers-input" appearance="outline">
       <mat-label>Passengers</mat-label>
-      <mat-select class="select">
+      <mat-select class="select" formControlName="passengers">
         <mat-select-trigger>
           <span *ngIf="passengers.adults > 0"> Adults {{ passengers.adults }} </span>
           <span *ngIf="passengers.children > 0"> Children {{ passengers.children }} </span>
@@ -114,10 +152,11 @@
           />
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="searchFlyForm.controls['passengers'].hasError('required')">
+        At least 1 passenger needed
+      </mat-error>
     </mat-form-field>
   </div>
 
-  <button type="submit" class="search-button" mat-raised-button color="primary" (click)="onClick()">
-    Search
-  </button>
+  <button type="submit" class="search-button" mat-raised-button color="primary">Search</button>
 </form>

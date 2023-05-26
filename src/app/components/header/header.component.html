@@ -10,29 +10,43 @@
     <nav class="nav-wrapper">
       <span *ngIf="!isBookingUrl" class="nav-text">Book flights</span>
 
-      <mat-form-field class="date-picker" appearance="outline">
-        <mat-label class="label">MM/DD/YYYY</mat-label>
-        <input matInput [matDatepicker]="picker" class="input" />
-        <mat-datepicker-toggle matIconSuffix [for]="picker">
-          <mat-icon matDatepickerToggleIcon class="icon">keyboard_arrow_down</mat-icon>
-        </mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
-
-      <mat-form-field class="currency-input" appearance="outline">
-        <mat-select class="select" value="EUR">
-          <mat-option class="option" value="EUR">EUR</mat-option>
-          <mat-option class="option" value="USD">USD</mat-option>
-          <mat-option class="option" value="RUB">RUB</mat-option>
+      <mat-form-field class="date-input" appearance="outline">
+        <mat-select
+          class="select"
+          value="MM/DD/YYYY"
+          (selectionChange)="setUserSettings($event.value, 'date')"
+        >
+          <mat-option class="option" value="MM/DD/YYYY">MM/DD/YYYY</mat-option>
+          <mat-option class="option" value="DD/MM/YYYY">DD/MM/YYYY</mat-option>
+          <mat-option class="option" value="YYYY/DD/MM">YYYY/DD/MM</mat-option>
+          <mat-option class="option" value="YYYY/MM/DD">YYYY/MM/DD</mat-option>
         </mat-select>
       </mat-form-field>
 
-      <button *ngIf="!userIsLogged" mat-stroked-button class="btn-signin" (click)="openAuthDialog()">
+      <mat-form-field class="currency-input" appearance="outline">
+        <mat-select
+          class="select"
+          value="eur"
+          (selectionChange)="setUserSettings($event.value, 'currency')"
+        >
+          <mat-option class="option" value="eur">EUR</mat-option>
+          <mat-option class="option" value="usd">USD</mat-option>
+          <mat-option class="option" value="rub">RUB</mat-option>
+          <mat-option class="option" value="pln">PLN</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button
+        *ngIf="!userIsLogged"
+        mat-stroked-button
+        class="btn-signin"
+        (click)="openAuthDialog()"
+      >
         <mat-icon class="person-icon">person</mat-icon>
         Sign in
       </button>
       <button *ngIf="userIsLogged" mat-stroked-button class="btn-signout" (click)="logOut()">
-        <span>{{userName}} |</span>
+        <span>{{ userName }} |</span>
         <mat-icon class="person-icon">person</mat-icon>
         Sign out
       </button>
@@ -40,4 +54,5 @@
       <mat-icon class="basket">shopping_basket</mat-icon>
     </nav>
   </div>
+  <app-main-search-box *ngIf="isEdit$ | async" [isHeaderForm]="true"></app-main-search-box>
 </div>

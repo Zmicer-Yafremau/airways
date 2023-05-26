@@ -19,6 +19,8 @@
       <span class="day-text">{{ sumPassengers }}</span>
       <img src="assets/user.svg" alt="planes" />
     </div>
-    <button *ngIf="step === 'active'" mat-stroked-button routerLink="..">Edit</button>
+    <button *ngIf="step === 'active'" mat-stroked-button routerLink=".." (click)="editClick()">
+      Edit
+    </button>
   </div>
 </div>

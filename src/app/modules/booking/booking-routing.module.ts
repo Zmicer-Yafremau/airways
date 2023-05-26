@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
-import { TestComponent } from './components/test/test.component';
-import { FlightCardComponent } from './components/flight-card/flight-card.component';
+import { FlightsComponent } from './pages/flights/flights.component';
+import { SummaryComponent } from './pages/summary/summary.component';
 import { PassengersCardComponent } from './components/passengers-card/passengers-card.component';
 
 const routes: Routes = [
@@ -17,7 +17,7 @@ const routes: Routes = [
     children: [
       {
         path: 'flights',
-        component: FlightCardComponent,
+        component: FlightsComponent,
       },
       {
         path: 'passengers',
@@ -25,7 +25,7 @@ const routes: Routes = [
       },
       {
         path: 'review',
-        component: TestComponent,
+        component: SummaryComponent,
       },
     ],
   },

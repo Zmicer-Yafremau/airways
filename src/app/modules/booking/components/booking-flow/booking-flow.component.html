@@ -6,7 +6,14 @@
 
 <div *ngIf="step !== 'review'; else review" class="bottom-btn-wrapper">
   <button mat-button (click)="stepBack()">Back</button>
-  <button mat-raised-button color="primary" (click)="stepForward()" [disabled]="continueButtonStatus">Continue</button>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="(isFlightsBtnValid | async) === false && step === stepEnum.Flights || (step === stepEnum.Passengers && continueButtonStatus)"
+    (click)="stepForward()"
+  >
+    Continue
+  </button>
 </div>
 
 <ng-template #review>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PassengerType } from 'src/app/models/passenger-model';
 import { ChangeStepService } from 'src/app/services/change-step.service';
 import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
+import { IUserRequestInfo } from 'src/app/types/IUserRequestInfo';
 
 @Component({
   selector: 'app-passengers-card',
@@ -20,8 +21,8 @@ export class PassengersCardComponent implements OnInit {
   public ngOnInit() {
     this.stepService.changeButtonStatus(true);
     // console.log(`changed!`);
-    this.getUser.userRequestInfo.subscribe((user) => {
-      const values = Object.values(user.passengers);
+    this.getUser.getUserRequestInfo().subscribe((user) => {
+      const values = Object.values((user as IUserRequestInfo).passengers);
       const adults = Array(values[0]).fill('adults') as [PassengerType];
       const children = Array(values[1]).fill('children') as [PassengerType];
       const infants = Array(values[2]).fill('infants') as [PassengerType];

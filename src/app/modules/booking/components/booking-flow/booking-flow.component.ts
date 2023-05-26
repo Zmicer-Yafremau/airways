@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ChangeStepService } from 'src/app/services/change-step.service';
+import { FlightInfoService } from 'src/app/services/flight-info.service';
+import { ShowEditService } from 'src/app/services/show-edit.service';
 
 enum Step {
   Flights = 'flights',
@@ -12,17 +14,26 @@ enum Step {
   templateUrl: './booking-flow.component.html',
   styleUrls: ['./booking-flow.component.scss'],
 })
-export class BookingFlowComponent implements OnInit {
+export class BookingFlowComponent implements OnInit{
   public step = Step.Flights;
 
-  public continueButtonStatus = false;
+  public isFlightsBtnValid = this.flightInfoService.getFieldsState();
 
-  public constructor(private stepService: ChangeStepService, public router: Router) {}
+  public stepEnum = Step;
+
+  public continueButtonStatus!: boolean;
+
+  public constructor(
+    private stepService: ChangeStepService,
+    public router: Router,
+    private editService: ShowEditService,
+    private flightInfoService: FlightInfoService,
+  ) {}
 
   public ngOnInit(): void {
-    this.stepService.continueButtonStatus$.subscribe((status) => {
+    this.stepService.continueButtonStatus$.subscribe((status)=>{
       this.continueButtonStatus = status;
-    });
+    })
   }
 
   public stepForward() {
@@ -59,6 +70,7 @@ export class BookingFlowComponent implements OnInit {
   }
 
   public stepBack() {
+    this.editService.isEditActive$.next(false);
     if (this.step === Step.Review) {
       this.step = Step.Passengers;
       this.router.navigateByUrl(`booking/step/${this.step}`);
