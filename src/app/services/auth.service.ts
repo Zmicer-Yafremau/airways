@@ -33,6 +33,7 @@ export class AuthService {
     phone: '',
     citizenship: '',
   });
+
   public logUser = new BehaviorSubject<ILogUser>({
     email: '',
     password: '',
