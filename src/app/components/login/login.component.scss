@@ -83,8 +83,12 @@ hr::after {
 
 .form__button {
   border-radius: 4px;
-  width: 446px;
+  width: 99%;
   height: 44px;
   color: #fff;
   background: #11397e;
+}
+
+mat-form-field {
+  min-width: 120px;
 }

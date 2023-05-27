@@ -3,14 +3,14 @@
       <hr class="login__hr" />
     </div>
     <div>
-      <form class="login__form" novalidate>
+      <form *ngIf="logForm" [formGroup]="logForm" (ngSubmit)="onSubmit()" class="login__form" novalidate>
         <mat-form-field appearance="fill">
           <mat-label>Enter your email</mat-label>
-          <input matInput placeholder="e.g. example@email.com" [(ngModel)]="email" [ngModelOptions]="{standalone: true}"/>
+          <input matInput placeholder="e.g. example@email.com" formControlName="logEmail"/>
         </mat-form-field>
         <mat-form-field appearance="fill">
           <mat-label>Enter your password</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" />
+          <input matInput [type]="hide ? 'password' : 'text'" formControlName="pass" />
           <button
             mat-icon-button
             matSuffix
