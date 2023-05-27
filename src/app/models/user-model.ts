@@ -3,6 +3,7 @@ export interface IUser {
   lastName: string;
   email: string;
 }
+
 export interface IRegUser {
   email: string;
   password: string;
@@ -14,7 +15,12 @@ export interface IRegUser {
   phone: string;
   citizenship: string;
 }
+
 export interface IToken {
   token: string;
 }
-    
+
+export interface ILogUser {
+  email: string;
+  password: string;
+}

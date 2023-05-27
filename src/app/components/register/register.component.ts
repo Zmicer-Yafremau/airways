@@ -64,7 +64,7 @@ export class RegisterComponent implements OnInit {
     if (this.regForm.valid && this.agree) {
       const dateOfBirth = new Date(this.regForm.value.date);
       const isoDateOfBirth = dateOfBirth.toISOString();
-      this.authService.getToken({
+      this.authService.getRegToken({
         email: this.regForm.value.regEmail,
         password: this.regForm.value.pass,
         firstName: this.regForm.value.firstName,

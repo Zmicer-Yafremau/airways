@@ -22,6 +22,7 @@
   flex-direction: column;
   margin-top: 20px;
   margin-bottom: 20px;
+  padding: 5px;
 }
 
 #googleButton,
@@ -55,4 +56,14 @@ div {
   height: 14px;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+mat-dialog-content {
+  overflow: hidden;
+}
+
+@media (width <= 520px) {
+  .OAuth_wrapper {
+    transform: scale(0.75, 0.75);
+  }
 }
