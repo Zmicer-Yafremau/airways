@@ -7,7 +7,9 @@
 
 .passenger__wrapper {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
+  margin-bottom: 25px;
   gap: 24px;
 }
 
@@ -18,4 +20,8 @@
 .gender__button {
   display: flex;
   height: 100%;
+}
+
+mat-form-field {
+  min-width: 100px;
 }

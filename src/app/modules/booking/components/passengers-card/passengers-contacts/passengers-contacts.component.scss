@@ -9,6 +9,12 @@
 
 form {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-start;
+  margin-bottom: 25px;
   gap: 24px;
+}
+
+mat-form-field {
+  min-width: 100px;
 }
