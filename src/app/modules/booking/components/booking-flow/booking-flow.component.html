@@ -9,7 +9,7 @@
   <button
     mat-raised-button
     color="primary"
-    [disabled]="(isFlightsBtnValid | async) === false && step === stepEnum.Flights"
+    [disabled]="(isFlightsBtnValid | async) === false && step === stepEnum.Flights || (step === stepEnum.Passengers && continueButtonStatus)"
     (click)="stepForward()"
   >
     Continue

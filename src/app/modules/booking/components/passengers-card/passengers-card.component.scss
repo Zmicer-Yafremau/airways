@@ -1,0 +1,40 @@
+.passenger--logo::before {
+  content: url("../../../../../assets/passenger.svg");
+  position: relative;
+  top: 2px;
+  margin-right: 10px;
+}
+
+.passenger--contact::before {
+  content: url("../../../../../assets/contact.svg");
+  position: relative;
+  top: 2px;
+  margin-right: 10px;
+}
+
+.passengers-header {
+  padding: 10px 0;
+}
+
+span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.5px;
+  color: #49454f;
+}
+
+.passengers-info {
+  margin-bottom: 25px;
+  border-radius: 8px;
+  padding: 32px 44px;
+  box-shadow: 0 1px 4px #0003;
+  background-color: #fff;
+}
+
+.passengers {
+  margin: 0 auto;
+  padding-left: 10px;
+}

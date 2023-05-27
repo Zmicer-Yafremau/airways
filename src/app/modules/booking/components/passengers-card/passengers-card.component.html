@@ -1,0 +1,37 @@
+<div class="passengers">
+    <div class="passengers-wrapper">
+        <div class="passengers-header">
+            <h2 class="passenger--logo">Passengers</h2>
+            <span>Enter the passenger's names as they appear on document
+                (passport or ID). </span>
+        </div>
+        <div class="passengers-body">
+            <div class="passengers-info passengers-adult" *ngIf="adults.length">
+                <h2>1. Adults</h2>
+                <app-passengers-info
+                    *ngFor="let passenger of adults; let passengerIndex = index"
+                    [passengerId]="passengerIndex" [passengerType]="passenger"></app-passengers-info>
+            </div>
+            <div class="passengers-info passengers-child"
+                *ngIf="children.length">
+                <h2>2. Children</h2>
+                <app-passengers-info *ngFor="let passenger of children; let passengerIndex = index"
+                [passengerId]="passengerIndex" [passengerType]="passenger"></app-passengers-info>
+            </div>
+            <div class="passengers-info passengers-infant"
+                *ngIf="infants.length">
+                <h2>3. Infants</h2>
+                <app-passengers-info *ngFor="let passenger of infants; let passengerIndex = index"
+                [passengerId]="passengerIndex" [passengerType]="passenger"></app-passengers-info>
+            </div>
+        </div>
+        <div class="passengers-header">
+            <h2 class="passenger--contact">Contact details</h2>
+            <span>We need contact details to be able to deliver the latest
+                information regarding your flight. </span>
+        </div>
+        <div class="passengers-body">
+            <app-passengers-contacts></app-passengers-contacts>
+        </div>
+    </div>
+</div>
