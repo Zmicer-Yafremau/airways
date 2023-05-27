@@ -3,7 +3,7 @@ import { ToastService } from 'angular-toastify';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
-import { IRegUser, IToken, IUser } from '../models/user-model';
+import { ILogUser, IRegUser, IToken, IUser } from '../models/user-model';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +34,11 @@ export class AuthService {
     citizenship: '',
   });
 
+  public logUser = new BehaviorSubject<ILogUser>({
+    email: '',
+    password: '',
+  });
+
   public url = 'https://api.air-ways.online';
 
   public headers = new HttpHeaders().set('Content-Type', 'application/json');
@@ -48,7 +53,7 @@ export class AuthService {
     this.user.next(value);
   }
 
-  public getToken(value: IRegUser) {
+  public getRegToken(value: IRegUser) {
     this.httpClient
       .post<IToken>(`${this.url}/auth/registration`, JSON.stringify(value), {
         headers: this.headers,
@@ -68,6 +73,28 @@ export class AuthService {
             this.toastService.error(error.error.message);
           } else {
             console.log(JSON.stringify(error));
+            this.toastService.error('Smth went wrong');
+          }
+        },
+      );
+  }
+
+  public getLogToken(value: ILogUser) {
+    this.httpClient
+      .post<IToken>(`${this.url}/auth/login`, JSON.stringify(value), {
+        headers: this.headers,
+      })
+      .subscribe(
+        (tokenObj) => {
+          localStorage.setItem('token', tokenObj.token);
+          this.userIsLogged.next(!!localStorage.getItem('token'));
+          this.dialog.closeAll();
+          this.toastService.success('Success');
+        },
+        (error) => {
+          if (error.message) {
+            this.toastService.error(error.error.message);
+          } else {
             this.toastService.error('Smth went wrong');
           }
         },

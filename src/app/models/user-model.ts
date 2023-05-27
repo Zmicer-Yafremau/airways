@@ -17,3 +17,7 @@ export interface IRegUser {
 export interface IToken {
   token: string;
 }
+export interface ILogUser {
+  email: string;
+  password: string;
+}
