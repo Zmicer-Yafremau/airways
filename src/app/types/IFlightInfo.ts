@@ -2,6 +2,8 @@ import { IPrice } from './IFlights';
 
 export interface ITimeInfo {
   date: Date;
+  city: string;
+  code: string;
   timezone: string;
   airport: string;
 }

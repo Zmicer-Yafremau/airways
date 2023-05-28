@@ -3,6 +3,8 @@ import { IFlightInfo, ITimeInfo } from 'src/app/types/IFlightInfo';
 
 const getTimeInfo = (info: IFlights | IFlight, key: 'form' | 'to'): ITimeInfo => ({
   date: new Date(key === 'form' ? info.takeoffDate : info.landingDate),
+  code: info[key].key,
+  city: info[key].city,
   timezone: info[key].gmt,
   airport: info[key].name,
 });
