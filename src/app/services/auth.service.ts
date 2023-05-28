@@ -39,6 +39,8 @@ export class AuthService {
     password: '',
   });
 
+  public isLoggedWithOath = new BehaviorSubject<boolean>(false);
+
   public url = 'https://api.air-ways.online';
 
   public headers = new HttpHeaders().set('Content-Type', 'application/json');
