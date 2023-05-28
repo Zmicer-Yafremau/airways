@@ -11,9 +11,10 @@ import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { CartComponent } from './components/cart/cart.component';
 import { TripInfoComponent } from './components/cart/components/trip-info/trip-info.component';
 import { BookingModule } from '../booking/booking.module';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
-  declarations: [CartComponent, TripInfoComponent],
+  declarations: [CartComponent, TripInfoComponent, ProfileComponent],
   imports: [
     CommonModule,
     UserProfileRoutingModule,

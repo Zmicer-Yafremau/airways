@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
+import { Router } from '@angular/router';
 import { ToastService } from 'angular-toastify';
 import { CountTripService } from 'src/app/services/count-trip.service';
 import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
@@ -14,6 +15,8 @@ import { ISummary } from 'src/app/types/Summary';
 })
 export class TripInfoComponent implements OnInit {
   @Input() public trip?: ISummary;
+
+  @Output() public tripToPay = new EventEmitter<{ trip: ISummary; type: string }>();
 
   public flightCode?: string;
 
@@ -39,11 +42,14 @@ export class TripInfoComponent implements OnInit {
 
   public trips = 0;
 
+  public isProfilePage?: boolean;
+
   public constructor(
     private currencyService: GetDateCurrencyFormatService,
     public tripService: CountTripService,
     private summary: OrderService,
     private toast: ToastService,
+    private router: Router,
   ) {}
 
   public ngOnInit(): void {
@@ -66,15 +72,27 @@ export class TripInfoComponent implements OnInit {
         this.price = this.trip?.totalSum[this.userCurrency];
       });
     }
+
+    if (this.router.url.includes('profile')) this.isProfilePage = true;
   }
 
   public onCheck(e: MatCheckboxChange) {
-    if (e.checked) this.tripService.changeTrip(this.trips + 1);
-    if (!e.checked) this.tripService.changeTrip(this.trips - 1);
+    if (e.checked && this.trip) {
+      this.tripService.changeTrip(this.trips + 1);
+      this.tripToPay.emit({ trip: this.trip, type: 'add' });
+    }
+    if (!e.checked && this.trip) {
+      this.tripService.changeTrip(this.trips - 1);
+      this.tripToPay.emit({ trip: this.trip, type: 'delete' });
+    }
   }
 
   public onDelete() {
     if (this.trip) this.summary.rmUnpaidItem(this.trip.forward.flightNumber);
     this.toast.success('The order successfully deleted');
+  }
+
+  public onEdit() {
+    // this.router.navigateByUrl('/booking/step/passengers');
   }
 }

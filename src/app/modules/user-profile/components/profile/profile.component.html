@@ -1,7 +1,7 @@
 <div class="content-wrapper">
   <div class="wrapper-shadow">
     <div class="top-block">
-      <p class="cart-caption">Cart</p>
+      <p class="cart-caption">My Profile</p>
     </div>
 
     <div class="table-top-block">
@@ -14,11 +14,7 @@
       </div>
     </div>
 
-    <app-trip-info
-      *ngFor="let trip of orderedTrips | async"
-      [trip]="trip"
-      (tripToPay)="onCheck($event)"
-    ></app-trip-info>
+    <app-trip-info *ngFor="let trip of orderedTrips | async" [trip]="trip"></app-trip-info>
 
     <div class="total">
       <button mat-raised-button color="secondary" class="add-trip-btn" routerLink="/">
@@ -35,10 +31,8 @@
       <!-- <mat-form-field class="example-full-width">
         <input matInput placeholder="Promo code" value="" class="promo-code" appearance="outline" />
       </mat-form-field> -->
-      <span class="selected">{{ trips }} selected</span>
-      <button mat-raised-button color="primary" class="payment-btn" (click)="onPayment()">
-        Payment
-      </button>
+      <!-- <span class="selected">{{ trips }} selected</span>
+      <button mat-raised-button color="primary" class="payment-btn">Payment</button> -->
     </div>
   </div>
 </div>
