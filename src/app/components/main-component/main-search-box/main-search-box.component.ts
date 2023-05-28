@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChildren, QueryList, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatRadioChange } from '@angular/material/radio';
 import { Router } from '@angular/router';
@@ -19,6 +19,8 @@ import { ToastService } from 'angular-toastify';
   styleUrls: ['./main-search-box.component.scss'],
 })
 export class MainSearchBoxComponent implements OnInit {
+  @ViewChildren('input') private inputs?: QueryList<ElementRef<HTMLSpanElement>>;
+
   @Input() public isHeaderForm = false;
 
   public searchFlyForm!: FormGroup;
@@ -148,7 +150,20 @@ export class MainSearchBoxComponent implements OnInit {
     this.passengers = { ...newPassengers };
   }
 
-  public reverse() {}
+  public reverse() {
+    if (this.inputs?.length === 2) {
+      const inputs = this.inputs.map((el) => el.nativeElement);
+      const buff = inputs[0].textContent;
+      inputs[0].textContent = inputs[1].textContent;
+      inputs[1].textContent = buff;
+
+      const buffer = this.searchFlyForm.get('from')?.value;
+
+      this.searchFlyForm.controls['from'].setValue(this.searchFlyForm.get('destination')?.value);
+
+      this.searchFlyForm.controls['destination'].setValue(buffer);
+    }
+  }
 
   public getAirportDepartureNameForSelectHeader(text: string) {
     this.airportDepartureNameForSelectHeader = text;

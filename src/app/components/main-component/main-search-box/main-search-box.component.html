@@ -25,7 +25,7 @@
   </mat-radio-group>
 
   <div class="trip-wrapper">
-    <button mat-mini-fab aria-label="reverse" class="reverse-btn" (click)="reverse()">
+    <button type="button" mat-mini-fab aria-label="reverse" class="reverse-btn" (click)="reverse()">
       <mat-icon>sync_alt</mat-icon>
     </button>
 
@@ -33,7 +33,7 @@
       <mat-label>From</mat-label>
       <mat-select class="select" formControlName="from">
         <mat-select-trigger>
-          <span>{{ airportDepartureNameForSelectHeader }}</span>
+          <span #input>{{ airportDepartureNameForSelectHeader }}</span>
         </mat-select-trigger>
         <mat-option
           *ngFor="let airport of airports"
@@ -61,7 +61,7 @@
       <mat-label>Destination</mat-label>
       <mat-select class="select" formControlName="destination">
         <mat-select-trigger>
-          <span>{{ airportArrivalNameForSelectHeader }}</span>
+          <span #input>{{ airportArrivalNameForSelectHeader }}</span>
         </mat-select-trigger>
         <mat-option
           *ngFor="let airport of airports"

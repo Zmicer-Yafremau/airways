@@ -19,4 +19,8 @@ export class LocalStorageService {
       .filter((el) => el !== LocalStorageKeyEnum.PAID_ORDERS && LocalStorageKeyEnum.UNPAID_ORDERS)
       .forEach((el) => localStorage.removeItem(el));
   }
+
+  public rmValue(key: LocalStorageKeyEnum) {
+    localStorage.removeItem(key);
+  }
 }
