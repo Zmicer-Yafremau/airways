@@ -133,8 +133,6 @@ export class BookingFlowComponent implements OnInit {
   }
 
   public onBuyClick() {
-    console.log('buy click');
-
     this.ls.clearLocalStorage();
     this.toast.success('You order is successfully paid');
     this.summary
@@ -142,8 +140,6 @@ export class BookingFlowComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe((content) => {
         if (content) {
-          console.log(content);
-
           this.orders.setPaidOrder(content);
         }
       });
@@ -158,8 +154,6 @@ export class BookingFlowComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe((content) => {
         if (content) {
-          console.log(content);
-
           this.orders.setUnpaidOrder(content);
         }
       });

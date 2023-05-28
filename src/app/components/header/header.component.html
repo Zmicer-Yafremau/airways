@@ -46,7 +46,7 @@
         Sign in
       </button>
       <ng-container *ngIf="userIsLogged">
-        <button mat-stroked-button class="btn-signout">
+        <button mat-stroked-button class="btn-signout" routerLink="/user/profile">
           <mat-icon class="profile-icon">person</mat-icon>
         </button>
         <button mat-stroked-button class="btn-signout" (click)="logOut()">

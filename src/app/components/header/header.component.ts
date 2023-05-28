@@ -8,6 +8,7 @@ import { ShowEditService } from 'src/app/services/show-edit.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ChangeStepService } from 'src/app/services/change-step.service';
 import { OrderService } from 'src/app/services/order.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 
 @UntilDestroy()
@@ -35,6 +36,7 @@ export class HeaderComponent implements OnInit {
     private router: Router,
     private stepService: ChangeStepService,
     private orderService: OrderService,
+    private ls: LocalStorageService,
   ) {
     this.toggleIsBookingUrl();
   }
@@ -66,9 +68,11 @@ export class HeaderComponent implements OnInit {
   }
 
   public logOut() {
-    localStorage.clear();
+    this.ls.clearLocalStorage();
     this.userName = '';
     this.userIsLogged = false;
+    this.authService.userIsLogged.next(false);
+    this.router.navigateByUrl('/');
   }
 
   private toggleIsBookingUrl() {
