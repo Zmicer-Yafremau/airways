@@ -9,6 +9,8 @@ export enum LocalStorageKeyEnum {
   USER_FLIGHT_INFO = 'user flight info',
   PASSENGERS = 'passengersInfo',
   SUMMARY_INFO = 'summary info',
+  PAID_ORDERS = 'paid orders',
+  UNPAID_ORDERS = 'unpaid orders',
 }
 
 interface IStep1 {
@@ -36,9 +38,21 @@ interface ISummaryInfo {
   value: ISummary;
 }
 
+interface IPaidOrders {
+  key: LocalStorageKeyEnum.PAID_ORDERS;
+  value: ISummary[];
+}
+
+interface IUnpaidOrders {
+  key: LocalStorageKeyEnum.UNPAID_ORDERS;
+  value: ISummary[];
+}
+
 export type LocalStorageValue =
   | IStep1
   | TopSummary
   | UserFlightInfo
   | PassengersInfo
-  | ISummaryInfo;
+  | ISummaryInfo
+  | IPaidOrders
+  | IUnpaidOrders;
