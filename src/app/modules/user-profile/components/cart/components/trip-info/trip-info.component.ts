@@ -42,6 +42,8 @@ export class TripInfoComponent implements OnInit {
 
   public trips = 0;
 
+  public isProfilePage?: boolean;
+
   public constructor(
     private currencyService: GetDateCurrencyFormatService,
     public tripService: CountTripService,
@@ -70,6 +72,8 @@ export class TripInfoComponent implements OnInit {
         this.price = this.trip?.totalSum[this.userCurrency];
       });
     }
+
+    if (this.router.url.includes('profile')) this.isProfilePage = true;
   }
 
   public onCheck(e: MatCheckboxChange) {

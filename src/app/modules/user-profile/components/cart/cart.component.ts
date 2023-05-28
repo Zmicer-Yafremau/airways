@@ -56,8 +56,6 @@ export class CartComponent implements OnInit {
       );
       this.toPay = [...toPayNew];
     }
-
-    console.log(this.toPay);
   }
 
   public onPayment() {
