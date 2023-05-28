@@ -142,7 +142,6 @@ export class MainSearchBoxComponent implements OnInit {
 
   public typeOfTrip(e: MatRadioChange) {
     this.roundTrip = e.value === 'round';
-    console.log(this.roundTrip);
   }
 
   public handlePassengersChange(newPassengers: IPassengers) {

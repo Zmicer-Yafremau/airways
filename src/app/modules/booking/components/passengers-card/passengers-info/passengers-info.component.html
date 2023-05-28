@@ -4,8 +4,7 @@
       <mat-label>First name</mat-label>
       <input matInput formControlName="firstName"
         matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname. "
-        matTooltipPosition="right"
-        />
+        matTooltipPosition="right" />
       <mat-error
         *ngIf="passengerForm.controls['firstName'].hasError('name') && !passengerForm.controls['firstName'].hasError('required')">Shouldn't
         contain digits</mat-error>
@@ -17,16 +16,15 @@
       <mat-label>Last name</mat-label>
       <input matInput formControlName="lastName"
         matTooltip="Add the passenger's name as it is written on their documents (passport or ID). Do not use any accents or special characters. Do not use a nickname. "
-        matTooltipPosition="right"
-        />
+        matTooltipPosition="right" />
       <mat-error *ngIf="passengerForm.controls['lastName'].hasError('name')">Shouldn't
         contain digits</mat-error>
       <mat-error *ngIf="passengerForm.controls['lastName'].hasError('required')">Please,
         enter you last name</mat-error>
     </mat-form-field>
-    <mat-button-toggle-group class="gender" name="autharization"
-      formControlName="gender" value="male">
-      <mat-button-toggle class="gender__button" checked="true" value="male"
+    <mat-button-toggle-group name="switchGender" class="gender"
+      formControlName="gender" >
+      <mat-button-toggle class="gender__button" value="male"
         #male>Male</mat-button-toggle>
       <mat-button-toggle class="gender__button" value="female" #female>Female</mat-button-toggle>
     </mat-button-toggle-group>
@@ -36,13 +34,18 @@
       <mat-hint>MM/DD/YYYY</mat-hint>
       <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
-      <mat-error *ngIf="passengerForm.controls['dateOfBirth'].hasError('required')">Please,
+      <mat-error
+        *ngIf="passengerForm.controls['dateOfBirth'].hasError('required')">Please,
         enter your date of birth</mat-error>
     </mat-form-field>
   </div>
   <div class="passenger__wrapper" *ngIf="notInfant">
     <mat-slide-toggle
       [color]="color"
-      formControlName="needAssistance"> Need special assistance?</mat-slide-toggle>
+      formControlName="baggage"> Do you have checked-in baggage?</mat-slide-toggle>
+      <mat-form-field *ngIf="passengerForm.value.baggage" class="passenger__baggage">
+        <mat-label>Extra baggage in kg. Max 20 kg.</mat-label>
+        <input matInput type="number" formControlName = "baggageAmount" min="1" max = "20">
+      </mat-form-field> 
   </div>
 </form>

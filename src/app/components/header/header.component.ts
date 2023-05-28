@@ -48,10 +48,8 @@ export class HeaderComponent implements OnInit {
         filter((event) => event instanceof NavigationEnd),
       )
       .subscribe((event) => {
-        console.log(event);
         const e = event as NavigationEnd;
         if (!e.urlAfterRedirects.includes('flights')) {
-          console.log('router', this.router.url);
           this.isEdit$.next(false);
         }
       });
@@ -59,7 +57,7 @@ export class HeaderComponent implements OnInit {
 
   public openAuthDialog() {
     this.matDialog.open(AuthModalComponent, {
-      minWidth:'310px',
+      minWidth: '310px',
     });
   }
 
