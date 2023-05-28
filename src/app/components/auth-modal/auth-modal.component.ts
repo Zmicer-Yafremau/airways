@@ -24,7 +24,6 @@ export class AuthModalComponent implements OnInit {
   public ngOnInit() {
     this.socialAuthService.authState.subscribe(
       (user) => {
-        this.socialAuthService.signOut();
         if (user) {
           this.user = user;
           this.loggedIn = user != null;
