@@ -58,7 +58,9 @@ export class HeaderComponent implements OnInit {
   }
 
   public openAuthDialog() {
-    this.matDialog.open(AuthModalComponent);
+    this.matDialog.open(AuthModalComponent, {
+      minWidth:'310px',
+    });
   }
 
   public logOut() {

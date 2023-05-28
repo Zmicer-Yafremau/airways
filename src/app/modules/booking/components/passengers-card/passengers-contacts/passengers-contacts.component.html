@@ -1,0 +1,30 @@
+<form *ngIf="contactForm" [formGroup]="contactForm" class="passenger__form">
+        <mat-form-field appearance="fill">
+          <mat-label>Country code</mat-label>
+          <mat-select formControlName="countryCode" [(value)]="selected">
+            <mat-option value="+93">Afghanistan (+93)</mat-option>
+            <mat-option value="+1">Anguilla (+1)</mat-option>
+            <mat-option value="+54">Argentina (+54)</mat-option>
+            <mat-option value="+375">Belarus (+375)</mat-option>
+            <mat-option value="+7">Russia (+7)</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Mobile phone number</mat-label>
+          <input matInput formControlName="phone" placeholder="e.g. 111111111"
+            />
+          <mat-error *ngIf="contactForm.controls['phone'].hasError('phone')">Should
+            has format 111111111
+          </mat-error>
+          <mat-error *ngIf="contactForm.controls['phone'].hasError('required')">Please,
+            eneter your phone</mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Enter your email</mat-label>
+            <input matInput placeholder="e.g. example@email.com"
+              formControlName="contactEmail" />
+            <mat-error *ngIf="contactForm.controls['contactEmail'].invalid">{{
+              getMailErrorMessage()
+              }}</mat-error>
+          </mat-form-field>
+</form>
