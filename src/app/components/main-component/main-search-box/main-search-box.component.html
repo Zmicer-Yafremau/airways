@@ -31,7 +31,7 @@
 
     <mat-form-field *ngIf="airports$ | async as airports" class="from-input" appearance="outline">
       <mat-label>From</mat-label>
-      <mat-select class="select" formControlName="from" value="BER">
+      <mat-select class="select" formControlName="from">
         <mat-select-trigger>
           <span>{{ airportDepartureNameForSelectHeader }}</span>
         </mat-select-trigger>
@@ -59,7 +59,7 @@
 
     <mat-form-field *ngIf="airports$ | async as airports" class="dest-input" appearance="outline">
       <mat-label>Destination</mat-label>
-      <mat-select class="select" formControlName="destination" value="BER">
+      <mat-select class="select" formControlName="destination">
         <mat-select-trigger>
           <span>{{ airportArrivalNameForSelectHeader }}</span>
         </mat-select-trigger>
@@ -123,6 +123,7 @@
       <mat-label>Passengers</mat-label>
       <mat-select class="select" formControlName="passengers">
         <mat-select-trigger>
+          <span *ngIf="passengers.sum === 0" style="color: red"> No passengers!</span>
           <span *ngIf="passengers.adults > 0"> Adults {{ passengers.adults }} </span>
           <span *ngIf="passengers.children > 0"> Children {{ passengers.children }} </span>
           <span *ngIf="passengers.infants > 0"> Infants {{ passengers.infants }} </span>

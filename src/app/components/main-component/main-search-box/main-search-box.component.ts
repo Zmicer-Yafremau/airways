@@ -87,7 +87,6 @@ export class MainSearchBoxComponent implements OnInit {
     this.airportService.getAllAirports();
 
     if (this.isHeaderForm) {
-      console.log('edit');
       const lsValue = this.ls.getValue(LocalStorageKeyEnum.TOP_SUMMARY);
       if (lsValue) {
         const userInfo = JSON.parse(lsValue) as IUserRequestInfo;
@@ -97,8 +96,16 @@ export class MainSearchBoxComponent implements OnInit {
           const toSelectDest = airports.find((airport) => airport.key === userInfo.destination);
           this.startDate = userInfo.departureDate;
 
-          // this.searchFlyForm.get('from')?.setValue(toSelectFrom?.city);
-          // this.searchFlyForm.get('destination')?.setValue(toSelectDest?.city);
+          this.searchFlyForm.setValue({
+            from: userInfo.from,
+            destination: userInfo.destination,
+            departureDate: userInfo.departureDate,
+            departureReturnDate: userInfo.departureReturnDate,
+            passengers: userInfo.passengers.sum,
+          });
+          this.passengers = {
+            ...userInfo.passengers,
+          };
           if (toSelectFrom) {
             this.airportDepartureNameForSelectHeader = toSelectFrom.city;
           }
@@ -106,7 +113,6 @@ export class MainSearchBoxComponent implements OnInit {
         });
       }
     }
-    console.log(this.editService.isEditActive$.getValue());
   }
 
   public onSubmit() {
@@ -114,7 +120,15 @@ export class MainSearchBoxComponent implements OnInit {
     const to = this.searchFlyForm.controls['destination'].value;
     if (from === to && from && to)
       this.toast.error("Airports of departure and arrival can't be the same!");
-    if (this.searchFlyForm.valid && this.passengers.sum > 0 && from !== to) {
+
+    if (!this.passengers.adults) this.toast.warn('Please input at least 1 adult');
+
+    if (
+      this.searchFlyForm.valid &&
+      this.passengers.sum > 0 &&
+      from !== to &&
+      this.passengers.adults
+    ) {
       this.requestInfo = {
         ...this.searchFlyForm.value,
         passengers: this.passengers,
