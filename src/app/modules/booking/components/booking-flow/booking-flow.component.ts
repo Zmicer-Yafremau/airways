@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastService } from 'angular-toastify';
 import { ChangeStepService } from 'src/app/services/change-step.service';
 import { FlightInfoService } from 'src/app/services/flight-info.service';
 import { ShowEditService } from 'src/app/services/show-edit.service';
@@ -14,7 +15,7 @@ enum Step {
   templateUrl: './booking-flow.component.html',
   styleUrls: ['./booking-flow.component.scss'],
 })
-export class BookingFlowComponent implements OnInit{
+export class BookingFlowComponent implements OnInit {
   public step = Step.Flights;
 
   public isFlightsBtnValid = this.flightInfoService.getFieldsState();
@@ -28,12 +29,13 @@ export class BookingFlowComponent implements OnInit{
     public router: Router,
     private editService: ShowEditService,
     private flightInfoService: FlightInfoService,
+    private toast: ToastService,
   ) {}
 
   public ngOnInit(): void {
-    this.stepService.continueButtonStatus$.subscribe((status)=>{
+    this.stepService.continueButtonStatus$.subscribe((status) => {
       this.continueButtonStatus = status;
-    })
+    });
   }
 
   public stepForward() {
@@ -95,5 +97,10 @@ export class BookingFlowComponent implements OnInit{
       this.router.navigateByUrl('');
     }
     return this.step;
+  }
+
+  public onBuyClick() {
+    this.toast.success('You order is successfully paid');
+    this.router.navigateByUrl('/');
   }
 }

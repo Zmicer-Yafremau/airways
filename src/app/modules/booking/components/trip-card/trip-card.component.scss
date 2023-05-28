@@ -53,5 +53,16 @@
     font-weight: 400;
     font-size: 16px;
     row-gap: 4px;
+
+    .assistance {
+      font-weight: 700;
+      color: $error;
+    }
+
+    .edit-luggage-btn {
+      margin-left: 1rem;
+      color: $primary;
+      cursor: pointer;
+    }
   }
 }
