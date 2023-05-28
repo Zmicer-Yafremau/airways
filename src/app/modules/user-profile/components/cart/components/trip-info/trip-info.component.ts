@@ -47,7 +47,6 @@ export class TripInfoComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    console.log(this.trip);
     this.tripService.getTrips().subscribe((value) => {
       this.trips = value;
     });

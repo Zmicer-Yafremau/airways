@@ -16,11 +16,13 @@ export class PassengersCardComponent implements OnInit {
 
   public infants!: [PassengerType];
 
-  public constructor(private getUser: GetUserRequestInfoService, private stepService: ChangeStepService) {}
+  public constructor(
+    private getUser: GetUserRequestInfoService,
+    private stepService: ChangeStepService,
+  ) {}
 
   public ngOnInit() {
     this.stepService.changeButtonStatus(true);
-    // console.log(`changed!`);
     this.getUser.getUserRequestInfo().subscribe((user) => {
       const values = Object.values((user as IUserRequestInfo).passengers);
       const adults = Array(values[0]).fill('adults') as [PassengerType];
@@ -29,6 +31,6 @@ export class PassengersCardComponent implements OnInit {
       this.adults = adults;
       this.children = children;
       this.infants = infants;
-    }); 
+    });
   }
 }
