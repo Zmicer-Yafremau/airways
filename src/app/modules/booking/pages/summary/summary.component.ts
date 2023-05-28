@@ -83,6 +83,7 @@ export class SummaryComponent implements OnInit, OnDestroy {
   private setSummaryInfo() {
     combineLatest([this.flight$, this.passengers$, this.passengersInfo$])
       .pipe(
+        untilDestroyed(this),
         tap(([flight, passengers, passengersInfo]) => {
           const quantity = passengers?.passengers;
           const tripType = passengers?.roundTrip ? 'round' : 'one way';

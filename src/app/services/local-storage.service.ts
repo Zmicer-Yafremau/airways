@@ -13,4 +13,10 @@ export class LocalStorageService {
   public getValue(key: LocalStorageKeyEnum) {
     return localStorage.getItem(key);
   }
+
+  public clearLocalStorage() {
+    Object.values(LocalStorageKeyEnum)
+      .filter((el) => el !== LocalStorageKeyEnum.PAID_ORDERS && LocalStorageKeyEnum.UNPAID_ORDERS)
+      .forEach((el) => localStorage.removeItem(el));
+  }
 }
