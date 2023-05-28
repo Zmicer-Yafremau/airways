@@ -31,7 +31,7 @@
 
     <mat-form-field *ngIf="airports$ | async as airports" class="from-input" appearance="outline">
       <mat-label>From</mat-label>
-      <mat-select class="select" formControlName="from" value="BER">
+      <mat-select class="select" formControlName="from">
         <mat-select-trigger>
           <span>{{ airportDepartureNameForSelectHeader }}</span>
         </mat-select-trigger>
@@ -59,7 +59,7 @@
 
     <mat-form-field *ngIf="airports$ | async as airports" class="dest-input" appearance="outline">
       <mat-label>Destination</mat-label>
-      <mat-select class="select" formControlName="destination" value="BER">
+      <mat-select class="select" formControlName="destination">
         <mat-select-trigger>
           <span>{{ airportArrivalNameForSelectHeader }}</span>
         </mat-select-trigger>
@@ -93,8 +93,8 @@
       appearance="outline"
     >
       <mat-label>Choose a dates</mat-label>
-      <mat-date-range-input [rangePicker]="picker">
-        <input matStartDate placeholder="Start date" formControlName="departureDate" />
+      <mat-date-range-input [rangePicker]="picker" [min]="todayDate | date : 'yyyy-MM-dd'">
+        <input matStartDate="" placeholder="Start date" formControlName="departureDate" />
         <input matEndDate placeholder="End date" formControlName="departureReturnDate" />
       </mat-date-range-input>
       <mat-error *ngIf="searchFlyForm.controls['departureDate'].hasError('required')">
@@ -110,7 +110,12 @@
     <ng-template #oneWayDatePicker>
       <mat-form-field class="date-picker" appearance="outline">
         <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="departureDate" />
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="departureDate"
+          [min]="todayDate | date : 'yyyy-MM-dd'"
+        />
         <mat-error *ngIf="searchFlyForm.controls['departureDate'].hasError('required')">
           Please enter a departure date
         </mat-error>
@@ -123,6 +128,7 @@
       <mat-label>Passengers</mat-label>
       <mat-select class="select" formControlName="passengers">
         <mat-select-trigger>
+          <span *ngIf="passengers.sum === 0" style="color: red"> No passengers!</span>
           <span *ngIf="passengers.adults > 0"> Adults {{ passengers.adults }} </span>
           <span *ngIf="passengers.children > 0"> Children {{ passengers.children }} </span>
           <span *ngIf="passengers.infants > 0"> Infants {{ passengers.infants }} </span>

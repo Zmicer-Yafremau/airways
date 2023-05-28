@@ -22,23 +22,27 @@ export class AuthModalComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
-    this.socialAuthService.authState.subscribe((user) => {
-      this.user = user;
-      this.loggedIn = user != null;
-      this.authService.setUser({
-        firtsName: this.user.firstName,
-        lastName: this.user.lastName,
-        email: this.user.email,
-      });
-    },
-    (err)=>{
-      console.log(err.error.message);
-    }
+    this.socialAuthService.authState.subscribe(
+      (user) => {
+        this.user = user;
+        this.loggedIn = user != null;
+        if (this.user) {
+          this.authService.setUser({
+            firtsName: this.user.firstName,
+            lastName: this.user.lastName,
+            email: this.user.email,
+          });
+          this.socialAuthService.signOut();
+        }
+      },
+      (err) => {
+        console.log(err.error.message);
+      },
     );
   }
 
   public signInWithFB(): void {
-    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).catch((err)=>{
+    this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID).catch((err) => {
       console.log(err.error.message);
     });
   }

@@ -1,0 +1,66 @@
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.container-trip {
+  display: flex;
+  align-items: center;
+  padding: 46px 18px;
+  width: 100%;
+  font-weight: 500;
+  font-size: 18px;
+  gap: 80px;
+}
+
+.check-box {
+  margin-right: auto;
+}
+
+.check-box-name {
+  position: relative;
+  top: 2px;
+  display: flex;
+  width: max-content;
+  color: rgb(0 144 189 / 100%);
+}
+
+.trip-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.one-way {
+  display: flex;
+}
+
+.one-way-date {
+  display: flex;
+  flex-direction: column;
+}
+
+.passengers-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-line {
+  width: 95%;
+  height: 2px;
+  background-color: rgb(225 229 235 / 100%);
+}
+
+.menu {
+  margin-left: auto;
+}
+
+.price {
+  color: rgb(122 204 0);
+}
+
+.date {
+  display: flex;
+  width: max-content;
+}

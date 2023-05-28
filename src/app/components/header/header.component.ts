@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
 import { ShowEditService } from 'src/app/services/show-edit.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { ChangeStepService } from 'src/app/services/change-step.service';
 import { OrderService } from 'src/app/services/order.service';
 import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
     private dateCurrencyService: GetDateCurrencyFormatService,
     public toggleEdiService: ShowEditService,
     private router: Router,
+    private stepService: ChangeStepService,
     private orderService: OrderService,
   ) {
     this.toggleIsBookingUrl();
@@ -94,5 +96,14 @@ export class HeaderComponent implements OnInit {
         date: value,
       });
     }
+  }
+
+  public logoClick() {
+    this.stepService.changeStep({
+      flights: 'active',
+      passengers: 'inactive',
+      review: 'inactive',
+    });
+    this.router.navigateByUrl('/');
   }
 }

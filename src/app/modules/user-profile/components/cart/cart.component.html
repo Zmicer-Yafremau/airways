@@ -1,0 +1,38 @@
+<div class="content-wrapper">
+  <div class="wrapper-shadow">
+    <div class="top-block">
+      <p class="cart-caption">Cart</p>
+    </div>
+
+    <div class="table-top-block">
+      <div *ngFor="let tabName of tabNames" class="column-name">
+        <span>{{ tabName }}</span>
+        <div class="sort">
+          <img src="/assets/sort-up.svg" alt="up" class="sort-up-down" />
+          <img src="/assets/sort-down.svg" alt="down" class="sort-up-down" />
+        </div>
+      </div>
+    </div>
+
+    <app-trip-info *ngFor="let trip of orderedTrips | async" [trip]="trip"></app-trip-info>
+
+    <div class="total">
+      <button mat-raised-button color="secondary" class="add-trip-btn" routerLink="/">
+        +Add new trip
+      </button>
+      <div class="total-price">
+        <span>Total: </span>
+        <span>{{ totalPrice | currency : 'EUR' }}</span>
+      </div>
+    </div>
+    <div class="bottom-line"></div>
+
+    <div class="bottom">
+      <mat-form-field class="example-full-width">
+        <input matInput placeholder="Promo code" value="" class="promo-code" appearance="outline" />
+      </mat-form-field>
+      <span class="selected">{{ trips }} selected</span>
+      <button mat-raised-button color="primary" class="payment-btn">Payment</button>
+    </div>
+  </div>
+</div>

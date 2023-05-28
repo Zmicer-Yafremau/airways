@@ -3,6 +3,7 @@ import { ChangeStepService } from 'src/app/services/change-step.service';
 import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ShowEditService } from 'src/app/services/show-edit.service';
+import { FlightInfoService } from 'src/app/services/flight-info.service';
 
 @UntilDestroy()
 @Component({
@@ -15,6 +16,7 @@ export class TopSummaryComponent implements OnInit {
     public getUserRequestService: GetUserRequestInfoService,
     public stepService: ChangeStepService,
     private editService: ShowEditService,
+    private flightService: FlightInfoService,
   ) {}
 
   public departureAirport = '';
@@ -54,6 +56,11 @@ export class TopSummaryComponent implements OnInit {
           this.sumPassengers = content.passengers.sum;
         }
       });
+    // this.flightService.getUserFlightInfo().subscribe((info) => {
+    //   if (info) {
+    //     this.departureDate = info?.forward?.arrivalTimeInfo;
+    //   }
+    // });
   }
 
   public editClick() {
