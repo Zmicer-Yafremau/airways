@@ -110,7 +110,12 @@
     <ng-template #oneWayDatePicker>
       <mat-form-field class="date-picker" appearance="outline">
         <mat-label>Choose a date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="departureDate" />
+        <input
+          matInput
+          [matDatepicker]="picker"
+          formControlName="departureDate"
+          [min]="todayDate | date : 'yyyy-MM-dd'"
+        />
         <mat-error *ngIf="searchFlyForm.controls['departureDate'].hasError('required')">
           Please enter a departure date
         </mat-error>
