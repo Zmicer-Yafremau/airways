@@ -141,6 +141,7 @@ export class BookingFlowComponent implements OnInit {
       .subscribe((content) => {
         if (content) {
           this.orders.setPaidOrder(content);
+          this.summary.clearSummary();
         }
       });
     this.router.navigateByUrl('/');
@@ -155,6 +156,7 @@ export class BookingFlowComponent implements OnInit {
       .subscribe((content) => {
         if (content) {
           this.orders.setUnpaidOrder(content);
+          this.summary.clearSummary();
         }
       });
     this.router.navigateByUrl('/user/cart');

@@ -59,7 +59,6 @@ export class CartComponent implements OnInit {
   }
 
   public onPayment() {
-    console.log(this.toPay);
     this.toPay.forEach((item) => {
       this.summary.setPaidOrder(item);
       this.summary.rmUnpaidItem(item.forward.flightNumber);

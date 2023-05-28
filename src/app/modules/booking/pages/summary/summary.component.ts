@@ -77,6 +77,11 @@ export class SummaryComponent implements OnInit, OnDestroy {
   public ngOnDestroy(): void {
     if (this.summaryInfo) {
       this.summaryService.setSummaryInfo(this.summaryInfo);
+      this.passengerService.passengers.next({
+        adults: undefined,
+        children: undefined,
+        infants: undefined,
+      });
     }
   }
 
