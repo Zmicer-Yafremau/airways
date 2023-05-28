@@ -10,7 +10,7 @@ import { LocalStorageKeyEnum } from '../types/LocalStorageValue';
 export class SummaryService {
   private summaryInfo$ = new BehaviorSubject<null | ISummary>(null);
 
-  private summaryInfo: null | ISummary = null;
+  public summaryInfo: null | ISummary = null;
 
   public constructor(private ls: LocalStorageService) {}
 
