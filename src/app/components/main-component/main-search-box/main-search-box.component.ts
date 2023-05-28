@@ -83,7 +83,6 @@ export class MainSearchBoxComponent implements OnInit {
     this.airportService.getAllAirports();
 
     if (this.isHeaderForm) {
-      console.log('edit');
       const lsValue = this.ls.getValue(LocalStorageKeyEnum.TOP_SUMMARY);
       if (lsValue) {
         const userInfo = JSON.parse(lsValue) as IUserRequestInfo;
@@ -102,7 +101,7 @@ export class MainSearchBoxComponent implements OnInit {
         });
       }
     }
-    console.log(this.editService.isEditActive$.getValue());
+    // console.log(this.editService.isEditActive$.getValue());
   }
 
   public onSubmit() {
@@ -120,7 +119,7 @@ export class MainSearchBoxComponent implements OnInit {
 
   public typeOfTrip(e: MatRadioChange) {
     this.roundTrip = e.value === 'round';
-    console.log(this.roundTrip);
+    // console.log(this.roundTrip);
   }
 
   public handlePassengersChange(newPassengers: IPassengers) {

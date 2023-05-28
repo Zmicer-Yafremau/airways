@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, take } from 'rxjs';
 import * as _ from 'lodash';
 import { IPassengers, IPassengerContacts, IPassengerForm } from '../models/passenger-model';
 
@@ -25,14 +25,14 @@ export class PassengerService {
     passengerType: 'adults',
     firstName: '',
     lastName: '',
-    gender: 'male',
+    gender: '',
     dateOfBirth: '',
-    needAssistance: false,
+    baggage: false,
+    baggageAmount: 0,
     formIsValid: false,
   });
 
   public addPassengerContact(contact: IPassengerContacts) {
-    localStorage.setItem('passengersContact', JSON.stringify(contact));
     this.passengerContacts.next(contact);
   }
 
@@ -41,21 +41,10 @@ export class PassengerService {
   }
 
   public addPassengerForm(passengerForm: IPassengerForm) {
-    const id = this.passengers.subscribe((passengers) => {
+    this.passengers.pipe(take(1)).subscribe((passengers) => {
       const newPassengers = _.cloneDeep(passengers) as IPassengers;
       if (newPassengers[passengerForm.passengerType]) {
-        if (
-          JSON.stringify({ ...passengerForm }) ===
-          JSON.stringify(
-            (newPassengers[passengerForm.passengerType] as [IPassengerForm])[passengerForm.id],
-          )
-        ) {
-          localStorage.setItem('passengersInfo', JSON.stringify(passengers));
-          id.unsubscribe();
-        }
-      }
-      if (newPassengers[passengerForm.passengerType]) {
-        (newPassengers[passengerForm.passengerType] as [IPassengerForm])[passengerForm.id] =
+          (newPassengers[passengerForm.passengerType] as [IPassengerForm])[passengerForm.id] =
           passengerForm;
       } else if (passengerForm.id) {
         const passengerMock = [];
@@ -68,9 +57,10 @@ export class PassengerService {
               passengerType: passengerForm.passengerType,
               firstName: '',
               lastName: '',
-              gender: 'male',
+              gender: '',
               dateOfBirth: '',
-              needAssistance: false,
+              baggage: false,
+              baggageAmount: 0,
               formIsValid: false,
             });
           }

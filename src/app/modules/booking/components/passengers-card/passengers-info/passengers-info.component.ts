@@ -23,6 +23,8 @@ export class PassengersInfoComponent implements OnInit {
 
   public passengerForm!: FormGroup;
 
+  public baggage = 1;
+
   public constructor(
     public fb: FormBuilder,
     private stepService: ChangeStepService,
@@ -36,9 +38,9 @@ export class PassengersInfoComponent implements OnInit {
       lastName: ['', [Validators.required, Validator.nameValidator]],
       dateOfBirth: ['', [Validators.required]],
       gender: ['', [Validators.required]],
-      needAssistance: [false],
+      baggage: [false],
+      baggageAmount: [0, [Validators.required]],
     });
-
     this.stepService.progressCondition$.subscribe((condition) => {
       if (localStorage.getItem('passengersInfo') && condition.passengers === 'active') {
         const passengersInfoFromLocalStorage = JSON.parse(
@@ -50,7 +52,7 @@ export class PassengersInfoComponent implements OnInit {
           ? (passengersInfoFromLocalStorage[this.passengerType] as [IPassengerForm])[
               this.passengerId
             ].gender
-          : 'male';
+          : '';
         this.passengerForm.setValue({
           firstName: (passengersInfoFromLocalStorage[this.passengerType] as [IPassengerForm])[
             this.passengerId
@@ -62,27 +64,35 @@ export class PassengersInfoComponent implements OnInit {
             this.passengerId
           ].dateOfBirth,
           gender: genderFromService,
-          needAssistance: (passengersInfoFromLocalStorage[this.passengerType] as [IPassengerForm])[
+          baggage: (passengersInfoFromLocalStorage[this.passengerType] as [IPassengerForm])[
             this.passengerId
-          ].needAssistance,
+          ].baggage,
+          baggageAmount: (passengersInfoFromLocalStorage[this.passengerType] as [IPassengerForm])[
+            this.passengerId
+          ].baggageAmount,
         });
       }
     });
-    this.passengerForm.statusChanges.pipe(debounceTime(1000)).subscribe(() => {
-      const dateOfBirth = new Date(this.passengerForm.value.dateOfBirth);
-      const isoDateOfBirth = dateOfBirth.toISOString();
-      const passengerInfo = {
+    this.passengerForm.statusChanges.pipe(debounceTime(1000)).subscribe((status) => {
+      const dateOfBirth = this.passengerForm.value.dateOfBirth ? new Date(this.passengerForm.value.dateOfBirth) : '';
+      const isoDateOfBirth = dateOfBirth ? dateOfBirth.toISOString() : '';
+      const passGender = this.passengerForm.value.gender ? this.passengerForm.value.gender : '';
+      const passengerInfo: IPassengerForm = {
         id: this.passengerId,
         passengerType: this.passengerType,
         firstName: this.passengerForm.value.firstName,
         lastName: this.passengerForm.value.lastName,
-        gender: this.passengerForm.value.gender ? this.passengerForm.value.gender : 'male',
+        gender: passGender,
         dateOfBirth: isoDateOfBirth,
-        needAssistance: this.passengerForm.value.needAssistance,
+        baggage: !!this.passengerForm.value.baggage,
+        baggageAmount: this.passengerForm.value.baggageAmount ? this.passengerForm.value.baggageAmount : 0,
         formIsValid: false,
       };
-      if (this.passengerForm.valid) {
+      // console.log(this.passengerForm);
+      // console.log(passengerInfo);
+      if (status === 'VALID') {
         passengerInfo.formIsValid = true;
+        passengerInfo.gender = passGender;
       }
       this.passengerService.addPassengerForm(passengerInfo);
     });

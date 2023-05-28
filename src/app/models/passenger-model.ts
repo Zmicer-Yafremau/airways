@@ -9,9 +9,10 @@ export interface IPassengerForm {
   passengerType: PassengerType;
   firstName: string;
   lastName: string;
-  gender: 'male' | 'female';
+  gender: 'male' | 'female' | '';
   dateOfBirth: string;
-  needAssistance?: boolean;
+  baggage: boolean;
+  baggageAmount: number;
   formIsValid: boolean;
 }
 export interface IPassengerContacts {

@@ -17,20 +17,29 @@ export class ChangeStepService {
   public continueButtonStatus$ = new BehaviorSubject<boolean>(false);
 
   public constructor(public passengerService: PassengerService) {
+    localStorage.setItem('passengersContact','');
+    localStorage.setItem('passengersInfo', '');
     this.progressCondition$.subscribe((condition) => {
       const passengerServiceId = this.passengerService.passengers.subscribe((passengers) => {
         if (condition.passengers === 'active') {
           const passClone = _.cloneDeep(passengers);
           this.passengerService.passengerContacts.subscribe((contacts) => {
-            const passengerFormsStatus = Object.values(passClone)
-              .flat(Infinity)
-              .filter((el) => el)
-              .map((pasArr) => pasArr.formIsValid)
-              .every((isValid) => isValid);
+            let passengerFormsStatus = false;
+            if (Object.values(passClone).filter((el) => el).length) {
+              passengerFormsStatus = Object.values(passClone)
+                .filter((el) => el)
+                .flat(Infinity)
+                .map((pasArr) => pasArr.formIsValid)
+                .every((isValid) => isValid);  
+            }
             const passengerContactFormStatus = contacts.formIsValid;
             if (passengerFormsStatus && passengerContactFormStatus) {
+              localStorage.setItem('passengersContact', JSON.stringify(contacts));
+              localStorage.setItem('passengersInfo', JSON.stringify(passengers));
               this.changeButtonStatus(false);
             } else if (!(passengerFormsStatus && passengerContactFormStatus)) {
+              localStorage.setItem('passengersContact','');
+              localStorage.setItem('passengersInfo', '');
               this.changeButtonStatus(true);
             }
           });
