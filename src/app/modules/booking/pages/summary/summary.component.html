@@ -3,9 +3,21 @@
     <img src="assets/summary/title-img.svg" alt="title" />
     Summary
   </h2>
-  <div class="trip">
-    <app-trip-card class="card" [flight]="flight.forward"></app-trip-card>
-    <app-trip-card class="card" *ngIf="flight.back" [flight]="flight.back"></app-trip-card>
+  <div class="trip" *ngIf="passengersInfo$ | async as passengersInfo">
+    <app-trip-card
+      class="card"
+      [flight]="flight.forward"
+      [passengers]="passengersInfo"
+      (summaryPassengersInfo)="onSummaryPassengersInfo($event)"
+    ></app-trip-card>
+    <app-trip-card
+      class="card"
+      *ngIf="flight.back"
+      [flight]="flight.back"
+      [passengers]="passengersInfo"
+      [isBack]="true"
+      (summaryPassengersInfo)="onSummaryPassengersInfo($event)"
+    ></app-trip-card>
   </div>
   <div class="summary-wrapper" *ngIf="passengers$ | async as passengers">
     <div class="card" *ngIf="passengerPrice">
@@ -28,12 +40,23 @@
         [quantity]="infants"
         [type]="typeEnum.INFANTS"
       ></app-summary-item>
+
+      <ng-container *ngIf="summaryInfo && summaryInfo.extraLuggage.quantity">
+        <app-summary-item
+          *ngIf="summaryInfo.extraLuggage as luggage"
+          [currentPrice]="luggage.price[currency]"
+          [quantity]="luggage.quantity"
+          [type]="typeEnum.LUGGAGE"
+        ></app-summary-item>
+      </ng-container>
       <div class="total" *ngIf="passengers.passengers as quantity">
         <span>TOTAL:</span>
-        <span class="price">{{
+        <span *ngIf="summaryInfo" class="price">{{
           passengerPrice.adults * quantity.adults +
             passengerPrice.children * quantity.children +
-            passengerPrice.infants * quantity.infants | currency : (currency | customCurrency)
+            passengerPrice.infants * quantity.infants +
+            summaryInfo.extraLuggage.quantity * summaryInfo.extraLuggage.price[currency]
+            | currency : (currency | customCurrency)
         }}</span>
       </div>
     </div>

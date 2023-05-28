@@ -2,6 +2,7 @@ export enum PassengersTypeEnum {
   ADULTS = 'Adult',
   CHILDREN = 'Child',
   INFANTS = 'Infant',
+  LUGGAGE = 'Extra luggage',
 }
 
 export interface IPassengerConfig {

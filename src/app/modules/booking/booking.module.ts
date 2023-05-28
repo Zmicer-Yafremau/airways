@@ -10,8 +10,8 @@ import { CustomCurrencyPipe } from 'src/app/pipes/custom-currency.pipe';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { BookingRoutingModule } from './booking-routing.module';
 import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
 import { TopSummaryComponent } from './components/top-summary/top-summary.component';
@@ -58,7 +58,7 @@ import { PassengersContactsComponent } from './components/passengers-card/passen
     MatOptionModule,
     MatSelectModule,
     MatSlideToggleModule,
-    MatTooltipModule
+    MatTooltipModule,
   ],
   exports: [QuantityIndicatorDirective],
 })

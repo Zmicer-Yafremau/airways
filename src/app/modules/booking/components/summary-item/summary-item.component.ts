@@ -15,7 +15,7 @@ export class SummaryItemComponent implements OnInit, OnChanges {
 
   @Input() public type?: PassengersTypeEnum;
 
-  @Input() public currentPrice?: IPassengerPrice;
+  @Input() public currentPrice?: IPassengerPrice | number;
 
   public price = 0;
 
@@ -37,7 +37,7 @@ export class SummaryItemComponent implements OnInit, OnChanges {
   }
 
   private setPrice() {
-    if (this.type && this.currentPrice) {
+    if (this.type && this.currentPrice && typeof this.currentPrice !== 'number') {
       switch (this.type) {
         case PassengersTypeEnum.CHILDREN:
           this.price = this.currentPrice.children * this.quantity;
@@ -48,6 +48,8 @@ export class SummaryItemComponent implements OnInit, OnChanges {
         default:
           this.price = this.currentPrice.adults * this.quantity;
       }
+    } else if (this.type === PassengersTypeEnum.LUGGAGE && typeof this.currentPrice === 'number') {
+      this.price = this.currentPrice;
     }
   }
 }
