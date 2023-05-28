@@ -10,6 +10,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { LocalStorageKeyEnum } from 'src/app/types/LocalStorageValue';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ShowEditService } from 'src/app/services/show-edit.service';
+import { ToastService } from 'angular-toastify';
 
 @UntilDestroy()
 @Component({
@@ -59,6 +60,8 @@ export class MainSearchBoxComponent implements OnInit {
 
   public airportArrivalNameForSelectHeader = '';
 
+  public todayDate = new Date();
+
   public constructor(
     private fb: FormBuilder,
     private getUserRequestService: GetUserRequestInfoService,
@@ -66,6 +69,7 @@ export class MainSearchBoxComponent implements OnInit {
     private airportService: AirportContentService,
     private ls: LocalStorageService,
     private editService: ShowEditService,
+    private toast: ToastService,
   ) {}
 
   public ngOnInit(): void {
@@ -92,8 +96,16 @@ export class MainSearchBoxComponent implements OnInit {
           const toSelectDest = airports.find((airport) => airport.key === userInfo.destination);
           this.startDate = userInfo.departureDate;
 
-          // this.searchFlyForm.get('from')?.setValue(toSelectFrom?.city);
-          // this.searchFlyForm.get('destination')?.setValue(toSelectDest?.city);
+          this.searchFlyForm.setValue({
+            from: userInfo.from,
+            destination: userInfo.destination,
+            departureDate: userInfo.departureDate,
+            departureReturnDate: userInfo.departureReturnDate,
+            passengers: userInfo.passengers.sum,
+          });
+          this.passengers = {
+            ...userInfo.passengers,
+          };
           if (toSelectFrom) {
             this.airportDepartureNameForSelectHeader = toSelectFrom.city;
           }
@@ -101,11 +113,22 @@ export class MainSearchBoxComponent implements OnInit {
         });
       }
     }
-    // console.log(this.editService.isEditActive$.getValue());
   }
 
   public onSubmit() {
-    if (this.searchFlyForm.valid && this.passengers.sum > 0) {
+    const from = this.searchFlyForm.controls['from'].value;
+    const to = this.searchFlyForm.controls['destination'].value;
+    if (from === to && from && to)
+      this.toast.error("Airports of departure and arrival can't be the same!");
+
+    if (!this.passengers.adults) this.toast.warn('Please input at least 1 adult');
+
+    if (
+      this.searchFlyForm.valid &&
+      this.passengers.sum > 0 &&
+      from !== to &&
+      this.passengers.adults
+    ) {
       this.requestInfo = {
         ...this.searchFlyForm.value,
         passengers: this.passengers,
@@ -119,7 +142,6 @@ export class MainSearchBoxComponent implements OnInit {
 
   public typeOfTrip(e: MatRadioChange) {
     this.roundTrip = e.value === 'round';
-    // console.log(this.roundTrip);
   }
 
   public handlePassengersChange(newPassengers: IPassengers) {

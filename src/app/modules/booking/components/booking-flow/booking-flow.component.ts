@@ -77,6 +77,7 @@ export class BookingFlowComponent implements OnInit {
       });
       return this.step;
     }
+    console.log(this.step);
     return this.step;
   }
 

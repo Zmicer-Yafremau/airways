@@ -60,6 +60,6 @@ import { PassengersContactsComponent } from './components/passengers-card/passen
     MatSlideToggleModule,
     MatTooltipModule,
   ],
-  exports: [QuantityIndicatorDirective],
+  exports: [QuantityIndicatorDirective, CustomCurrencyPipe],
 })
 export class BookingModule {}

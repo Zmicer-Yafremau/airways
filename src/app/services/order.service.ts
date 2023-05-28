@@ -57,4 +57,20 @@ export class OrderService {
 
     return this.unpaid$.asObservable();
   }
+
+  public rmPaidItem(id: string) {
+    this.paid = this.paid.filter((el) => el.forward.flightNumber !== id);
+
+    this.ls.setValue({ key: LocalStorageKeyEnum.PAID_ORDERS, value: this.paid });
+
+    this.paid$.next(this.paid);
+  }
+
+  public rmUnpaidItem(id: string) {
+    this.unpaid = this.unpaid.filter((el) => el.forward.flightNumber !== id);
+
+    this.ls.setValue({ key: LocalStorageKeyEnum.UNPAID_ORDERS, value: this.unpaid });
+
+    this.unpaid$.next(this.unpaid);
+  }
 }
