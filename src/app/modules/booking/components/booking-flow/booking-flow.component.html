@@ -9,7 +9,10 @@
   <button
     mat-raised-button
     color="primary"
-    [disabled]="(isFlightsBtnValid | async) === false && step === stepEnum.Flights || (step === stepEnum.Passengers && continueButtonStatus)"
+    [disabled]="
+      ((isFlightsBtnValid | async) === false && step === stepEnum.Flights) ||
+      (step === stepEnum.Passengers && continueButtonStatus)
+    "
     (click)="stepForward()"
   >
     Continue
@@ -19,7 +22,7 @@
 <ng-template #review>
   <div class="bottom-btn-wrapper">
     <button mat-button (click)="stepBack()">Back</button>
-    <button mat-stroked-button color="primary">Add to order cart</button>
-    <button mat-raised-button color="primary">Buy now</button>
+    <button routerLink="/user/cart" mat-stroked-button color="primary">Add to order cart</button>
+    <button (click)="onBuyClick()" mat-raised-button color="primary">Buy now</button>
   </div>
 </ng-template>

@@ -16,28 +16,13 @@
       >
     </div>
   </div>
-  <div class="passenger">
-    <p class="name">{{ 'Harry Potter' | uppercase }}</p>
-    <ul class="info">
-      <li>{{ '1checked bag (total 23 kg) included' }}</li>
-      <li>{{ '1 cabin bag + 1 personal item (max. 8 kg) included' }}</li>
-      <li>{{ 'Seat 19E' }}</li>
-    </ul>
-  </div>
-  <div class="passenger">
-    <p class="name">{{ 'Harry Potter' | uppercase }}</p>
-    <ul class="info">
-      <li>{{ '1checked bag (total 23 kg) included' }}</li>
-      <li>{{ '1 cabin bag + 1 personal item (max. 8 kg) included' }}</li>
-      <li>{{ 'Seat 19E' }}</li>
-    </ul>
-  </div>
-  <div class="passenger">
-    <p class="name">{{ 'Harry Potter' | uppercase }}</p>
-    <ul class="info">
-      <li>{{ '1checked bag (total 23 kg) included' }}</li>
-      <li>{{ '1 cabin bag + 1 personal item (max. 8 kg) included' }}</li>
-      <li>{{ 'Seat 19E' }}</li>
-    </ul>
+  <div class="passenger" *ngFor="let passenger of passengersInfo; let i = index">
+    <p class="name">{{ passenger.firstName | uppercase }} {{ passenger.lastName | uppercase }}</p>
+    <div class="info">
+      <span *ngIf="passenger.baggage">1 checked bag (total 23 kg) included</span>
+      <span>1 cabin bag + 1 personal item (max. 8 kg) included</span>
+      <span *ngIf="passenger.baggageAmount">Extra baggage {{ passenger.baggageAmount }}kg</span>
+      <span>Seat {{ seats[i] }}</span>
+    </div>
   </div>
 </div>
