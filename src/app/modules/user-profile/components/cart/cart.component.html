@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <app-trip-info></app-trip-info>
+    <app-trip-info *ngFor="let trip of orderedTrips | async" [trip]="trip"></app-trip-info>
 
     <div class="total">
       <button mat-raised-button color="secondary" class="add-trip-btn" routerLink="/">

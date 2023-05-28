@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CountTripService } from 'src/app/services/count-trip.service';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-cart',
@@ -13,11 +14,14 @@ export class CartComponent implements OnInit {
 
   public trips = 0;
 
-  public constructor(public tripService: CountTripService) {}
+  public orderedTrips = this.summary.getUnpaidOrders();
+
+  public constructor(public tripService: CountTripService, private summary: OrderService) {}
 
   public ngOnInit(): void {
     this.tripService.getTrips().subscribe((trips) => {
       this.trips = trips;
     });
+    console.log(this.orderedTrips);
   }
 }
