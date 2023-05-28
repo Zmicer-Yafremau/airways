@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { CountTripService } from 'src/app/services/count-trip.service';
 import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
-import { GetUserRequestInfoService } from 'src/app/services/get-user-request-info.service';
+import { SummaryService } from 'src/app/services/summary.service';
+import { Currency } from 'src/app/types/IDateCurrencyFormat';
 
 @Component({
   selector: 'app-trip-info',
@@ -10,17 +11,17 @@ import { GetUserRequestInfoService } from 'src/app/services/get-user-request-inf
   styleUrls: ['./trip-info.component.scss'],
 })
 export class TripInfoComponent implements OnInit {
-  public flightCode = 'FR0013';
+  public flightCode?: string;
 
   public from?: string;
 
   public destination?: string;
 
-  public roundTrip?: 'Round trip' | 'One way';
+  public roundTrip?: string;
 
-  public dateDeparture?: string;
+  public dateDeparture?: Date;
 
-  public dateArrival?: string;
+  public dateArrival?: Date;
 
   public passengers = {
     adults: 0,
@@ -28,36 +29,39 @@ export class TripInfoComponent implements OnInit {
     infants: 0,
   };
 
-  public price = 666;
+  public price?: number;
 
-  public userCurrency?: string;
+  public userCurrency: Currency = 'eur';
 
   public trips = 0;
 
   public constructor(
-    private infoService: GetUserRequestInfoService,
     private currencyService: GetDateCurrencyFormatService,
     public tripService: CountTripService,
+    private summary: SummaryService,
   ) {}
 
   public ngOnInit(): void {
-    this.infoService.getUserRequestInfo().subscribe((info) => {
-      if (info) {
-        this.from = info.from;
-        this.destination = info.destination;
-        this.roundTrip = info.roundTrip ? 'Round trip' : 'One way';
-        this.dateDeparture = info.departureDate;
-        this.dateArrival = info.departureReturnDate;
-        this.passengers.adults = info.passengers.adults;
-        this.passengers.children = info.passengers.children;
-        this.passengers.infants = info.passengers.infants;
-      }
-    });
     this.currencyService.dateCurrencyFormat$.subscribe((info) => {
-      this.userCurrency = info.currency.toUpperCase();
+      this.userCurrency = info.currency as Currency;
     });
     this.tripService.getTrips().subscribe((value) => {
       this.trips = value;
+    });
+
+    this.summary.getSummaryInfo().subscribe((summary) => {
+      if (summary) {
+        this.flightCode = summary.forward.flightNumber;
+        this.from = summary.forward.departureTimeInfo.airport;
+        this.destination = summary.forward.arrivalTimeInfo.airport;
+        this.roundTrip = summary.tripType;
+        this.dateDeparture = summary.forward.departureTimeInfo.date;
+        this.dateArrival = summary.forward.arrivalTimeInfo.date;
+        this.passengers.adults = summary.quantity.adults;
+        this.passengers.children = summary.quantity.children;
+        this.passengers.infants = summary.quantity.infants;
+        this.price = summary.totalSum[this.userCurrency];
+      }
     });
   }
 

@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { UserProfileRoutingModule } from './user-profile-routing.module';
 import { CartComponent } from './components/cart/cart.component';
 import { TripInfoComponent } from './components/trip-info/trip-info.component';
+import { BookingModule } from '../booking/booking.module';
 
 @NgModule({
   declarations: [CartComponent, TripInfoComponent],
@@ -23,6 +24,7 @@ import { TripInfoComponent } from './components/trip-info/trip-info.component';
     MatIconModule,
     MatFormFieldModule,
     FormsModule,
+    BookingModule,
   ],
 })
 export class UserProfileModule {}
