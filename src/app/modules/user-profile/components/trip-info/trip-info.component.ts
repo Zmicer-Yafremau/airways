@@ -42,9 +42,6 @@ export class TripInfoComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.currencyService.dateCurrencyFormat$.subscribe((info) => {
-      this.userCurrency = info.currency as Currency;
-    });
     this.tripService.getTrips().subscribe((value) => {
       this.trips = value;
     });
@@ -52,15 +49,18 @@ export class TripInfoComponent implements OnInit {
     this.summary.getSummaryInfo().subscribe((summary) => {
       if (summary) {
         this.flightCode = summary.forward.flightNumber;
-        this.from = summary.forward.departureTimeInfo.airport;
-        this.destination = summary.forward.arrivalTimeInfo.airport;
+        this.from = summary.forward.departureTimeInfo.city;
+        this.destination = summary.forward.arrivalTimeInfo.city;
         this.roundTrip = summary.tripType;
         this.dateDeparture = summary.forward.departureTimeInfo.date;
-        this.dateArrival = summary.forward.arrivalTimeInfo.date;
+        this.dateArrival = summary.back?.departureTimeInfo.date;
         this.passengers.adults = summary.quantity.adults;
         this.passengers.children = summary.quantity.children;
         this.passengers.infants = summary.quantity.infants;
-        this.price = summary.totalSum[this.userCurrency];
+        this.currencyService.dateCurrencyFormat$.subscribe((info) => {
+          this.userCurrency = info.currency as Currency;
+          this.price = summary.totalSum[this.userCurrency];
+        });
       }
     });
   }

@@ -11,7 +11,7 @@
   width: 100%;
   font-weight: 500;
   font-size: 18px;
-  gap: 100px;
+  gap: 80px;
 }
 
 .check-box {
@@ -21,6 +21,8 @@
 .check-box-name {
   position: relative;
   top: 2px;
+  display: flex;
+  width: max-content;
   color: rgb(0 144 189 / 100%);
 }
 
@@ -56,4 +58,9 @@
 
 .price {
   color: rgb(122 204 0);
+}
+
+.date {
+  display: flex;
+  width: max-content;
 }

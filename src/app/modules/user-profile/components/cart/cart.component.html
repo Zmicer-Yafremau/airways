@@ -17,7 +17,9 @@
     <app-trip-info></app-trip-info>
 
     <div class="total">
-      <button mat-raised-button color="secondary" class="add-trip-btn">+Add new trip</button>
+      <button mat-raised-button color="secondary" class="add-trip-btn" routerLink="/">
+        +Add new trip
+      </button>
       <div class="total-price">
         <span>Total: </span>
         <span>{{ totalPrice | currency : 'EUR' }}</span>

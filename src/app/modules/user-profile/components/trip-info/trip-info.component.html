@@ -11,7 +11,7 @@
         <span>{{ destination }}</span>
       </div>
 
-      <div *ngIf="roundTrip === 'Round trip'" class="one-way">
+      <div *ngIf="roundTrip === 'round'" class="one-way">
         <span>{{ destination }}</span>
         -
         <span>{{ from }}</span>
@@ -22,11 +22,11 @@
 
     <div class="date-wrapper">
       <div class="one-way-date">
-        <span>{{ dateDeparture | date : 'd MMM, y' }}</span>
+        <span class="date">{{ dateDeparture | date : 'd MMM, y' }}</span>
       </div>
 
-      <div *ngIf="roundTrip === 'Round trip'" class="one-way-date">
-        <span>{{ dateArrival | date : 'd MMM, y' }}</span>
+      <div *ngIf="roundTrip === 'round'" class="one-way-date">
+        <span class="date">{{ dateArrival | date : 'd MMM, y' }}</span>
       </div>
     </div>
 
