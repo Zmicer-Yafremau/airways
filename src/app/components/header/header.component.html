@@ -45,13 +45,22 @@
         <mat-icon class="person-icon">person</mat-icon>
         Sign in
       </button>
-      <button *ngIf="userIsLogged" mat-stroked-button class="btn-signout" (click)="logOut()">
-        <!-- <span>{{ userName }} |</span> -->
-        <mat-icon class="person-icon">person</mat-icon>
-        Sign out
-      </button>
+      <ng-container *ngIf="userIsLogged">
+        <button mat-stroked-button class="btn-signout">
+          <mat-icon class="profile-icon">person</mat-icon>
+        </button>
+        <button mat-stroked-button class="btn-signout" (click)="logOut()">
+          <mat-icon class="person-icon">logout</mat-icon>
+          Sign out
+        </button>
 
-      <mat-icon class="basket">shopping_basket</mat-icon>
+        <button class="cart-btn" routerLink="/user/cart">
+          <mat-icon class="basket">shopping_basket</mat-icon>
+          <div class="cart-quantity" *ngIf="order$ | async as order">
+            <span>{{ order.length }}</span>
+          </div>
+        </button>
+      </ng-container>
     </nav>
   </div>
   <app-main-search-box *ngIf="isEdit$ | async" [isHeaderForm]="true"></app-main-search-box>

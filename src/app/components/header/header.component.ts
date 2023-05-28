@@ -6,6 +6,7 @@ import { filter } from 'rxjs/operators';
 import { GetDateCurrencyFormatService } from 'src/app/services/get-date-currency-format.service';
 import { ShowEditService } from 'src/app/services/show-edit.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { OrderService } from 'src/app/services/order.service';
 import { AuthModalComponent } from '../auth-modal/auth-modal.component';
 
 @UntilDestroy()
@@ -23,12 +24,15 @@ export class HeaderComponent implements OnInit {
 
   public isEdit$ = this.toggleEdiService.isEditActive$;
 
+  public order$ = this.orderService.getUnpaidOrders();
+
   public constructor(
     private matDialog: MatDialog,
     private authService: AuthService,
     private dateCurrencyService: GetDateCurrencyFormatService,
     public toggleEdiService: ShowEditService,
     private router: Router,
+    private orderService: OrderService,
   ) {
     this.toggleIsBookingUrl();
   }
