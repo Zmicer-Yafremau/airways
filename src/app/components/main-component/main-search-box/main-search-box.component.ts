@@ -10,6 +10,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { LocalStorageKeyEnum } from 'src/app/types/LocalStorageValue';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ShowEditService } from 'src/app/services/show-edit.service';
+import { ToastService } from 'angular-toastify';
 
 @UntilDestroy()
 @Component({
@@ -59,6 +60,8 @@ export class MainSearchBoxComponent implements OnInit {
 
   public airportArrivalNameForSelectHeader = '';
 
+  public todayDate = new Date();
+
   public constructor(
     private fb: FormBuilder,
     private getUserRequestService: GetUserRequestInfoService,
@@ -66,6 +69,7 @@ export class MainSearchBoxComponent implements OnInit {
     private airportService: AirportContentService,
     private ls: LocalStorageService,
     private editService: ShowEditService,
+    private toast: ToastService,
   ) {}
 
   public ngOnInit(): void {
@@ -106,7 +110,11 @@ export class MainSearchBoxComponent implements OnInit {
   }
 
   public onSubmit() {
-    if (this.searchFlyForm.valid && this.passengers.sum > 0) {
+    const from = this.searchFlyForm.controls['from'].value;
+    const to = this.searchFlyForm.controls['destination'].value;
+    if (from === to && from && to)
+      this.toast.error("Airports of departure and arrival can't be the same!");
+    if (this.searchFlyForm.valid && this.passengers.sum > 0 && from !== to) {
       this.requestInfo = {
         ...this.searchFlyForm.value,
         passengers: this.passengers,
