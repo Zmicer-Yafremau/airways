@@ -1,5 +1,5 @@
 .header {
-  position: absolute;
+  position: fixed;
   left: 0;
   top: 0;
   z-index: 1;
@@ -9,6 +9,18 @@
   width: 100%;
   height: 88px;
   background-color: rgb(116 118 122 / 20%);
+  transition: 0.3s;
+
+  &.active {
+    z-index: 2;
+    box-shadow: 0 12px 24px -12px rgba(0 0 0 / 50%);
+    background-color: rgb(255 255 255);
+    transition: 0.3s;
+
+    .person-icon {
+      color: rgb(0 0 0);
+    }
+  }
 }
 
 .content-wrapper {

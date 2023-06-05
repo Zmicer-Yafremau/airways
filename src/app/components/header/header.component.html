@@ -1,4 +1,4 @@
-<div class="header">
+<div class="header" [ngClass]="{ active: isScrolled }" (scroll)="scrollHandler()">
   <div class="content-wrapper">
     <div class="logo-wrapper" (click)="logoClick()">
       <div class="logo-circle">
