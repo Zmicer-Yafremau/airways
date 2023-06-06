@@ -1,5 +1,5 @@
 import { AuthService } from 'src/app/services/auth.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -18,6 +18,11 @@ import { AuthModalComponent } from '../auth-modal/auth-modal.component';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  @HostListener('window:scroll')
+  public scrollHandler() {
+    this.onScroll();
+  }
+
   public isBookingUrl = false;
 
   public userName!: string;
@@ -27,6 +32,12 @@ export class HeaderComponent implements OnInit {
   public isEdit$ = this.toggleEdiService.isEditActive$;
 
   public order$ = this.orderService.getUnpaidOrders();
+
+  public isScrolled = false;
+
+  public currPos = 0;
+
+  public changePos = 10;
 
   public constructor(
     private matDialog: MatDialog,
@@ -59,6 +70,7 @@ export class HeaderComponent implements OnInit {
           this.isEdit$.next(false);
         }
       });
+    // this.onScroll();
   }
 
   public openAuthDialog() {
@@ -109,5 +121,14 @@ export class HeaderComponent implements OnInit {
       review: 'inactive',
     });
     this.router.navigateByUrl('/');
+  }
+
+  public onScroll() {
+    this.currPos = window.pageYOffset;
+    if (this.currPos >= this.changePos) {
+      this.isScrolled = true;
+    } else {
+      this.isScrolled = false;
+    }
   }
 }
