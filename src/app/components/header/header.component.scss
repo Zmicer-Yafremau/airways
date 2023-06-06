@@ -1,3 +1,5 @@
+@import 'variables';
+
 .header {
   position: fixed;
   left: 0;
@@ -99,6 +101,10 @@
 
 .btn-signout {
   height: 56px;
+
+  .profile-icon {
+    margin: 0;
+  }
 }
 
 .person-icon {
@@ -106,10 +112,28 @@
   transition: 0.5s;
 }
 
-.basket {
-  color: rgb(255 255 255);
-  transition: 0.5s;
+.cart-btn {
+  position: relative;
+  background: transparent;
   cursor: pointer;
+
+  .basket {
+    color: rgb(255 255 255);
+    cursor: pointer;
+  }
+
+  .cart-quantity {
+    position: absolute;
+    right: -5px;
+    bottom: -3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    background-color: $highlight;
+  }
 }
 
 :host {

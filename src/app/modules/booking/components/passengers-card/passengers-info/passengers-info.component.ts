@@ -74,7 +74,9 @@ export class PassengersInfoComponent implements OnInit {
       }
     });
     this.passengerForm.statusChanges.pipe(debounceTime(1000)).subscribe((status) => {
-      const dateOfBirth = this.passengerForm.value.dateOfBirth ? new Date(this.passengerForm.value.dateOfBirth) : '';
+      const dateOfBirth = this.passengerForm.value.dateOfBirth
+        ? new Date(this.passengerForm.value.dateOfBirth)
+        : '';
       const isoDateOfBirth = dateOfBirth ? dateOfBirth.toISOString() : '';
       const passGender = this.passengerForm.value.gender ? this.passengerForm.value.gender : '';
       const passengerInfo: IPassengerForm = {
@@ -85,11 +87,11 @@ export class PassengersInfoComponent implements OnInit {
         gender: passGender,
         dateOfBirth: isoDateOfBirth,
         baggage: !!this.passengerForm.value.baggage,
-        baggageAmount: this.passengerForm.value.baggageAmount ? this.passengerForm.value.baggageAmount : 0,
+        baggageAmount: this.passengerForm.value.baggageAmount
+          ? this.passengerForm.value.baggageAmount
+          : 0,
         formIsValid: false,
       };
-      // console.log(this.passengerForm);
-      // console.log(passengerInfo);
       if (status === 'VALID') {
         passengerInfo.formIsValid = true;
         passengerInfo.gender = passGender;

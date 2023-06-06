@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { UserGuard } from 'src/app/guards/user.guard';
 import { BookingFlowComponent } from './components/booking-flow/booking-flow.component';
 import { FlightsComponent } from './pages/flights/flights.component';
 import { SummaryComponent } from './pages/summary/summary.component';
@@ -22,10 +23,12 @@ const routes: Routes = [
       {
         path: 'passengers',
         component: PassengersCardComponent,
+        canActivate: [UserGuard],
       },
       {
         path: 'review',
         component: SummaryComponent,
+        canActivate: [UserGuard],
       },
     ],
   },

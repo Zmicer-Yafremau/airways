@@ -33,4 +33,10 @@ export class SummaryService {
 
     this.summaryInfo$.next(value);
   }
+
+  public clearSummary() {
+    this.summaryInfo = null;
+    this.summaryInfo$.next(null);
+    this.ls.rmValue(LocalStorageKeyEnum.SUMMARY_INFO);
+  }
 }

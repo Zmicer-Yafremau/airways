@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { ToastService } from 'angular-toastify';
 import { IFlights } from '../types/IFlights';
 import { ENDPOINTS } from '../config/endpoints';
 import { IFlightInfo, IUserFlightInfo, Key, RequestBody } from '../types/IFlightInfo';
@@ -24,16 +25,23 @@ export class FlightInfoService {
 
   public isAllFieldsValid$ = new BehaviorSubject(false);
 
-  public constructor(private http: HttpClient, private ls: LocalStorageService) {}
+  public constructor(
+    private http: HttpClient,
+    private ls: LocalStorageService,
+    private toast: ToastService,
+  ) {}
 
   public getFlightInfo() {
     return this.flightInfo$.asObservable();
   }
 
   public requestFlightInfo(body: RequestBody) {
-    this.http.post<[IFlights, IFlights]>(ENDPOINTS.flight, body).subscribe((content) => {
-      this.flightInfo$.next(content);
-    });
+    this.http.post<[IFlights, IFlights]>(ENDPOINTS.flight, body).subscribe(
+      (content) => {
+        this.flightInfo$.next(content);
+      },
+      () => this.toast.error('Something went wrong, we are fixing it'),
+    );
   }
 
   public setUserFlightInfo(value: IFlightInfo, key: Key) {

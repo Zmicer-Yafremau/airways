@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { ToastService } from 'angular-toastify';
+import { AuthService } from 'src/app/services/auth.service';
 import { ChangeStepService } from 'src/app/services/change-step.service';
 import { FlightInfoService } from 'src/app/services/flight-info.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
@@ -30,6 +31,8 @@ export class BookingFlowComponent implements OnInit {
 
   public continueButtonStatus!: boolean;
 
+  private isUserLogIn = false;
+
   public constructor(
     private stepService: ChangeStepService,
     private router: Router,
@@ -39,46 +42,66 @@ export class BookingFlowComponent implements OnInit {
     private ls: LocalStorageService,
     private summary: SummaryService,
     private orders: OrderService,
+    private auth: AuthService,
   ) {}
 
   public ngOnInit(): void {
     this.stepService.continueButtonStatus$.subscribe((status) => {
       this.continueButtonStatus = status;
     });
+
+    this.auth.userIsLogged.pipe(untilDestroyed(this)).subscribe((content) => {
+      this.isUserLogIn = content;
+    });
   }
 
   public stepForward() {
     if (this.step === Step.Flights) {
+      if (!this.isUserLogIn) {
+        this.toast.error('Please sign in');
+        return;
+      }
+
       this.step = Step.Passengers;
       this.router.navigateByUrl(`booking/step/${this.step}`);
+
       this.stepService.changeStep({
         flights: 'done',
         passengers: 'active',
         review: 'inactive',
       });
-      return this.step;
+      return;
     }
+
     if (this.step === Step.Passengers) {
+      if (!this.isUserLogIn) {
+        this.router.navigateByUrl('/');
+        return;
+      }
       this.step = Step.Review;
       this.router.navigateByUrl(`booking/step/${this.step}`);
+
       this.stepService.changeStep({
         flights: 'done',
         passengers: 'done',
         review: 'active',
       });
       this.stepService.changeButtonStatus(true);
-      return this.step;
+      return;
     }
+
     if (this.step === Step.Review) {
+      if (!this.isUserLogIn) {
+        this.router.navigateByUrl('/');
+        return;
+      }
+
       this.stepService.changeStep({
         flights: 'done',
         passengers: 'done',
         review: 'active',
       });
-      return this.step;
     }
-    console.log(this.step);
-    return this.step;
   }
 
   public stepBack() {
@@ -110,8 +133,6 @@ export class BookingFlowComponent implements OnInit {
   }
 
   public onBuyClick() {
-    console.log('buy click');
-
     this.ls.clearLocalStorage();
     this.toast.success('You order is successfully paid');
     this.summary
@@ -119,9 +140,8 @@ export class BookingFlowComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe((content) => {
         if (content) {
-          console.log(content);
-
           this.orders.setPaidOrder(content);
+          this.summary.clearSummary();
         }
       });
     this.router.navigateByUrl('/');
@@ -135,9 +155,8 @@ export class BookingFlowComponent implements OnInit {
       .pipe(untilDestroyed(this))
       .subscribe((content) => {
         if (content) {
-          console.log(content);
-
           this.orders.setUnpaidOrder(content);
+          this.summary.clearSummary();
         }
       });
     this.router.navigateByUrl('/user/cart');
