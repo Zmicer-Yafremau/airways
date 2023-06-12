@@ -84,6 +84,10 @@
         color: $neutral;
       }
     }
+
+    @media (width <= 420px) {
+      display: none;
+    }
   }
 
   .flight-price {
@@ -110,6 +114,10 @@
         line-height: 36px;
         color: $primary;
         transition: 0.3s;
+
+        @media (width <= 420px) {
+          font-size: 24px;
+        }
       }
 
       p {
@@ -123,6 +131,14 @@
         margin-top: 6px;
         color: $neutral30;
         transition: 0.3s;
+      }
+
+      @media (width <= 420px) {
+        display: flex;
+        align-items: center;
+        margin-left: 0;
+        padding: 5px;
+        gap: 5px;
       }
     }
 
@@ -142,6 +158,13 @@
       &:active {
         transform: scale(0.95);
       }
+    }
+
+    @media (width <= 420px) {
+      justify-content: space-between;
+      border-top: 2px dashed $secondary40;
+      border-left: none;
+      width: 100%;
     }
   }
 
@@ -170,5 +193,11 @@
         background: $secondary90;
       }
     }
+  }
+
+  @media (width <= 420px) {
+    flex-direction: column;
+    padding: 10px;
+    height: max-content;
   }
 }

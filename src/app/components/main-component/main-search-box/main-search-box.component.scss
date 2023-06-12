@@ -8,11 +8,22 @@
   max-width: 1128px;
   background-color: #fff;
   gap: 5px;
+
+  @media (width <= 420px) {
+    padding: 12px;
+    width: 350px;
+    height: max-content;
+    gap: 0;
+  }
 }
 
 .radio {
   display: flex;
   gap: 40px;
+
+  @media (width <= 420px) {
+    align-self: center;
+  }
 }
 
 .trip-wrapper {
@@ -26,16 +37,30 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
+
+  @media (width <= 420px) {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 .date-picker {
   width: 55%;
+
+  @media (width <= 420px) {
+    width: 100%;
+  }
 }
 
 .search-button {
   align-self: flex-end;
   width: 126px;
   height: 60px;
+
+  @media (width <= 420px) {
+    align-self: center;
+    height: 40px;
+  }
 }
 
 .airport-select {

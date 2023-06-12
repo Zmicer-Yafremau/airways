@@ -13,12 +13,24 @@
   width: 100%;
   max-width: 1128px;
   gap: 40px;
+
+  @media (width <= 420px) {
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    gap: 10px;
+  }
 }
 
 .airports-wrapper {
   display: flex;
   align-items: center;
   gap: 16px;
+
+  @media (width <= 420px) {
+    flex-direction: column;
+    gap: 0;
+  }
 }
 
 .airport-name {

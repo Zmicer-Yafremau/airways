@@ -5,4 +5,9 @@
 .content-wrapper {
   display: flex;
   margin-top: 62px;
+
+  @media (width <= 420px) {
+    justify-content: center;
+    margin-top: 70px;
+  }
 }

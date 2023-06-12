@@ -5,6 +5,10 @@
   width: 485px;
   height: 36px;
   gap: 5px;
+
+  @media (width <= 420px) {
+    width: 320px;
+  }
 }
 
 .level-round {
@@ -29,6 +33,10 @@
   width: 70px;
   height: 1px;
   background-color: rgb(116 118 122 / 100%);
+
+  @media (width <= 420px) {
+    width: 25px;
+  }
 }
 
 .active {
