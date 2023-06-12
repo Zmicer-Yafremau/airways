@@ -14,6 +14,11 @@
   width: 100%;
   height: 40px;
   max-width: 1200px;
+
+  @media (width <= 420px) {
+    flex-direction: column;
+    gap: 5px;
+  }
 }
 
 .payments-wrapper {
@@ -33,6 +38,10 @@
 
 .text-accept {
   color: rgb(0 0 0);
+
+  @media (width <= 420px) {
+    display: none;
+  }
 }
 
 .img-pay {
